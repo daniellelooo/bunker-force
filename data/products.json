@@ -1,0 +1,320 @@
+[
+  {
+    "id": "1",
+    "slug": "storm-x",
+    "sku": "BF-STX-990",
+    "series": "BELLO-01",
+    "name": "Chaqueta Táctica Storm-X",
+    "category": "jackets",
+    "price": 489900,
+    "rating": 4.9,
+    "reviewCount": 142,
+    "badge": "NIVEL IV",
+    "status": "available",
+    "images": [
+      {
+        "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuCzOrHxp5x8c-LHZUkBMBvJYC7jxYHEeOKrrh8cKsCZPVAsG0PUOOFlCAeGFgePTvyOGAsrcINV-QD0elHqDTVwfG141LqOomkGYClR_gK97uLO63ED597TEaHmYwJ9AiCoKTa9xQOD5Lhb7CRsNZT5SFXarn5s41I4ayev5eXrDFFmlTIlMacIlfu9Aj_3hUZ4T91ENnM4c7vSSRs85l5CDNrheVLU_xLVe8qGPLWAR6rnLlN-i9Ry3QQadcYuZY61GBFRlMP7jDQ",
+        "alt": "Vista frontal",
+        "label": "Frente"
+      },
+      {
+        "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuAwYtZd8dGnD_JDVDEH88AlTysCO_PUQtgxPis_dBsVbdObM0v7HwBjXqQnxhF7_NraUIU6dT58z0n84G_T76z0xmbShysMmODCfwp3PT_DaRwqUvfkc9syX3oBISpHqJvcx9ry3qfgnxgKCY0VhnYmOwmv1wZ6TaL9OGW4ZTPsw2aj1mMpOI0InOEtspTEKP0bHq_bOofwWn9m73ahE0UPvTkmCLNbZTX32XBQTbXC8RHZ7yvKerUAoSk7Jrkz300pgCvLC8adqF0",
+        "alt": "Vista trasera",
+        "label": "Espalda"
+      },
+      {
+        "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuC69oQcRq-HJuAszeh0pcsYKkQJDfFlJ1zaULHfFZRFyHt1v_5lhvZ5O69iKQxbc132iV6mbUbM6WTdq4xM5ZIUYK2GXgR2x3p8oywpRp3aG6S70vMp8rzgH6tJKvdCmthG7SqFE2wl-WXRjQphBMSQd_cICeiqS201VMx_fgnza5N4fWGHlT0ytT8K0meF6_tds9qkGd8DpRBLVw6NZWGH-GXQnqPSK4r6HS2cxpa_KFs9uKon0xaUKNzT4uZksI5KFF1r3CwNS30",
+        "alt": "Detalle bolsillo",
+        "label": "Detalle"
+      }
+    ],
+    "specs": [
+      {
+        "icon": "shield",
+        "title": "CARCASA IMPERMEABLE",
+        "description": "Recubrimiento DWR avanzado para resistencia ante precipitaciones intensas."
+      },
+      {
+        "icon": "grid_4x4",
+        "title": "TELA RIPSTOP",
+        "description": "Nylon de alta tenacidad que evita el desgarro estructural en terreno denso."
+      },
+      {
+        "icon": "hardware",
+        "title": "CODOS REFORZADOS",
+        "description": "Placa de cordura doble capa en los puntos de mayor fricción."
+      }
+    ],
+    "availableSizes": ["S", "M", "L", "XL", "XXL"],
+    "availableColors": ["black-ops", "od-green"],
+    "featured": true
+  },
+  {
+    "id": "2",
+    "slug": "jacket-alpha-v2",
+    "sku": "BF-JKT-001",
+    "series": "BELLO-01",
+    "name": "Chaqueta Alpha V2",
+    "category": "jackets",
+    "price": 979900,
+    "rating": 4.9,
+    "reviewCount": 98,
+    "status": "available",
+    "images": [
+      {
+        "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuD3MsaRU84svqK-PN0upuVy7YEX6Pxg-5COCLNvaUH9hIrtY_6KaXNAs-WWaOisJKnidJQrla-Ul-RTURG1z_9u89-XYeiJ3Zqjf1EVZJvG-mx1RkbdkmQNZSd9GTtGVlBkfK7Gtd-RhLePkwZZy5rPo2yAD29Mrcumw3VSNN1RzE_Gyfobu-A6MFDyr4vvH-PhrVb4F_r_tPloGO6sq2RX0fpyYuK9F70DIHKUEsNHYb3XK_GfUlRxqgw5RpVId7NFyOU44XRKtEU",
+        "alt": "Chaqueta Alpha V2",
+        "label": "Frente"
+      }
+    ],
+    "specs": [
+      {
+        "icon": "shield",
+        "title": "CARCASA DURA",
+        "description": "Exterior de grado militar resistente a la abrasión y las condiciones climáticas."
+      }
+    ],
+    "availableSizes": ["S", "M", "L", "XL"],
+    "availableColors": ["black-ops", "multicam"],
+    "featured": true
+  },
+  {
+    "id": "3",
+    "slug": "ghost-v2",
+    "sku": "BF-JKT-GV2",
+    "series": "GHOST-V2",
+    "name": "Chaqueta Táctica Ghost-V2",
+    "category": "jackets",
+    "price": 979900,
+    "rating": 4.8,
+    "reviewCount": 76,
+    "status": "available",
+    "images": [
+      {
+        "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuAtL1wHoLBlboSKk0_XzrA4a0UXw4zJkrLxhCUQm_msICuJ1VGDpctoMn4IMcuNDKEtKHnNQ7Fx-Qt5Mz2aiFCHafvx-zcIHQG4VOBacyXUc0yIZ3FrinyOdQRkLCMFUX_OhmFC9Fd6YHJ1QVlGUdYOSGQdc6AdD5ciXI49YwD5hs0lhO8yPpEBml34G1X3FwWN4QDDgdCZIAjjsEVUO4ZO4JVtwGpHO2uf4MHiddWZgMydSHmblYWwK0Itd0CiCRc3fW3FFTwbncY",
+        "alt": "Chaqueta Ghost-V2",
+        "label": "Frente"
+      }
+    ],
+    "specs": [],
+    "availableSizes": ["M", "L", "XL", "XXL"],
+    "availableColors": ["black-ops"],
+    "featured": false
+  },
+  {
+    "id": "4",
+    "slug": "pantalon-stryke-cargo",
+    "sku": "BF-PNT-004",
+    "series": "BELLO-04",
+    "name": "Pantalón Stryke Cargo",
+    "category": "pants",
+    "price": 729900,
+    "rating": 4.8,
+    "reviewCount": 64,
+    "status": "available",
+    "images": [
+      {
+        "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuAGtr1lVTiMnzyUrFwYwrtEfZeJwtFFZy3zQ3OV_NmrnIBbIdjq4X2eppkEnCWIUrrbZMYd1dCpuAczXs3V8vS0fvzC2cIXKZxXp5p349i1yps7it7tTztohd5YQAGQ3TZmuUcfvmsSA1NsbYmyILAXvwh_hFGZUWHNwV5XtI2B8pnJFkDuYSvY--1mIUk8U-N5xIes7YgwzZDvgYyOP3jICVankE4vgLGvHLX_azlRiAGg6BAAYe1277lgiKrCkbsisLGN5iowMvs",
+        "alt": "Pantalón Stryke Cargo",
+        "label": "Frente"
+      }
+    ],
+    "specs": [],
+    "availableSizes": ["S", "M", "L", "XL"],
+    "availableColors": ["black-ops", "od-green", "coyote-tan"],
+    "featured": true
+  },
+  {
+    "id": "5",
+    "slug": "pantalon-armor-x",
+    "sku": "BF-PNT-AX",
+    "series": "ARMOR-X",
+    "name": "Pantalón Táctico Armor-X",
+    "category": "pants",
+    "price": 729900,
+    "rating": 4.7,
+    "reviewCount": 53,
+    "status": "available",
+    "images": [
+      {
+        "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuA6PhdAfkFZOrKo7Iao65X_oc156skBBa4cV_e3PudAIytGwk6ij27TLH1UDdCRtGCtFzazzsQYNCO1Bu3ym7CdKFz-202f1ccidiNiRcZtbuMdInHE3i5niHZXZC48PQFxND7jAh4kz3zzlHmHsvEcok3KxDK_o999uSQ3jIQoABfJS9EaColVB_HtSWH-ptb9ktTYxPrJ0GHGTFCeHcTYCczhpbTIRKfLfWfgHVfIPNuguIHzenNebxaiL7OOsoFQrZ8Ppg8GBkY",
+        "alt": "Pantalón Armor-X",
+        "label": "Frente"
+      }
+    ],
+    "specs": [],
+    "availableSizes": ["S", "M", "L", "XL", "XXL"],
+    "availableColors": ["od-green", "multicam"],
+    "featured": false
+  },
+  {
+    "id": "6",
+    "slug": "botas-recon-gen3",
+    "sku": "BF-BOT-009",
+    "series": "BELLO-09",
+    "name": "Botas Recon Gen-3",
+    "category": "boots",
+    "price": 1249900,
+    "rating": 5.0,
+    "reviewCount": 31,
+    "status": "low-stock",
+    "images": [
+      {
+        "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuB3zJEPGRfdh4F75fkqwNqE0fiHteQA_Gn6eD9r7WqZXmATrYKEJUE7sd_YSaOu9tK4PeVTZX0ogr0loAK0CycJJ5_J0ZDE45GAbD9EDROovAOev9IWjF2Qv-W5OKbJFvWF20iqukxNfMA44qPGd2aoeaKTinuN-6pSPsNKibL_WsL1m-6wgl9sh4e2GZl5BYVZjgpSBwkJVsSTfCdapwRlJzUOUkUrSLe8k_so9AbPwyrX0mjB57OleKqY6qSsPUZ6sYDI090eHzI",
+        "alt": "Botas Recon Gen-3",
+        "label": "Frente"
+      }
+    ],
+    "specs": [],
+    "availableSizes": ["S", "M", "L", "XL"],
+    "availableColors": ["black-ops", "coyote-tan"],
+    "featured": true
+  },
+  {
+    "id": "7",
+    "slug": "reloj-tactico-op-one",
+    "sku": "BF-ACC-W01",
+    "series": "ACC-W",
+    "name": "Reloj Táctico OP-One",
+    "category": "accessories",
+    "price": 769900,
+    "rating": 4.8,
+    "reviewCount": 67,
+    "badge": "RESISTENTE AL AGUA",
+    "status": "available",
+    "images": [
+      {
+        "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuD1jM7RtDtmJf-ClRIK9zGqf2kTQAdjkREim5jLPrqy10c1SY3oZcvd8yqcizS4EpjcsaCNtA0yUYRBqN0o3WxLsRKoDOoD02G9BzFnaEf3BImO2ESWbRJHJ6EWfrZZayp9ofyy4k3Jpj69PV2mreisZznOlFsNrb0Ipt3wyC-FDEqwtwR3Hw3QWsNpZi7VG6AdqyNhZuZozQuPyzcotBPSMNDPIeCK57CvKVpFwVVOq0rpV9zNeyvs-2qFsxg76bE4R36eNIGkJD4",
+        "alt": "Reloj Táctico OP-One",
+        "label": "Vista general"
+      }
+    ],
+    "specs": [
+      {
+        "icon": "water_drop",
+        "title": "RESISTENCIA AL AGUA 100M",
+        "description": "Sellado hermético certificado para inmersión hasta 100 metros de profundidad."
+      },
+      {
+        "icon": "explore",
+        "title": "BRÚJULA DIGITAL INTEGRADA",
+        "description": "Brújula electrónica de alta precisión con calibración automática."
+      },
+      {
+        "icon": "battery_charging_full",
+        "title": "BATERÍA 72H",
+        "description": "Autonomía de 72 horas en modo de rastreo GPS continuo."
+      }
+    ],
+    "availableSizes": [],
+    "availableColors": ["black-ops", "coyote-tan"],
+    "featured": true
+  },
+  {
+    "id": "8",
+    "slug": "binoculares-nightforce-8x42",
+    "sku": "BF-ACC-B42",
+    "series": "ACC-B",
+    "name": "Binoculares Nightforce 8x42",
+    "category": "accessories",
+    "price": 1349900,
+    "rating": 4.9,
+    "reviewCount": 44,
+    "status": "available",
+    "images": [
+      {
+        "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuBf1uUQkDuf1Wi8QZ3v0X4xIXPJz40Hr-s3rMyeew_RIDjzfvSshzJ5MrDhokxlgazLuT9B4nXCQI7LqcwGzGjbQitmHXCia477i-sDclGcNx9raVEd97IY3v4o_cofhS4axeZp6FLRI2_JiQ5UBmJAUgODC1sNQdvh2pIW-Y0zhopGW79IFUvx31rBTTfCnvGxJfZSYOqCFjiM7-iOQCS2SNOteI2zkcfLX3lWcH46O8b1XTwpBHuajcYsfXmb6EzzPRndu4VWZ2w",
+        "alt": "Binoculares Nightforce 8x42",
+        "label": "Vista general"
+      }
+    ],
+    "specs": [
+      {
+        "icon": "visibility",
+        "title": "ÓPTICA 8x42 HD",
+        "description": "Lentes multicapa de alta definición con revestimiento anti-reflejo para máxima claridad."
+      },
+      {
+        "icon": "dark_mode",
+        "title": "VISIÓN CREPUSCULAR",
+        "description": "Transmisión de luz del 92% para rendimiento óptimo en condiciones de baja luminosidad."
+      },
+      {
+        "icon": "verified_user",
+        "title": "CARCASA NITROGEN PURGADA",
+        "description": "Sellado a prueba de agua y niebla con cámara de nitrógeno a presión."
+      }
+    ],
+    "availableSizes": [],
+    "availableColors": ["black-ops", "od-green"],
+    "featured": true
+  },
+  {
+    "id": "9",
+    "slug": "brujula-silva-ranger",
+    "sku": "BF-ACC-C01",
+    "series": "ACC-C",
+    "name": "Brújula Silva Ranger Pro",
+    "category": "accessories",
+    "price": 309900,
+    "rating": 4.7,
+    "reviewCount": 112,
+    "status": "available",
+    "images": [
+      {
+        "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuD4DKxlgnTsFsGsf2_3TbCXTDkl96kVn7zJeYPoZv5bpXfpKCcgPR-6iS3r5wgamBrVV2E4O2jQtVm-CN20Az6h2MGvBnFJPC0UwlIXu-8dhq76Ckb3FidoGdJOn7Na8lElrmthxf30TOHnNnzy5UdQ-FYjHamjF5stxM3fclhVgmqfnmDfqr_IT_103CCxQoy2FUNrRpwl5rSTcK4jc_nWG5Uq9XFEPEJEWhvASgcv9p-3g_p2T7kTM6ImNj2W0wzPIpuCT6WDlpQ",
+        "alt": "Brújula Silva Ranger Pro",
+        "label": "Vista general"
+      }
+    ],
+    "specs": [
+      {
+        "icon": "explore",
+        "title": "AGUJA ESTABILIZADORA LÍQUIDA",
+        "description": "Sistema de amortiguación en líquido para lectura precisa incluso en movimiento."
+      },
+      {
+        "icon": "map",
+        "title": "LUPA INTEGRADA",
+        "description": "Lupa 2x para lectura de mapas topográficos con escala en mm."
+      }
+    ],
+    "availableSizes": [],
+    "availableColors": ["black-ops", "od-green", "coyote-tan"],
+    "featured": false
+  },
+  {
+    "id": "10",
+    "slug": "llavero-tactico-multi",
+    "sku": "BF-ACC-K01",
+    "series": "ACC-K",
+    "name": "Llavero Táctico Multifunción",
+    "category": "accessories",
+    "price": 139900,
+    "rating": 4.6,
+    "reviewCount": 198,
+    "status": "available",
+    "images": [
+      {
+        "src": "https://lh3.googleusercontent.com/aida-public/AB6AXuCy27T-w5YK0dh_z39xyH1QkSXyvd_1H1wIlI6Gk1hcDk_tv_pNlYgpwfeld7CeoKedEIKGt9gkBspGsx12vGUgzLIgwTI-NcBkr3yiRJlfcDrfBootKxE3CFThEvjtzUkm13sNdbE7EJoK-0swrE3meiu62Hmte522zE2f25_Bt4vvioDX86zYE9IB4kuljB4s7hHU_H6-0Cme7SDrGCR-fBs0xJtHli-NoSjZA0D0mtW63j5v9m8dzr_nh9HgX6nbejyUV_Mf23w",
+        "alt": "Llavero Táctico Multifunción",
+        "label": "Vista general"
+      }
+    ],
+    "specs": [
+      {
+        "icon": "build",
+        "title": "7 HERRAMIENTAS EN 1",
+        "description": "Incluye destornillador, abrelatas, abridor de botellas, regla y llaves hexagonales."
+      },
+      {
+        "icon": "bolt",
+        "title": "ACERO INOXIDABLE 440C",
+        "description": "Fabricado en acero inoxidable de alta dureza resistente a la corrosión."
+      }
+    ],
+    "availableSizes": [],
+    "availableColors": ["black-ops", "coyote-tan"],
+    "featured": false
+  }
+]
