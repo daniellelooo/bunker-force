@@ -16,9 +16,31 @@ export async function generateMetadata({ params }: ProductPageProps) {
   const { slug } = await params;
   const product = getProductBySlug(slug);
   if (!product) return { title: "No encontrado" };
+
+  const price = new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    minimumFractionDigits: 0,
+  }).format(product.price);
+
+  const description = `${product.name} — ${price}. ${product.specs[0]?.title ?? ""} ${product.specs[0]?.description ?? ""}`.trim();
+  const image = product.images[0]?.src;
+
   return {
-    title: `${product.name} | BUNKER FORCE BELLO`,
-    description: `SKU: ${product.sku} — $${product.price}`,
+    title: product.name,
+    description,
+    openGraph: {
+      type: "website",
+      title: `${product.name} | BUNKER FORCE BELLO`,
+      description,
+      images: image ? [{ url: image, alt: product.images[0].alt || product.name }] : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${product.name} | BUNKER FORCE BELLO`,
+      description,
+      images: image ? [image] : [],
+    },
   };
 }
 
@@ -52,7 +74,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   if (!product) notFound();
 
   return (
-    <div className="min-h-screen pt-12 pb-24 px-6 md:px-12 max-w-7xl mx-auto">
+    <div className="min-h-screen pt-8 md:pt-12 pb-16 md:pb-24 px-4 md:px-12 max-w-7xl mx-auto">
       {/* Migas de pan */}
       <div className="flex items-center gap-2 mb-8 font-label text-[10px] tracking-[0.2em] uppercase text-outline">
         <a href="/" className="hover:text-primary transition-colors">INICIO</a>

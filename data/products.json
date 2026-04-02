@@ -45,8 +45,17 @@
         "description": "Placa de cordura doble capa en los puntos de mayor fricción."
       }
     ],
-    "availableSizes": ["S", "M", "L", "XL", "XXL"],
-    "availableColors": ["black-ops", "od-green"],
+    "availableSizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "availableColors": [
+      "black-ops",
+      "od-green"
+    ],
     "featured": true
   },
   {
@@ -74,8 +83,16 @@
         "description": "Exterior de grado militar resistente a la abrasión y las condiciones climáticas."
       }
     ],
-    "availableSizes": ["S", "M", "L", "XL"],
-    "availableColors": ["black-ops", "multicam"],
+    "availableSizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "availableColors": [
+      "black-ops",
+      "multicam"
+    ],
     "featured": true
   },
   {
@@ -97,8 +114,15 @@
       }
     ],
     "specs": [],
-    "availableSizes": ["M", "L", "XL", "XXL"],
-    "availableColors": ["black-ops"],
+    "availableSizes": [
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "availableColors": [
+      "black-ops"
+    ],
     "featured": false
   },
   {
@@ -120,8 +144,17 @@
       }
     ],
     "specs": [],
-    "availableSizes": ["S", "M", "L", "XL"],
-    "availableColors": ["black-ops", "od-green", "coyote-tan"],
+    "availableSizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "availableColors": [
+      "black-ops",
+      "od-green",
+      "coyote-tan"
+    ],
     "featured": true
   },
   {
@@ -143,8 +176,17 @@
       }
     ],
     "specs": [],
-    "availableSizes": ["S", "M", "L", "XL", "XXL"],
-    "availableColors": ["od-green", "multicam"],
+    "availableSizes": [
+      "S",
+      "M",
+      "L",
+      "XL",
+      "XXL"
+    ],
+    "availableColors": [
+      "od-green",
+      "multicam"
+    ],
     "featured": false
   },
   {
@@ -155,7 +197,7 @@
     "name": "Botas Recon Gen-3",
     "category": "boots",
     "price": 1249900,
-    "rating": 5.0,
+    "rating": 5,
     "reviewCount": 31,
     "status": "low-stock",
     "images": [
@@ -166,9 +208,18 @@
       }
     ],
     "specs": [],
-    "availableSizes": ["S", "M", "L", "XL"],
-    "availableColors": ["black-ops", "coyote-tan"],
-    "featured": true
+    "availableSizes": [
+      "S",
+      "M",
+      "L",
+      "XL"
+    ],
+    "availableColors": [
+      "black-ops",
+      "coyote-tan"
+    ],
+    "featured": true,
+    "stock": 11
   },
   {
     "id": "7",
@@ -207,7 +258,10 @@
       }
     ],
     "availableSizes": [],
-    "availableColors": ["black-ops", "coyote-tan"],
+    "availableColors": [
+      "black-ops",
+      "coyote-tan"
+    ],
     "featured": true
   },
   {
@@ -246,7 +300,10 @@
       }
     ],
     "availableSizes": [],
-    "availableColors": ["black-ops", "od-green"],
+    "availableColors": [
+      "black-ops",
+      "od-green"
+    ],
     "featured": true
   },
   {
@@ -280,7 +337,11 @@
       }
     ],
     "availableSizes": [],
-    "availableColors": ["black-ops", "od-green", "coyote-tan"],
+    "availableColors": [
+      "black-ops",
+      "od-green",
+      "coyote-tan"
+    ],
     "featured": false
   },
   {
@@ -314,7 +375,10 @@
       }
     ],
     "availableSizes": [],
-    "availableColors": ["black-ops", "coyote-tan"],
+    "availableColors": [
+      "black-ops",
+      "coyote-tan"
+    ],
     "featured": false
   }
 ]

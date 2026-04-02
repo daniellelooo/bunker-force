@@ -1,0 +1,53 @@
+[
+  {
+    "id": "BF-1774643972698",
+    "createdAt": "2026-03-27T20:39:32.698Z",
+    "status": "delivered",
+    "customer": {
+      "name": "Daniel Prueba",
+      "phone": "3001234567",
+      "address": "Calle 50 #30-20, El Centro",
+      "city": "Bello"
+    },
+    "items": [
+      {
+        "productId": "2",
+        "name": "Chaqueta Alpha V2",
+        "sku": "BF-JKT-001",
+        "price": 979900,
+        "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuD3MsaRU84svqK-PN0upuVy7YEX6Pxg-5COCLNvaUH9hIrtY_6KaXNAs-WWaOisJKnidJQrla-Ul-RTURG1z_9u89-XYeiJ3Zqjf1EVZJvG-mx1RkbdkmQNZSd9GTtGVlBkfK7Gtd-RhLePkwZZy5rPo2yAD29Mrcumw3VSNN1RzE_Gyfobu-A6MFDyr4vvH-PhrVb4F_r_tPloGO6sq2RX0fpyYuK9F70DIHKUEsNHYb3XK_GfUlRxqgw5RpVId7NFyOU44XRKtEU",
+        "selectedSize": "S",
+        "quantity": 2
+      }
+    ],
+    "subtotal": 1959800,
+    "tax": 372362,
+    "total": 2332162
+  },
+  {
+    "id": "BF-1774645504215",
+    "createdAt": "2026-03-27T21:05:04.215Z",
+    "status": "delivered",
+    "customer": {
+      "name": "Daniel Leon Lopez ",
+      "phone": "3115807057",
+      "email": "daniellelo063@gmail.com",
+      "address": "Av 40#51-110",
+      "city": "Bello"
+    },
+    "items": [
+      {
+        "productId": "4",
+        "name": "Pantalón Stryke Cargo",
+        "sku": "BF-PNT-004",
+        "price": 729900,
+        "image": "https://lh3.googleusercontent.com/aida-public/AB6AXuAGtr1lVTiMnzyUrFwYwrtEfZeJwtFFZy3zQ3OV_NmrnIBbIdjq4X2eppkEnCWIUrrbZMYd1dCpuAczXs3V8vS0fvzC2cIXKZxXp5p349i1yps7it7tTztohd5YQAGQ3TZmuUcfvmsSA1NsbYmyILAXvwh_hFGZUWHNwV5XtI2B8pnJFkDuYSvY--1mIUk8U-N5xIes7YgwzZDvgYyOP3jICVankE4vgLGvHLX_azlRiAGg6BAAYe1277lgiKrCkbsisLGN5iowMvs",
+        "selectedSize": "S",
+        "quantity": 1
+      }
+    ],
+    "subtotal": 729900,
+    "tax": 138681,
+    "total": 868581
+  }
+]

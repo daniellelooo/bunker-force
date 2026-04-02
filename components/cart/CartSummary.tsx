@@ -1,12 +1,14 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
+import { useRouter } from "next/navigation";
 
 export function CartSummary() {
-  const { cartSubtotal, cartTax, cartTotal, dispatch } = useCart();
+  const { cartSubtotal, cartTax, cartTotal, dispatch, state } = useCart();
+  const router = useRouter();
 
   return (
-    <div className="bg-surface-container-low border border-outline-variant/20 p-8 space-y-6 sticky top-24">
+    <div className="bg-surface-container-low border border-outline-variant/20 p-5 md:p-8 space-y-6 sticky top-24">
       <h2 className="font-headline text-xl font-black uppercase tracking-tight text-primary">
         RESUMEN DEL PEDIDO
       </h2>
@@ -28,7 +30,11 @@ export function CartSummary() {
         </div>
       </div>
 
-      <button className="w-full bg-primary hover:bg-primary-container text-on-primary py-5 px-8 font-headline font-black tracking-widest transition-all active:scale-[0.98] flex items-center justify-between group">
+      <button
+        onClick={() => router.push("/checkout")}
+        disabled={state.items.length === 0}
+        className="w-full bg-primary hover:bg-primary-container text-on-primary py-5 px-8 font-headline font-black tracking-widest transition-all active:scale-[0.98] flex items-center justify-between group disabled:opacity-40 disabled:cursor-not-allowed"
+      >
         <span>CONFIRMAR PEDIDO</span>
         <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">
           arrow_forward

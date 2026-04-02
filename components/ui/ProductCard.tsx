@@ -79,8 +79,9 @@ export function ProductCard({ product, variant = "grid" }: ProductCardProps) {
             {product.name}
           </h3>
         </div>
-        <div className="w-full py-4 bg-primary text-on-primary font-headline font-black text-xs tracking-[0.2em] uppercase active:scale-[0.98] transition-all text-center">
-          AÑADIR AL CARRITO
+        <div className="w-full py-4 bg-primary text-on-primary font-headline font-black text-xs tracking-[0.2em] uppercase active:scale-[0.98] transition-all text-center flex items-center justify-center gap-2">
+          VER PRODUCTO
+          <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
         </div>
       </div>
       <div className="absolute bottom-0 right-0 p-1 opacity-20">

@@ -6,6 +6,8 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { GrainyOverlay } from "@/components/ui/GrainyOverlay";
 import { TacticalCorners } from "@/components/ui/TacticalCorners";
+import { ShellWrapper } from "@/components/layout/ShellWrapper";
+import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -19,9 +21,54 @@ const inter = Inter({
   weight: ["300", "400", "500", "600", "700"],
 });
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bunkerforce.com";
+
 export const metadata: Metadata = {
-  title: "BUNKER FORCE BELLO | TERMINAL SPECIFIED GEAR",
-  description: "Equipamiento táctico urbano. Reforzado para el campo, diseñado para la ciudad.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "BUNKER FORCE BELLO | Equipamiento Táctico Urbano",
+    template: "%s | BUNKER FORCE BELLO",
+  },
+  description:
+    "Tienda de ropa y equipamiento táctico en Bello, Antioquia. Chaquetas, pantalones y accesorios militares. Reforzado para el campo, diseñado para la ciudad.",
+  keywords: [
+    "ropa táctica Bello",
+    "equipamiento militar Colombia",
+    "chaqueta táctica",
+    "ropa militar Antioquia",
+    "tienda táctica Medellín",
+    "Bunker Force Bello",
+  ],
+  authors: [{ name: "Bunker Force Bello" }],
+  creator: "Bunker Force Bello",
+  openGraph: {
+    type: "website",
+    locale: "es_CO",
+    url: SITE_URL,
+    siteName: "BUNKER FORCE BELLO",
+    title: "BUNKER FORCE BELLO | Equipamiento Táctico Urbano",
+    description:
+      "Tienda de ropa y equipamiento táctico en Bello, Antioquia. Chaquetas, pantalones y accesorios militares.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Bunker Force Bello — Equipamiento Táctico Urbano",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "BUNKER FORCE BELLO | Equipamiento Táctico Urbano",
+    description:
+      "Tienda de ropa y equipamiento táctico en Bello, Antioquia.",
+    images: ["/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
@@ -44,9 +91,10 @@ export default function RootLayout({
         <Providers>
           <GrainyOverlay />
           <TacticalCorners />
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
+          <ShellWrapper header={<Header />} footer={<Footer />}>
+            {children}
+          </ShellWrapper>
+          <WhatsAppButton />
         </Providers>
       </body>
     </html>

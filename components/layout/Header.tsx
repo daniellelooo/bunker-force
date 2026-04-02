@@ -51,9 +51,13 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <SearchButton />
-          <button className="p-2 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 active:scale-95">
-            <span className="material-symbols-outlined">person</span>
-          </button>
+          <Link
+            href="/faq"
+            className="p-2 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 active:scale-95"
+            title="Ayuda"
+          >
+            <span className="material-symbols-outlined">help_outline</span>
+          </Link>
           <CartIcon />
           <MobileMenu />
         </div>

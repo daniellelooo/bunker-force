@@ -1,4 +1,16 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  title: "Catálogo",
+  description:
+    "Explora todo el equipamiento táctico de Bunker Force Bello. Chaquetas, pantalones, botas y accesorios militares disponibles en Bello, Antioquia.",
+  openGraph: {
+    title: "Catálogo | BUNKER FORCE BELLO",
+    description:
+      "Chaquetas, pantalones, botas y accesorios tácticos. Envíos a toda Colombia.",
+  },
+};
 import { CatalogFilters } from "@/components/catalog/CatalogFilters";
 import { ProductGrid } from "@/components/catalog/ProductGrid";
 import { SortControl } from "@/components/catalog/SortControl";
@@ -41,12 +53,12 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
   return (
     <div className="min-h-screen pt-0">
       <div className="flex flex-col md:flex-row">
-        <Suspense fallback={<div className="w-72 bg-surface-container-low p-8" />}>
+        <Suspense fallback={null}>
           <CatalogFilters />
         </Suspense>
 
-        <section className="flex-1 bg-surface p-6 md:p-12">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 space-y-4 md:space-y-0">
+        <section className="flex-1 bg-surface p-4 md:p-12">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 md:mb-12 space-y-4 md:space-y-0">
             <div className="space-y-2">
               <h1 className="text-5xl md:text-7xl font-headline font-black tracking-tighter uppercase leading-none">
                 {title.top} <br />

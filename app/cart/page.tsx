@@ -1,12 +1,13 @@
 import { CartView } from "@/components/cart/CartView";
 
 export const metadata = {
-  title: "Carrito | BUNKER FORCE BELLO",
+  title: "Carrito",
+  robots: { index: false, follow: false },
 };
 
 export default function CartPage() {
   return (
-    <div className="max-w-[1440px] mx-auto px-6 py-12">
+    <div className="max-w-[1440px] mx-auto px-4 md:px-6 py-8 md:py-12">
       <header className="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <span className="font-label text-primary tracking-[0.2em] text-xs font-bold uppercase block mb-2">

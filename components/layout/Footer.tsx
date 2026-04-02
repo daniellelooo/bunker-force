@@ -1,10 +1,9 @@
 import Link from "next/link";
 
 const footerLinks = [
-  { href: "#", label: "GUÍAS TÁCTICAS" },
-  { href: "#", label: "DEVOLUCIONES" },
-  { href: "#", label: "TÉRMINOS DE SERVICIO" },
-  { href: "#", label: "CONTACTO" },
+  { href: "/faq", label: "PREGUNTAS FRECUENTES" },
+  { href: "/devoluciones", label: "DEVOLUCIONES Y GARANTÍAS" },
+  { href: "/privacidad", label: "POLÍTICA DE PRIVACIDAD" },
   { href: "/sobre-nosotros", label: "SOBRE NOSOTROS" },
 ];
 

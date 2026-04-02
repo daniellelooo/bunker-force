@@ -12,7 +12,7 @@ export interface ProductSpec {
 
 export type ProductCategory = "jackets" | "pants" | "boots" | "accessories";
 export type ProductSize = "XS" | "S" | "M" | "L" | "XL" | "XXL";
-export type ProductColor = "black-ops" | "od-green" | "coyote-tan" | "multicam";
+export type ProductColor = string;
 export type ProductStatus = "available" | "low-stock" | "out-of-stock";
 
 export interface Product {
@@ -27,6 +27,7 @@ export interface Product {
   reviewCount: number;
   badge?: string;
   status: ProductStatus;
+  stock?: number;
   images: ProductImage[];
   specs: ProductSpec[];
   availableSizes: ProductSize[];
@@ -51,4 +52,41 @@ export interface CatalogFilters {
   maxPrice?: number;
   category?: ProductCategory;
   sort?: "price-asc" | "price-desc" | "rating" | "featured";
+}
+
+export type OrderStatus =
+  | "pending"
+  | "processing"
+  | "shipped"
+  | "delivered"
+  | "cancelled";
+
+export interface OrderItem {
+  productId: string;
+  name: string;
+  sku: string;
+  price: number;
+  image: string;
+  selectedSize: string;
+  quantity: number;
+}
+
+export interface OrderCustomer {
+  name: string;
+  phone: string;
+  email?: string;
+  address: string;
+  city: string;
+  notes?: string;
+}
+
+export interface Order {
+  id: string;
+  createdAt: string;
+  status: OrderStatus;
+  customer: OrderCustomer;
+  items: OrderItem[];
+  subtotal: number;
+  tax: number;
+  total: number;
 }
