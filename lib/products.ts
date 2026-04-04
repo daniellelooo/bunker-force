@@ -60,3 +60,10 @@ export function getFilteredProducts(filters: CatalogFilters): Product[] {
 export function getAllSlugs(): string[] {
   return products.map((p) => p.slug);
 }
+
+export function getRelatedProducts(currentId: string, category: string, limit = 4): Product[] {
+  return products
+    .filter((p) => p.id !== currentId && p.category === category)
+    .sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0) || b.rating - a.rating)
+    .slice(0, limit);
+}

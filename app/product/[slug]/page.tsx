@@ -3,6 +3,7 @@ import { getAllSlugs, getProductBySlug } from "@/lib/products";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { ProductSpecs } from "@/components/product/ProductSpecs";
 import { AddToCartButton } from "@/components/product/AddToCartButton";
+import { RelatedProducts } from "@/components/product/RelatedProducts";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
@@ -116,6 +117,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <AddToCartButton product={product} />
         </div>
       </div>
+
+      <RelatedProducts currentId={product.id} category={product.category} />
 
       {/* Tarjetas de características secundarias */}
       {product.specs.length === 0 && (

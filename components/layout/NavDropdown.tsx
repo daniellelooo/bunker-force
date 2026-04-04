@@ -43,7 +43,7 @@ export function NavDropdown({ label, items }: NavDropdownProps) {
               key={item.href}
               href={item.href}
               onClick={() => setOpen(false)}
-              className="block px-4 py-3 font-headline font-bold uppercase text-xs tracking-tight text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors border-b border-outline-variant/20 last:border-0"
+              className="block px-4 py-3 font-headline font-bold uppercase text-base tracking-widest text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors border-b border-outline-variant/20 last:border-0"
             >
               {item.label}
             </Link>

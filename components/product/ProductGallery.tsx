@@ -36,7 +36,7 @@ export function ProductGallery({ images, badge }: ProductGalleryProps) {
           alt={images[activeIndex].alt}
           width={600}
           height={600}
-          className="w-full h-[600px] object-cover grayscale contrast-125 opacity-90 group-hover:grayscale-0 transition-all duration-500"
+          className="w-full h-[600px] object-cover contrast-110 transition-all duration-500"
         />
         {/* Decorative Crosshairs */}
         <span className="absolute top-0 left-0 p-1 text-outline-variant/50">
@@ -70,7 +70,7 @@ export function ProductGallery({ images, badge }: ProductGalleryProps) {
               alt={img.alt}
               width={96}
               height={96}
-              className="w-full h-full object-cover grayscale"
+              className="w-full h-full object-cover"
             />
           </button>
         ))}

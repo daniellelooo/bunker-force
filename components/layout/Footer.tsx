@@ -8,13 +8,6 @@ const footerLinks = [
   { href: "/sobre-nosotros", label: "SOBRE NOSOTROS" },
 ];
 
-const socialLinks = [
-  { href: "#", icon: "language", label: "Instagram" },
-  { href: "#", icon: "language", label: "Facebook" },
-  { href: "#", icon: "language", label: "TikTok" },
-  { href: "#", icon: "language", label: "WhatsApp" },
-];
-
 export function Footer() {
   return (
     <footer className="bg-surface-container-low border-t border-outline-variant/30">
@@ -32,7 +25,7 @@ export function Footer() {
                 className="object-contain"
               />
             </div>
-            <p className="font-label text-xs text-outline leading-relaxed">
+            <p className="font-label text-sm text-outline leading-relaxed">
               Equipamiento táctico urbano fabricado en Bello, Antioquia.
               Construido para resistir. Diseñado para durar.
             </p>
@@ -40,7 +33,7 @@ export function Footer() {
 
           {/* Navegación */}
           <div>
-            <p className="font-label text-[10px] font-black tracking-widest text-primary uppercase mb-4">
+            <p className="font-label text-xs font-black tracking-widest text-primary uppercase mb-4">
               NAVEGACIÓN
             </p>
             <div className="flex flex-col gap-3">
@@ -48,7 +41,7 @@ export function Footer() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="font-label text-xs tracking-widest uppercase text-tertiary hover:text-on-surface transition-colors"
+                  className="font-label text-sm tracking-wide uppercase text-tertiary hover:text-on-surface transition-colors"
                 >
                   {link.label}
                 </Link>
@@ -58,10 +51,10 @@ export function Footer() {
 
           {/* Horario */}
           <div>
-            <p className="font-label text-[10px] font-black tracking-widest text-primary uppercase mb-4">
+            <p className="font-label text-xs font-black tracking-widest text-primary uppercase mb-4">
               HORARIO DE ATENCIÓN
             </p>
-            <div className="space-y-2 font-label text-xs text-outline">
+            <div className="space-y-2 font-label text-sm text-outline">
               <div className="flex justify-between gap-4">
                 <span>Lun – Vie</span>
                 <span className="text-on-surface-variant">8:00 am – 6:00 pm</span>
@@ -75,12 +68,12 @@ export function Footer() {
                 <span className="text-outline">Cerrado</span>
               </div>
               <div className="mt-4 pt-4 border-t border-outline-variant/30">
-                <p className="text-[10px] tracking-wider flex items-center gap-1">
-                  <span className="material-symbols-outlined" style={{fontSize:"12px"}}>location_on</span>
+                <p className="text-sm tracking-wide flex items-center gap-1">
+                  <span className="material-symbols-outlined" style={{fontSize:"14px"}}>location_on</span>
                   Bello, Antioquia, Colombia
                 </p>
-                <p className="text-[10px] tracking-wider mt-1 flex items-center gap-1">
-                  <span className="material-symbols-outlined" style={{fontSize:"12px"}}>call</span>
+                <p className="text-sm tracking-wide mt-1 flex items-center gap-1">
+                  <span className="material-symbols-outlined" style={{fontSize:"14px"}}>call</span>
                   +57 (604) 000-0000
                 </p>
               </div>
@@ -89,7 +82,7 @@ export function Footer() {
 
           {/* Redes sociales */}
           <div>
-            <p className="font-label text-[10px] font-black tracking-widest text-primary uppercase mb-4">
+            <p className="font-label text-xs font-black tracking-widest text-primary uppercase mb-4">
               SÍGUENOS
             </p>
             <div className="flex flex-col gap-3">
@@ -104,10 +97,10 @@ export function Footer() {
                   href={social.href}
                   className="group flex items-center gap-3"
                 >
-                  <span className="font-label text-[10px] tracking-widest uppercase text-outline w-20">
+                  <span className="font-label text-xs tracking-widest uppercase text-outline w-20">
                     {social.name}
                   </span>
-                  <span className="font-label text-xs text-tertiary group-hover:text-primary transition-colors">
+                  <span className="font-label text-sm text-tertiary group-hover:text-primary transition-colors">
                     {social.handle}
                   </span>
                 </Link>
@@ -118,10 +111,10 @@ export function Footer() {
 
         {/* Barra inferior */}
         <div className="border-t border-outline-variant/30 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-[10px] font-label tracking-widest uppercase text-outline opacity-60">
+          <p className="text-xs font-label tracking-widest uppercase text-outline opacity-60">
             © 2024 BUNKER FORCE BELLO. TODOS LOS DERECHOS RESERVADOS.
           </p>
-          <p className="text-[10px] font-label tracking-widest uppercase text-outline opacity-40">
+          <p className="text-xs font-label tracking-widest uppercase text-outline opacity-40">
             EQUIPAMIENTO ESPECIFICADO — BELLO, ANT.
           </p>
         </div>

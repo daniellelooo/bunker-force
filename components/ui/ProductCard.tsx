@@ -67,7 +67,7 @@ export function ProductCard({ product, variant = "grid" }: ProductCardProps) {
           alt={product.images[0].alt}
           width={280}
           height={350}
-          className="max-h-full object-contain mix-blend-lighten grayscale group-hover:grayscale-0 transition-all duration-500 scale-110 group-hover:scale-125"
+          className="max-h-full object-contain mix-blend-lighten transition-all duration-500 scale-110 group-hover:scale-125"
         />
       </div>
       <div className="space-y-4">
