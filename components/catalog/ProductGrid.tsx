@@ -6,8 +6,8 @@ interface ProductGridProps {
   filters: CatalogFilters;
 }
 
-export function ProductGrid({ filters }: ProductGridProps) {
-  const products = getFilteredProducts(filters);
+export async function ProductGrid({ filters }: ProductGridProps) {
+  const products = await getFilteredProducts(filters);
 
   if (products.length === 0) {
     return (

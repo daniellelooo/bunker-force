@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { getAllProducts } from "@/lib/products";
 import type { Product } from "@/lib/types";
 
 interface SearchModalProps {
@@ -13,8 +12,16 @@ interface SearchModalProps {
 
 export function SearchModal({ open, onClose }: SearchModalProps) {
   const [query, setQuery] = useState("");
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
-  const allProducts = getAllProducts();
+
+  // Carga productos desde la API pública una sola vez al montar
+  useEffect(() => {
+    fetch("/api/products")
+      .then((r) => r.json())
+      .then(setAllProducts)
+      .catch(() => {});
+  }, []);
 
   const results: Product[] = query.trim().length < 2
     ? []
@@ -43,12 +50,9 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
 
   return (
     <div className="fixed inset-0 z-[300] flex flex-col">
-      {/* Backdrop */}
       <div className="absolute inset-0 bg-black/80" onClick={onClose} />
 
-      {/* Panel */}
       <div className="relative z-10 w-full max-w-2xl mx-auto mt-16 md:mt-24 px-4">
-        {/* Input */}
         <div className="flex items-center bg-surface-container-low border border-outline-variant">
           <span className="material-symbols-outlined text-primary pl-4">search</span>
           <input
@@ -67,7 +71,6 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
           </button>
         </div>
 
-        {/* Resultados */}
         {query.trim().length >= 2 && (
           <div className="bg-surface-container-low border border-t-0 border-outline-variant max-h-[60vh] overflow-y-auto">
             {results.length === 0 ? (
@@ -88,7 +91,7 @@ export function SearchModal({ open, onClose }: SearchModalProps) {
                       alt={product.images[0].alt}
                       width={48}
                       height={48}
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all"
+                      className="w-full h-full object-cover transition-all"
                     />
                   </div>
                   <div className="flex-1 min-w-0">

@@ -6,8 +6,8 @@ interface RelatedProductsProps {
   category: string;
 }
 
-export function RelatedProducts({ currentId, category }: RelatedProductsProps) {
-  const related = getRelatedProducts(currentId, category);
+export async function RelatedProducts({ currentId, category }: RelatedProductsProps) {
+  const related = await getRelatedProducts(currentId, category);
 
   if (related.length === 0) return null;
 

@@ -3,8 +3,8 @@ import { getAllProducts } from "@/lib/products";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bunkerforce.com";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const products = getAllProducts();
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const products = await getAllProducts();
 
   const staticPages: MetadataRoute.Sitemap = [
     {

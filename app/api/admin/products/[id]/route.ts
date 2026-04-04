@@ -1,18 +1,7 @@
 import { NextRequest } from "next/server";
-import { readFileSync, writeFileSync } from "fs";
-import { join } from "path";
-import type { Product } from "@/lib/types";
+import { adminUpdateProduct, adminDeleteProduct } from "@/lib/products";
 import { validateProduct } from "@/lib/validation";
-
-const productsPath = join(process.cwd(), "data", "products.json");
-
-function getProducts(): Product[] {
-  return JSON.parse(readFileSync(productsPath, "utf-8"));
-}
-
-function saveProducts(products: Product[]) {
-  writeFileSync(productsPath, JSON.stringify(products, null, 2), "utf-8");
-}
+import type { Product } from "@/lib/types";
 
 export async function PUT(
   request: NextRequest,
@@ -30,16 +19,12 @@ export async function PUT(
   const validation = validateProduct(body);
   if (!validation.ok) return validation.toResponse();
 
-  const products = getProducts();
-  const index = products.findIndex((p) => p.id === id);
-  if (index === -1) {
+  try {
+    const updated = await adminUpdateProduct(id, body as Product);
+    return Response.json(updated);
+  } catch {
     return Response.json({ error: "Producto no encontrado" }, { status: 404 });
   }
-
-  products[index] = { ...(body as Product), id };
-  saveProducts(products);
-
-  return Response.json(products[index]);
 }
 
 export async function DELETE(
@@ -47,13 +32,11 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  const products = getProducts();
-  const filtered = products.filter((p) => p.id !== id);
 
-  if (filtered.length === products.length) {
+  try {
+    await adminDeleteProduct(id);
+    return Response.json({ success: true });
+  } catch {
     return Response.json({ error: "Producto no encontrado" }, { status: 404 });
   }
-
-  saveProducts(filtered);
-  return Response.json({ success: true });
 }

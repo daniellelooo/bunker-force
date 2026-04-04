@@ -1,9 +1,9 @@
 "use client";
 
 import { useRef } from "react";
-import { getFeaturedProducts } from "@/lib/products";
 import Image from "next/image";
 import Link from "next/link";
+import type { Product } from "@/lib/types";
 
 function formatCOP(price: number) {
   return new Intl.NumberFormat("es-CO", {
@@ -13,8 +13,7 @@ function formatCOP(price: number) {
   }).format(price);
 }
 
-export function FeaturedCarousel() {
-  const products = getFeaturedProducts();
+export function FeaturedCarousel({ products }: { products: Product[] }) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const scroll = (dir: "left" | "right") => {
@@ -33,7 +32,6 @@ export function FeaturedCarousel() {
             </h2>
             <div className="flex-grow h-[1px] bg-outline-variant opacity-30" />
           </div>
-          {/* Flechas de navegación */}
           <div className="flex gap-2 shrink-0">
             <button
               onClick={() => scroll("left")}

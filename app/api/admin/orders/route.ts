@@ -1,14 +1,23 @@
-import { readFileSync } from "fs";
-import { join } from "path";
-import type { Order } from "@/lib/types";
-
-const ordersPath = join(process.cwd(), "data", "orders.json");
+import { supabaseAdmin } from "@/lib/supabase";
 
 export async function GET() {
-  try {
-    const orders: Order[] = JSON.parse(readFileSync(ordersPath, "utf-8"));
-    return Response.json([...orders].reverse());
-  } catch {
-    return Response.json([]);
-  }
+  const { data, error } = await supabaseAdmin
+    .from("orders")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) return Response.json([], { status: 200 });
+
+  const orders = (data ?? []).map((row) => ({
+    id: row.id,
+    createdAt: row.created_at,
+    status: row.status,
+    customer: row.customer,
+    items: row.items,
+    subtotal: row.subtotal,
+    tax: row.tax,
+    total: row.total,
+  }));
+
+  return Response.json(orders);
 }

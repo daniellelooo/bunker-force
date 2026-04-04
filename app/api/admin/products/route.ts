@@ -1,21 +1,10 @@
 import { NextRequest } from "next/server";
-import { readFileSync, writeFileSync } from "fs";
-import { join } from "path";
-import type { Product } from "@/lib/types";
+import { adminGetAllProducts, adminCreateProduct } from "@/lib/products";
 import { validateProduct } from "@/lib/validation";
-
-const productsPath = join(process.cwd(), "data", "products.json");
-
-function getProducts(): Product[] {
-  return JSON.parse(readFileSync(productsPath, "utf-8"));
-}
-
-function saveProducts(products: Product[]) {
-  writeFileSync(productsPath, JSON.stringify(products, null, 2), "utf-8");
-}
+import type { Product } from "@/lib/types";
 
 export async function GET() {
-  const products = getProducts();
+  const products = await adminGetAllProducts();
   return Response.json(products);
 }
 
@@ -30,14 +19,10 @@ export async function POST(request: NextRequest) {
   const validation = validateProduct(body);
   if (!validation.ok) return validation.toResponse();
 
-  const products = getProducts();
-  const newProduct: Product = {
-    ...(body as Omit<Product, "id">),
-    id: Date.now().toString(),
-  };
-
-  products.push(newProduct);
-  saveProducts(products);
-
-  return Response.json(newProduct, { status: 201 });
+  try {
+    const newProduct = await adminCreateProduct(body as Omit<Product, "id">);
+    return Response.json(newProduct, { status: 201 });
+  } catch (e) {
+    return Response.json({ error: "Error al crear el producto" }, { status: 500 });
+  }
 }

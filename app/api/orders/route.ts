@@ -1,22 +1,7 @@
 import { NextRequest } from "next/server";
-import { readFileSync, writeFileSync } from "fs";
-import { join } from "path";
+import { supabaseAdmin } from "@/lib/supabase";
 import type { Order } from "@/lib/types";
 import { validateOrder } from "@/lib/validation";
-
-const ordersPath = join(process.cwd(), "data", "orders.json");
-
-function getOrders(): Order[] {
-  try {
-    return JSON.parse(readFileSync(ordersPath, "utf-8"));
-  } catch {
-    return [];
-  }
-}
-
-function saveOrders(orders: Order[]) {
-  writeFileSync(ordersPath, JSON.stringify(orders, null, 2), "utf-8");
-}
 
 export async function POST(request: NextRequest) {
   let body: unknown;
@@ -30,7 +15,6 @@ export async function POST(request: NextRequest) {
   if (!validation.ok) return validation.toResponse();
 
   const b = body as Record<string, unknown>;
-  const orders = getOrders();
 
   const order: Order = {
     id: `BF-${Date.now()}`,
@@ -43,8 +27,20 @@ export async function POST(request: NextRequest) {
     total: b.total as number,
   };
 
-  orders.push(order);
-  saveOrders(orders);
+  const { error } = await supabaseAdmin.from("orders").insert({
+    id: order.id,
+    created_at: order.createdAt,
+    status: order.status,
+    customer: order.customer,
+    items: order.items,
+    subtotal: order.subtotal,
+    tax: order.tax,
+    total: order.total,
+  });
+
+  if (error) {
+    return Response.json({ error: "Error al guardar el pedido" }, { status: 500 });
+  }
 
   return Response.json(order, { status: 201 });
 }
