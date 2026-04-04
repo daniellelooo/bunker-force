@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export function Hero() {
   const [isDesktop, setIsDesktop] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 768px)");
@@ -14,6 +15,32 @@ export function Hero() {
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
   }, []);
+
+  // Fade suave al hacer loop: fade-out en los últimos 1.5s, fade-in al reiniciar
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const FADE = 1.5; // segundos de transición
+    let fadingOut = false;
+
+    const onTimeUpdate = () => {
+      if (!video.duration) return;
+      const left = video.duration - video.currentTime;
+
+      if (left <= FADE && !fadingOut) {
+        fadingOut = true;
+        video.style.opacity = "0";
+      }
+      if (video.currentTime < FADE && fadingOut) {
+        fadingOut = false;
+        video.style.opacity = "1";
+      }
+    };
+
+    video.addEventListener("timeupdate", onTimeUpdate);
+    return () => video.removeEventListener("timeupdate", onTimeUpdate);
+  }, [isDesktop]);
 
   return (
     <section className="relative h-[921px] w-full overflow-hidden flex items-center">
@@ -32,12 +59,13 @@ export function Hero() {
         {/* Video en desktop — solo se descarga si la pantalla es ≥768px */}
         {isDesktop ? (
           <video
+            ref={videoRef}
             autoPlay
             muted
             loop
             playsInline
             className="absolute inset-0 w-full h-full object-cover object-center"
-            style={{ filter: "grayscale(0.4) brightness(0.5)" }}
+            style={{ filter: "grayscale(0.4) brightness(0.5)", transition: "opacity 1.5s ease" }}
           >
             <source src="/hero.mp4" type="video/mp4" />
           </video>
