@@ -15,8 +15,8 @@ interface CartState {
 
 type CartAction =
   | { type: "ADD_ITEM"; payload: CartItem }
-  | { type: "REMOVE_ITEM"; payload: { productId: string; selectedSize: string } }
-  | { type: "UPDATE_QUANTITY"; payload: { productId: string; selectedSize: string; quantity: number } }
+  | { type: "REMOVE_ITEM"; payload: { productId: string; selectedSize: string; selectedColor?: string } }
+  | { type: "UPDATE_QUANTITY"; payload: { productId: string; selectedSize: string; selectedColor?: string; quantity: number } }
   | { type: "CLEAR_CART" }
   | { type: "HYDRATE"; payload: CartItem[] };
 
@@ -37,13 +37,15 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       const existing = state.items.find(
         (i) =>
           i.productId === action.payload.productId &&
-          i.selectedSize === action.payload.selectedSize
+          i.selectedSize === action.payload.selectedSize &&
+          i.selectedColor === action.payload.selectedColor
       );
       if (existing) {
         return {
           items: state.items.map((i) =>
             i.productId === action.payload.productId &&
-            i.selectedSize === action.payload.selectedSize
+            i.selectedSize === action.payload.selectedSize &&
+            i.selectedColor === action.payload.selectedColor
               ? { ...i, quantity: i.quantity + action.payload.quantity }
               : i
           ),
@@ -57,7 +59,8 @@ function cartReducer(state: CartState, action: CartAction): CartState {
           (i) =>
             !(
               i.productId === action.payload.productId &&
-              i.selectedSize === action.payload.selectedSize
+              i.selectedSize === action.payload.selectedSize &&
+              i.selectedColor === action.payload.selectedColor
             )
         ),
       };
@@ -68,7 +71,8 @@ function cartReducer(state: CartState, action: CartAction): CartState {
             (i) =>
               !(
                 i.productId === action.payload.productId &&
-                i.selectedSize === action.payload.selectedSize
+                i.selectedSize === action.payload.selectedSize &&
+                i.selectedColor === action.payload.selectedColor
               )
           ),
         };
@@ -76,7 +80,8 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       return {
         items: state.items.map((i) =>
           i.productId === action.payload.productId &&
-          i.selectedSize === action.payload.selectedSize
+          i.selectedSize === action.payload.selectedSize &&
+          i.selectedColor === action.payload.selectedColor
             ? { ...i, quantity: action.payload.quantity }
             : i
         ),

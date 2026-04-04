@@ -38,7 +38,7 @@ export function Header() {
             href="/catalog?category=accessories"
             className="font-headline font-bold uppercase text-base text-on-surface-variant hover:text-primary transition-colors tracking-widest"
           >
-            ACCESORIOS
+            ACCESORIOS Y EQUIPO
           </Link>
           <Link
             href="/catalog"

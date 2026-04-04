@@ -17,7 +17,7 @@ function mapProduct(row: Record<string, unknown>): Product {
     status: row.status as Product["status"],
     stock: (row.stock as number) ?? undefined,
     images: row.images as Product["images"],
-    specs: row.specs as Product["specs"],
+    specs: (row.specs as Product["specs"]) ?? [],
     availableSizes: row.available_sizes as Product["availableSizes"],
     availableColors: row.available_colors as string[],
     featured: row.featured as boolean,

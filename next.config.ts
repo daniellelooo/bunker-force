@@ -12,12 +12,20 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  experimental: {
+    turbopackFileSystemCacheForDev: false,
+  },
   images: {
     remotePatterns: [
       {
         protocol: "https",
         hostname: "lh3.googleusercontent.com",
         pathname: "/aida-public/**",
+      },
+      {
+        protocol: "https",
+        hostname: "mukdypbfefzbhtfqzbei.supabase.co",
+        pathname: "/storage/v1/object/public/**",
       },
     ],
   },

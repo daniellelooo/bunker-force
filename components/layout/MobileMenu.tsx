@@ -17,7 +17,7 @@ const navSections = [
 
 const navLinks = [
   { href: "/", label: "INICIO" },
-  { href: "/catalog?category=accessories", label: "ACCESORIOS" },
+  { href: "/catalog?category=accessories", label: "ACCESORIOS Y EQUIPO" },
   { href: "/catalog", label: "CATÁLOGO" },
   { href: "/sobre-nosotros", label: "SOBRE NOSOTROS" },
 ];
@@ -56,7 +56,6 @@ export function MobileMenu() {
               />
             </div>
             <nav className="flex flex-col gap-2">
-              {/* Links directos primero */}
               <Link
                 href="/"
                 className="font-headline font-bold uppercase text-on-surface-variant hover:text-primary transition-colors tracking-tight py-2"
@@ -65,7 +64,6 @@ export function MobileMenu() {
                 INICIO
               </Link>
 
-              {/* ROPA expandable */}
               <button
                 className="flex items-center justify-between font-headline font-bold uppercase text-on-surface-variant hover:text-primary transition-colors tracking-tight py-2"
                 onClick={() => setRopaOpen(!ropaOpen)}

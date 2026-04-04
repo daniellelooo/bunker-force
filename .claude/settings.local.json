@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__supabase__list_organizations",
+      "mcp__supabase__list_projects",
+      "mcp__supabase__get_cost",
+      "mcp__supabase__confirm_cost",
+      "mcp__supabase__create_project",
+      "mcp__supabase__get_project_url",
+      "mcp__supabase__get_publishable_keys",
+      "mcp__supabase__apply_migration",
+      "Bash(npm install:*)",
+      "Bash(node -e \"const p = require\\('./package.json'\\); console.log\\(p.dependencies ? Object.keys\\(p.dependencies\\).join\\('\\\\n'\\) : ''\\)\")",
+      "mcp__puppeteer__puppeteer_navigate",
+      "mcp__puppeteer__puppeteer_screenshot",
+      "mcp__puppeteer__puppeteer_evaluate",
+      "mcp__supabase__execute_sql",
+      "Bash(npx tsc:*)",
+      "Bash(node_modules/.bin/tsc --noEmit)",
+      "Bash(./node_modules/.bin/tsc --noEmit)",
+      "Bash(taskkill /PID 1656 /F)",
+      "Bash(taskkill /PID 20460 /F)",
+      "Bash(cmd //c \"taskkill /PID 1656 /F & taskkill /PID 20460 /F\")",
+      "Bash(node -e \"require\\('./next.config.ts'\\)\")",
+      "Bash(timeout 20 node_modules/.bin/next dev --webpack)",
+      "Bash(cmd //c \"taskkill /PID 1840 /F\")",
+      "Bash(node_modules/.bin/next dev:*)",
+      "Bash(curl -s http://localhost:3000/ -o /dev/null -w \"%{http_code}\")",
+      "Bash(curl -s http://localhost:3000/catalog -o /dev/null -w \"%{http_code}\")",
+      "Bash(curl -s http://localhost:3000/product/camiseta-tactica -o /dev/null -w \"%{http_code}\")",
+      "Bash(curl -s http://localhost:3000/cart -o /dev/null -w \"%{http_code}\")",
+      "Bash(cmd //c \"taskkill /F /IM node.exe\")",
+      "Bash(rm:*)",
+      "Bash(cmd //c \"for /f \\\\\"tokens=5\\\\\" %a in \\('netstat -aon ^| find \\\\\":3000\\\\\"'\\) do taskkill /PID %a /F\")"
+    ]
+  }
+}

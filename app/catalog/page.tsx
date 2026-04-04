@@ -46,9 +46,9 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
     sort: params.sort as FiltersType["sort"],
   };
 
-  const title = filters.category
-    ? categoryTitles[filters.category]
-    : { top: "TODO EL", bottom: "EQUIPAMIENTO" };
+  const title =
+    (filters.category && categoryTitles[filters.category]) ??
+    { top: "TODO EL", bottom: "EQUIPAMIENTO" };
 
   return (
     <div className="min-h-screen pt-0">

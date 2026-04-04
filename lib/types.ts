@@ -43,6 +43,7 @@ export interface CartItem {
   price: number;
   image: string;
   selectedSize: string;
+  selectedColor?: string;
   quantity: number;
 }
 

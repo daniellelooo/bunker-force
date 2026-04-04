@@ -5,10 +5,12 @@ import { useCallback, useState } from "react";
 
 const sizes = ["S", "M", "L", "XL", "XXL"];
 const colors = [
-  { id: "black-ops", label: "Black Ops", hex: "#000000" },
-  { id: "od-green", label: "Verde Militar", hex: "#3d4231" },
-  { id: "coyote-tan", label: "Coyote Tan", hex: "#937b5d" },
-  { id: "multicam", label: "MultiCam", hex: "#6b6e56" },
+  { id: "black-ops",  label: "Black Ops",     hex: "#000000" },
+  { id: "od-green",   label: "Verde Militar",  hex: "#3d4231" },
+  { id: "wolf-grey",  label: "Gris Lobo",      hex: "#6b7280" },
+  { id: "navy",       label: "Azul Marino",    hex: "#1e3a5f" },
+  { id: "coyote-tan", label: "Coyote Tan",     hex: "#937b5d" },
+  { id: "multicam",   label: "MultiCam",       hex: "#6b6e56" },
 ];
 
 export function CatalogFilters() {

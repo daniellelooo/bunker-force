@@ -31,7 +31,7 @@ function isNumber(v: unknown): v is number {
 
 // ─── Order validation ────────────────────────────────────────────────────────
 
-const VALID_SIZES = ["XS", "S", "M", "L", "XL", "XXL"];
+const VALID_SIZES = ["XS", "S", "M", "L", "XL", "XXL", "ÚNICA"];
 const PHONE_RE = /^[\d\s\+\-\(\)]{7,20}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
