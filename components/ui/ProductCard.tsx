@@ -54,23 +54,23 @@ export function ProductCard({ product, variant = "grid" }: ProductCardProps) {
   return (
     <Link
       href={`/product/${product.slug}`}
-      className="group relative bg-surface-container-low p-6 flex flex-col justify-between h-[500px] border border-transparent hover:border-outline-variant transition-all"
+      className="group relative bg-surface-container-low flex flex-col border border-transparent hover:border-outline-variant transition-all overflow-hidden"
     >
-      <div className="absolute top-0 right-0 p-4">
+      <div className="absolute top-0 right-0 p-4 z-10">
         <div className="bg-primary-container text-on-primary-container px-3 py-1 text-[10px] font-black tracking-tighter uppercase">
           {formatCOP(product.price)}
         </div>
       </div>
-      <div className="flex-1 flex items-center justify-center p-8">
+      <div className="aspect-[3/4] overflow-hidden bg-surface-container-high">
         <Image
           src={product.images[0].src}
           alt={product.images[0].alt}
-          width={280}
-          height={350}
-          className="max-h-full object-contain mix-blend-lighten transition-all duration-500 scale-110 group-hover:scale-125"
+          width={400}
+          height={533}
+          className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
         />
       </div>
-      <div className="space-y-4">
+      <div className="p-6 space-y-4">
         <div className="space-y-1">
           <span className="text-[9px] font-bold text-tertiary tracking-widest uppercase">
             ESPECIFICACIÓN: {product.series}
