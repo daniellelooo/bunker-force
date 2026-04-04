@@ -325,9 +325,9 @@ export function ProductForm({ initialData, mode }: Props) {
               onChange={(e) => setField("status", e.target.value as any)}
               required
             >
-              <option value="available">✅ Disponible</option>
-              <option value="low-stock">⚠️ Pocas unidades</option>
-              <option value="out-of-stock">❌ Agotado</option>
+              <option value="available">Disponible</option>
+              <option value="low-stock">Pocas unidades</option>
+              <option value="out-of-stock">Agotado</option>
             </select>
           </div>
 

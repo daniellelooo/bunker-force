@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { CartIcon } from "./CartIcon";
 import { MobileMenu } from "./MobileMenu";
@@ -14,36 +15,40 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 bg-surface-container-low border-b border-outline-variant/20">
       <div className="flex justify-between items-center w-full px-6 py-4 max-w-none">
-        <Link
-          href="/"
-          className="text-2xl font-headline font-black tracking-tighter text-primary uppercase"
-        >
-          BUNKER FORCE BELLO
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/logo.png"
+            alt="Bunker Force Bello"
+            width={140}
+            height={56}
+            className="object-contain"
+            priority
+          />
         </Link>
 
         <nav className="hidden md:flex items-center gap-8">
           <Link
             href="/"
-            className="font-headline font-bold uppercase text-sm text-on-surface-variant hover:text-primary transition-colors tracking-tight"
+            className="font-headline font-bold uppercase text-base text-on-surface-variant hover:text-primary transition-colors tracking-widest"
           >
             INICIO
           </Link>
           <NavDropdown label="ROPA" items={ropaItems} />
           <Link
             href="/catalog?category=accessories"
-            className="font-headline font-bold uppercase text-sm text-on-surface-variant hover:text-primary transition-colors tracking-tight"
+            className="font-headline font-bold uppercase text-base text-on-surface-variant hover:text-primary transition-colors tracking-widest"
           >
             ACCESORIOS
           </Link>
           <Link
             href="/catalog"
-            className="font-headline font-bold uppercase text-sm text-on-surface-variant hover:text-primary transition-colors tracking-tight"
+            className="font-headline font-bold uppercase text-base text-on-surface-variant hover:text-primary transition-colors tracking-widest"
           >
             CATÁLOGO
           </Link>
           <Link
             href="/sobre-nosotros"
-            className="font-headline font-bold uppercase text-sm text-on-surface-variant hover:text-primary transition-colors tracking-tight"
+            className="font-headline font-bold uppercase text-base text-on-surface-variant hover:text-primary transition-colors tracking-widest"
           >
             SOBRE NOSOTROS
           </Link>

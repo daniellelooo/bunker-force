@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const footerLinks = [
@@ -22,8 +23,14 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Marca */}
           <div className="md:col-span-1">
-            <div className="text-xl font-headline font-black text-primary mb-4 uppercase">
-              BUNKER FORCE BELLO
+            <div className="mb-4">
+              <Image
+                src="/logo.png"
+                alt="Bunker Force Bello"
+                width={160}
+                height={64}
+                className="object-contain"
+              />
             </div>
             <p className="font-label text-xs text-outline leading-relaxed">
               Equipamiento táctico urbano fabricado en Bello, Antioquia.
@@ -68,11 +75,13 @@ export function Footer() {
                 <span className="text-outline">Cerrado</span>
               </div>
               <div className="mt-4 pt-4 border-t border-outline-variant/30">
-                <p className="text-[10px] tracking-wider">
-                  📍 Bello, Antioquia, Colombia
+                <p className="text-[10px] tracking-wider flex items-center gap-1">
+                  <span className="material-symbols-outlined" style={{fontSize:"12px"}}>location_on</span>
+                  Bello, Antioquia, Colombia
                 </p>
-                <p className="text-[10px] tracking-wider mt-1">
-                  📞 +57 (604) 000-0000
+                <p className="text-[10px] tracking-wider mt-1 flex items-center gap-1">
+                  <span className="material-symbols-outlined" style={{fontSize:"12px"}}>call</span>
+                  +57 (604) 000-0000
                 </p>
               </div>
             </div>

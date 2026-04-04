@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
 
@@ -45,8 +46,14 @@ export function MobileMenu() {
             >
               <span className="material-symbols-outlined">close</span>
             </button>
-            <div className="text-xl font-headline font-black text-primary mb-8">
-              BUNKER FORCE BELLO
+            <div className="mb-8">
+              <Image
+                src="/logo.png"
+                alt="Bunker Force Bello"
+                width={130}
+                height={52}
+                className="object-contain"
+              />
             </div>
             <nav className="flex flex-col gap-2">
               {/* Links directos primero */}

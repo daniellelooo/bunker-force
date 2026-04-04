@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter } from "next/font/google";
+import { Barlow_Condensed, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Header } from "@/components/layout/Header";
@@ -9,13 +9,13 @@ import { TacticalCorners } from "@/components/ui/TacticalCorners";
 import { ShellWrapper } from "@/components/layout/ShellWrapper";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
 
-const spaceGrotesk = Space_Grotesk({
+const barlowCondensed = Barlow_Condensed({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
-const inter = Inter({
+const dmSans = DM_Sans({
   variable: "--font-inter",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
@@ -79,7 +79,7 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`dark ${spaceGrotesk.variable} ${inter.variable}`}
+      className={`dark ${barlowCondensed.variable} ${dmSans.variable}`}
     >
       <head>
         <link

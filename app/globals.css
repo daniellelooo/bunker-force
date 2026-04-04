@@ -4,9 +4,9 @@
 
 @theme {
   /* Fonts */
-  --font-headline: var(--font-space-grotesk), system-ui;
-  --font-body: var(--font-inter), system-ui;
-  --font-label: var(--font-inter), system-ui;
+  --font-headline: var(--font-space-grotesk), "Barlow Condensed", system-ui;
+  --font-body: var(--font-inter), "DM Sans", system-ui;
+  --font-label: var(--font-inter), "DM Sans", system-ui;
 
   /* Sharp tactical corners everywhere */
   --radius: 0px;
@@ -17,33 +17,33 @@
   --radius-2xl: 0px;
   --radius-full: 9999px;
 
-  /* ── Color tokens (exact hex from prototype) ── */
-  --color-primary: #ffb693;
-  --color-on-primary: #561f00;
-  --color-primary-container: #6b2900;
-  --color-on-primary-container: #ff8749;
-  --color-primary-fixed: #ffdbcc;
-  --color-primary-fixed-dim: #ffb693;
-  --color-on-primary-fixed: #351000;
-  --color-on-primary-fixed-variant: #7a3000;
+  /* ── Color tokens — paleta militar oliva (inspirada en logo Bunker Force) ── */
+  --color-primary: #9baa4a;
+  --color-on-primary: #1c2408;
+  --color-primary-container: #4a5820;
+  --color-on-primary-container: #c0d070;
+  --color-primary-fixed: #d8e8a0;
+  --color-primary-fixed-dim: #9baa4a;
+  --color-on-primary-fixed: #0e1604;
+  --color-on-primary-fixed-variant: #5a6830;
 
-  --color-secondary: #d3c5ad;
-  --color-on-secondary: #382f1f;
-  --color-secondary-container: #524836;
-  --color-on-secondary-container: #c5b7a0;
-  --color-secondary-fixed: #f0e1c8;
-  --color-secondary-fixed-dim: #d3c5ad;
-  --color-on-secondary-fixed: #221b0c;
-  --color-on-secondary-fixed-variant: #4f4634;
+  --color-secondary: #b4a870;
+  --color-on-secondary: #28200a;
+  --color-secondary-container: #483c18;
+  --color-on-secondary-container: #c8bc8a;
+  --color-secondary-fixed: #e0d4a8;
+  --color-secondary-fixed-dim: #b4a870;
+  --color-on-secondary-fixed: #18120a;
+  --color-on-secondary-fixed-variant: #4a4028;
 
-  --color-tertiary: #c5c9b2;
-  --color-on-tertiary: #2e3222;
-  --color-tertiary-container: #3b3f2e;
-  --color-on-tertiary-container: #a6aa94;
-  --color-tertiary-fixed: #e1e5cd;
-  --color-tertiary-fixed-dim: #c5c9b2;
-  --color-on-tertiary-fixed: #191d0e;
-  --color-on-tertiary-fixed-variant: #454937;
+  --color-tertiary: #8a9870;
+  --color-on-tertiary: #1a2210;
+  --color-tertiary-container: #384028;
+  --color-on-tertiary-container: #a8b890;
+  --color-tertiary-fixed: #c4d4b0;
+  --color-tertiary-fixed-dim: #8a9870;
+  --color-on-tertiary-fixed: #0c1408;
+  --color-on-tertiary-fixed-variant: #404e30;
 
   --color-error: #ffb4ab;
   --color-on-error: #690005;
@@ -51,30 +51,30 @@
   --color-on-error-container: #ffdad6;
 
   --color-background: #131313;
-  --color-on-background: #e5e2e1;
+  --color-on-background: #e0dfd0;
   --color-surface: #131313;
-  --color-on-surface: #e5e2e1;
-  --color-surface-variant: #353535;
-  --color-on-surface-variant: #c7c7bd;
+  --color-on-surface: #e0dfd0;
+  --color-surface-variant: #2e2e2e;
+  --color-on-surface-variant: #bcbfaa;
   --color-surface-container-lowest: #0e0e0e;
-  --color-surface-container-low: #1c1b1b;
-  --color-surface-container: #20201f;
+  --color-surface-container-low: #1b1b1b;
+  --color-surface-container: #202020;
   --color-surface-container-high: #2a2a2a;
-  --color-surface-container-highest: #353535;
+  --color-surface-container-highest: #343434;
   --color-surface-dim: #131313;
   --color-surface-bright: #393939;
-  --color-surface-tint: #ffb693;
+  --color-surface-tint: #9baa4a;
 
-  --color-outline: #919188;
-  --color-outline-variant: #46473f;
+  --color-outline: #7a8460;
+  --color-outline-variant: #384028;
 
-  --color-inverse-surface: #e5e2e1;
-  --color-inverse-on-surface: #313030;
-  --color-inverse-primary: #a04100;
+  --color-inverse-surface: #d8dcc0;
+  --color-inverse-on-surface: #2c3020;
+  --color-inverse-primary: #5a6830;
 }
 
 @utility text-glow {
-  text-shadow: 0 0 15px rgba(255, 182, 147, 0.4);
+  text-shadow: 0 0 18px rgba(155, 170, 74, 0.5);
 }
 
 @utility no-scrollbar {
@@ -102,10 +102,15 @@
   background: #46473f;
 }
 
-/* Fondo táctico: puntos sutiles sobre oscuro */
+/* Barlow Condensed necesita tracking generoso */
+.font-headline {
+  letter-spacing: 0.04em;
+}
+
+/* Fondo táctico: puntos sutiles sobre negro */
 body {
   background-color: #131313;
-  background-image: radial-gradient(circle, #252422 1px, transparent 1px);
+  background-image: radial-gradient(circle, #252522 1px, transparent 1px);
   background-size: 28px 28px;
-  color: #e5e2e1;
+  color: #e0dfd0;
 }

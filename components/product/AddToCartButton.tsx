@@ -53,7 +53,10 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
         onClick={handleAdd}
         className="w-full bg-primary hover:bg-primary-container text-on-primary py-6 px-8 font-headline text-lg font-black tracking-widest transition-all active:scale-[0.98] duration-100 flex items-center justify-between group shadow-xl"
       >
-        <span>{added ? "✓ AÑADIDO AL CARRITO" : "AÑADIR AL CARRITO"}</span>
+        <span className="flex items-center gap-2">
+          {added && <span className="material-symbols-outlined text-base">check</span>}
+          {added ? "AÑADIDO AL CARRITO" : "AÑADIR AL CARRITO"}
+        </span>
         <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">
           arrow_forward
         </span>

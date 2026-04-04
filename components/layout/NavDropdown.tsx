@@ -27,7 +27,7 @@ export function NavDropdown({ label, items }: NavDropdownProps) {
 
   return (
     <div className="relative" onMouseEnter={show} onMouseLeave={hide}>
-      <button className="font-headline font-bold uppercase text-sm text-on-surface-variant hover:text-primary transition-colors tracking-tight flex items-center gap-1">
+      <button className="font-headline font-bold uppercase text-base text-on-surface-variant hover:text-primary transition-colors tracking-widest flex items-center gap-1">
         {label}
         <span
           className={`material-symbols-outlined text-[14px] transition-transform duration-200 ${open ? "rotate-180" : ""}`}
