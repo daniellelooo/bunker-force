@@ -1,17 +1,14 @@
 import { notFound } from "next/navigation";
-import { getAllSlugs, getProductBySlug } from "@/lib/products";
+import { getProductBySlug } from "@/lib/products";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { ProductSpecs } from "@/components/product/ProductSpecs";
 import { AddToCartButton } from "@/components/product/AddToCartButton";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
 
+export const dynamic = "force-dynamic";
+
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
-}
-
-export async function generateStaticParams() {
-  const slugs = await getAllSlugs();
-  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: ProductPageProps) {
