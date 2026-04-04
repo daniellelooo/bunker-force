@@ -43,7 +43,7 @@ export function CartView() {
         </div>
         {items.map((item) => (
           <CartItem
-            key={`${item.productId}-${item.selectedSize}`}
+            key={`${item.productId}-${item.selectedSize}-${item.selectedColor ?? ""}`}
             item={item}
           />
         ))}

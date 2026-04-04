@@ -55,6 +55,7 @@ export default function CheckoutPage() {
         price: item.price,
         image: item.image,
         selectedSize: item.selectedSize,
+        selectedColor: item.selectedColor,
         quantity: item.quantity,
       })),
       subtotal: cartSubtotal,

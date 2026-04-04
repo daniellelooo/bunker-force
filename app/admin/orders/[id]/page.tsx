@@ -258,7 +258,8 @@ export default function AdminOrderDetailPage() {
                     </div>
                     <div className="font-label text-xs text-outline mt-0.5">
                       SKU: {item.sku}
-                      {item.selectedSize && ` · Talla: ${item.selectedSize}`}
+                      {item.selectedSize && item.selectedSize !== "ÚNICA" && ` · Talla: ${item.selectedSize}`}
+                      {item.selectedColor && ` · Color: ${item.selectedColor}`}
                     </div>
                     <div className="font-label text-xs text-on-surface-variant mt-1">
                       Cant. {item.quantity} × {formatCOP(item.price)}
