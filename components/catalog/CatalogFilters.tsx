@@ -135,66 +135,46 @@ export function CatalogFilters() {
       </div>
 
       {/* Price Range */}
-      {/* Price Range */}
-      <div className="space-y-4">
-        <div className="flex items-end justify-between">
-          <span className="block text-[10px] font-bold tracking-[0.2em] text-outline uppercase">
-            PRECIO MÁXIMO
-          </span>
-          <span className={`font-headline font-black text-base ${sliderValue < MAX ? "text-primary" : "text-on-surface-variant"}`}>
+      <div className="space-y-3">
+        <span className="block text-[10px] font-bold tracking-[0.2em] text-outline uppercase">
+          PRECIO MÁXIMO
+        </span>
+
+        {/* Precio actual */}
+        <div className="bg-surface-container border border-outline-variant/30 px-4 py-3 text-center">
+          <span className="font-headline font-black text-xl text-primary">
             {sliderValue < MAX
               ? new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(sliderValue)
               : "Sin límite"}
           </span>
         </div>
 
-        {/* Track custom */}
-        <div className="relative py-2">
-          <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-1.5 bg-surface-container-highest rounded-full" />
-          <div
-            className="absolute top-1/2 -translate-y-1/2 left-0 h-1.5 bg-primary rounded-full pointer-events-none"
-            style={{ width: `${(sliderValue / MAX) * 100}%` }}
-          />
-          <input
-            type="range"
-            min={50000}
-            max={MAX}
-            step={25000}
-            value={sliderValue}
-            onChange={(e) => {
-              const val = Number(e.target.value);
-              const params = new URLSearchParams(searchParams.toString());
-              if (val >= MAX) params.delete("maxPrice");
-              else params.set("maxPrice", String(val));
-              router.push(`${pathname}?${params.toString()}`, { scroll: false });
-            }}
-            className="relative w-full appearance-none bg-transparent cursor-pointer h-6
-              [&::-webkit-slider-thumb]:appearance-none
-              [&::-webkit-slider-thumb]:w-5
-              [&::-webkit-slider-thumb]:h-5
-              [&::-webkit-slider-thumb]:rounded-full
-              [&::-webkit-slider-thumb]:bg-primary
-              [&::-webkit-slider-thumb]:border-2
-              [&::-webkit-slider-thumb]:border-on-primary
-              [&::-webkit-slider-thumb]:shadow-md
-              [&::-webkit-slider-thumb]:cursor-pointer
-              [&::-webkit-slider-thumb]:transition-transform
-              [&::-webkit-slider-thumb]:hover:scale-125
-              [&::-moz-range-thumb]:w-5
-              [&::-moz-range-thumb]:h-5
-              [&::-moz-range-thumb]:rounded-full
-              [&::-moz-range-thumb]:bg-primary
-              [&::-moz-range-thumb]:border-2
-              [&::-moz-range-thumb]:border-on-primary
-              [&::-moz-range-thumb]:cursor-pointer"
-          />
-        </div>
+        {/* Slider */}
+        <input
+          type="range"
+          min={50000}
+          max={MAX}
+          step={25000}
+          value={sliderValue}
+          onChange={(e) => {
+            const val = Number(e.target.value);
+            const params = new URLSearchParams(searchParams.toString());
+            if (val >= MAX) params.delete("maxPrice");
+            else params.set("maxPrice", String(val));
+            router.push(`${pathname}?${params.toString()}`, { scroll: false });
+          }}
+          style={{
+            background: `linear-gradient(to right, #9baa4a ${((sliderValue - 50000) / (MAX - 50000)) * 100}%, #2a2a2a ${((sliderValue - 50000) / (MAX - 50000)) * 100}%)`,
+          }}
+          className="w-full cursor-pointer appearance-none h-2
+            [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:bg-primary [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-[#1c2408]
+            [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5 [&::-moz-range-thumb]:bg-primary [&::-moz-range-thumb]:cursor-pointer [&::-moz-range-thumb]:border-2 [&::-moz-range-thumb]:border-[#1c2408] [&::-moz-range-thumb]:appearance-none"
+        />
 
-        <div className="flex justify-between text-[9px] font-mono text-outline/60">
-          <span>$50.000</span>
-          <span>$500.000</span>
-          <span>$1.000.000</span>
-          <span>$2.000.000</span>
+        <div className="flex justify-between text-[9px] font-mono text-outline/50">
+          <span>$50K</span>
+          <span>$1M</span>
+          <span>$2M</span>
         </div>
       </div>
 
