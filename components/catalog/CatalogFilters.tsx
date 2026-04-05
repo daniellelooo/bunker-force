@@ -31,7 +31,8 @@ export function CatalogFilters() {
   const category = searchParams.get("category");
 
   const MAX = 2000000;
-  const sliderValue = maxPrice ? Number(maxPrice) : MAX;
+  const committedValue = maxPrice ? Number(maxPrice) : MAX;
+  const [sliderValue, setSliderValue] = useState(committedValue);
 
   const activeCount =
     selectedSizes.length +
@@ -58,6 +59,7 @@ export function CatalogFilters() {
   );
 
   const reset = () => {
+    setSliderValue(MAX);
     router.push(pathname, { scroll: false });
   };
 
@@ -156,8 +158,9 @@ export function CatalogFilters() {
           max={MAX}
           step={25000}
           value={sliderValue}
-          onChange={(e) => {
-            const val = Number(e.target.value);
+          onChange={(e) => setSliderValue(Number(e.target.value))}
+          onPointerUp={(e) => {
+            const val = Number((e.target as HTMLInputElement).value);
             const params = new URLSearchParams(searchParams.toString());
             if (val >= MAX) params.delete("maxPrice");
             else params.set("maxPrice", String(val));
