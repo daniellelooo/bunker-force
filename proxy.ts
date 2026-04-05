@@ -1,22 +1,21 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (pathname.startsWith("/admin") && !pathname.startsWith("/admin/login")) {
-    const token = request.cookies.get("admin_token");
-    const secretToken =
-      process.env.ADMIN_SECRET_TOKEN || "bunker-admin-secret-2024";
+  if (pathname === "/admin/login") return NextResponse.next();
 
-    if (!token || token.value !== secretToken) {
-      return NextResponse.redirect(new URL("/admin/login", request.url));
-    }
+  const token = request.cookies.get("admin_token")?.value;
+  const secret = process.env.ADMIN_SECRET_TOKEN;
+
+  if (!token || !secret || token !== secret) {
+    const loginUrl = new URL("/admin/login", request.url);
+    return NextResponse.redirect(loginUrl);
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin", "/admin/:path*"],
 };
