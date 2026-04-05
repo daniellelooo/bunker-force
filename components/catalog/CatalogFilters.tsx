@@ -27,13 +27,18 @@ export function CatalogFilters() {
 
   const selectedSizes = searchParams.getAll("sizes");
   const selectedColors = searchParams.getAll("colors");
-  const maxPrice = searchParams.get("maxPrice") || "1000";
+  const minPrice = searchParams.get("minPrice") || "";
+  const maxPrice = searchParams.get("maxPrice") || "";
   const category = searchParams.get("category");
+
+  const [minInput, setMinInput] = useState(minPrice);
+  const [maxInput, setMaxInput] = useState(maxPrice);
 
   const activeCount =
     selectedSizes.length +
     selectedColors.length +
-    (maxPrice !== "1000" ? 1 : 0);
+    (minPrice ? 1 : 0) +
+    (maxPrice ? 1 : 0);
 
   const updateParam = useCallback(
     (key: string, value: string, toggle = false) => {
@@ -55,6 +60,8 @@ export function CatalogFilters() {
   );
 
   const reset = () => {
+    setMinInput("");
+    setMaxInput("");
     router.push(pathname, { scroll: false });
   };
 
@@ -132,29 +139,64 @@ export function CatalogFilters() {
       </div>
 
       {/* Price Range */}
-      <div className="space-y-4">
+      <div className="space-y-3">
         <span className="block text-[10px] font-bold tracking-[0.2em] text-outline uppercase">
-          PRESUPUESTO
+          RANGO DE PRECIO
         </span>
-        <input
-          className="w-full h-1 bg-surface-container-highest appearance-none accent-primary cursor-pointer"
-          type="range"
-          min="100000"
-          max="2000000"
-          step="50000"
-          value={maxPrice === "1000" ? "2000000" : maxPrice}
-          onChange={(e) => updateParam("maxPrice", e.target.value)}
-        />
-        <div className="flex justify-between text-[10px] font-mono text-tertiary">
-          <span>$100 K</span>
-          <span>
-            {new Intl.NumberFormat("es-CO", {
-              style: "currency",
-              currency: "COP",
-              maximumFractionDigits: 0,
-            }).format(Number(maxPrice === "1000" ? "2000000" : maxPrice))}
-          </span>
+        <div className="flex items-center gap-2">
+          <div className="flex-1">
+            <label className="block text-[9px] text-outline tracking-widest uppercase mb-1">Mínimo</label>
+            <div className="relative">
+              <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-outline">$</span>
+              <input
+                type="number"
+                min={0}
+                step={10000}
+                placeholder="0"
+                value={minInput}
+                onChange={(e) => setMinInput(e.target.value)}
+                onBlur={() => {
+                  const params = new URLSearchParams(searchParams.toString());
+                  if (minInput) params.set("minPrice", minInput);
+                  else params.delete("minPrice");
+                  router.push(`${pathname}?${params.toString()}`, { scroll: false });
+                }}
+                className="w-full bg-surface-container border border-outline-variant/40 pl-5 pr-2 py-2 text-[11px] font-mono text-on-surface focus:outline-none focus:border-primary transition-colors"
+              />
+            </div>
+          </div>
+          <span className="text-outline text-xs mt-4">—</span>
+          <div className="flex-1">
+            <label className="block text-[9px] text-outline tracking-widest uppercase mb-1">Máximo</label>
+            <div className="relative">
+              <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-outline">$</span>
+              <input
+                type="number"
+                min={0}
+                step={10000}
+                placeholder="∞"
+                value={maxInput}
+                onChange={(e) => setMaxInput(e.target.value)}
+                onBlur={() => {
+                  const params = new URLSearchParams(searchParams.toString());
+                  if (maxInput) params.set("maxPrice", maxInput);
+                  else params.delete("maxPrice");
+                  router.push(`${pathname}?${params.toString()}`, { scroll: false });
+                }}
+                className="w-full bg-surface-container border border-outline-variant/40 pl-5 pr-2 py-2 text-[11px] font-mono text-on-surface focus:outline-none focus:border-primary transition-colors"
+              />
+            </div>
+          </div>
         </div>
+        {(minPrice || maxPrice) && (
+          <p className="text-[9px] text-primary tracking-widest">
+            {minPrice && maxPrice
+              ? `$${Number(minPrice).toLocaleString("es-CO")} — $${Number(maxPrice).toLocaleString("es-CO")}`
+              : minPrice
+              ? `Desde $${Number(minPrice).toLocaleString("es-CO")}`
+              : `Hasta $${Number(maxPrice).toLocaleString("es-CO")}`}
+          </p>
+        )}
       </div>
 
       <div className="pt-6 border-t border-outline-variant/30">

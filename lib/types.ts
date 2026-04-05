@@ -53,6 +53,7 @@ export interface CartItem {
 export interface CatalogFilters {
   sizes?: string[];
   colors?: string[];
+  minPrice?: number;
   maxPrice?: number;
   category?: ProductCategory;
   sort?: "price-asc" | "price-desc" | "rating" | "featured";

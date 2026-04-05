@@ -41,6 +41,7 @@ export default async function CatalogPage({ searchParams }: CatalogPageProps) {
         ? params.colors
         : [params.colors]
       : undefined,
+    minPrice: params.minPrice ? Number(params.minPrice) : undefined,
     maxPrice: params.maxPrice ? Number(params.maxPrice) : undefined,
     category: params.category as ProductCategory | undefined,
     sort: params.sort as FiltersType["sort"],
