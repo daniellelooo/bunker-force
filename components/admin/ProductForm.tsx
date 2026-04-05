@@ -8,7 +8,7 @@ const SIZE_PRESETS: Record<string, string[]> = {
   superior:    ["XS", "S", "M", "L", "XL", "XXL"],
   inferior:    ["28", "30", "32", "34", "36", "38", "40", "42"],
   calzado:     ["35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45"],
-  accessories: ["Única", "XS", "S", "M", "L", "XL", "XXL"],
+  accessories: ["ÚNICA", "XS", "S", "M", "L", "XL", "XXL"],
 };
 
 const PRESET_COLORS = [

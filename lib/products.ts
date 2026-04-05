@@ -69,7 +69,9 @@ export async function getFilteredProducts(filters: CatalogFilters): Promise<Prod
   // Filtros que Supabase no soporta nativamente con arrays
   if (filters.sizes && filters.sizes.length > 0) {
     result = result.filter((p) =>
-      filters.sizes!.some((s) => p.availableSizes.includes(s as Product["availableSizes"][number]))
+      filters.sizes!.some((s) =>
+        p.availableSizes.some((ps) => ps.toLowerCase() === s.toLowerCase())
+      )
     );
   }
   if (filters.colors && filters.colors.length > 0) {
