@@ -15,67 +15,67 @@ export function CategoryGrid() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 h-auto md:h-[600px]">
 
-          {/* CHAQUETAS — tile grande */}
+          {/* ROPA SUPERIOR — tile grande */}
           <Link
-            href="/catalog?category=jackets"
+            href="/catalog?category=superior"
             className="md:col-span-2 relative group cursor-pointer overflow-hidden h-[300px] md:h-auto"
           >
             <Image
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5Mc-dR3Grb7lw8i5GVZcIljnDfnAlF1zRvm0F6_eUE3xgSPZjeklAZ78PP7irkW_IOhtnoymzlJZ5q2sBYsr8tonZmCTM58hq_2FFWTr7lYRBWzaqRbJ9WaJoCcqUNXvhbNm630IOtJ5HfVjLUAklI9XLLL4pbveeS22iomS3dV7duvmIiFBq8ih_9oOeeRi0Yxi9_bZdSgvouyJbFsaOMWcq_-1z_r55sBqs0q2CXiheRwISJWCpDDmWuYP30OWcOVZ0SCdft5I"
-              alt="Colección de chaquetas técnicas"
+              alt="Ropa superior táctica"
               fill
               className="object-cover transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors" />
             <div className="absolute bottom-8 left-8">
               <h3 className="font-headline text-4xl font-black text-white mb-2">
-                CHAQUETAS
+                ROPA SUPERIOR
               </h3>
               <p className="text-tertiary font-label text-xs tracking-widest uppercase">
-                HARD SHELL / TÉRMICA
+                CAMISETAS / CHAQUETAS / CHALECOS
               </p>
             </div>
           </Link>
 
-          {/* Columna PANTALONES + BOTAS */}
+          {/* Columna ROPA INFERIOR + CALZADO */}
           <div className="flex flex-col gap-4">
             <Link
-              href="/catalog?category=pants"
+              href="/catalog?category=inferior"
               className="h-[140px] md:h-1/2 relative group cursor-pointer overflow-hidden"
             >
               <Image
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWnqqQjAfHBZWuOACf95K-Rg5thb7LoHifk8X-4CbEBM6E2_zP8atG2savdG6QiDvCBxBS4VcNoFzXCrAl2xsVEcXqMubOFRWixttAcEwhbgIJvNl8Cbq2PnutdA_xa5oPFHtFXBqi7uU56gCtNw5iv8RcHZdiDowogwsMcEkrRVgs5Hp4kQ0M0n28IZcbdLqcSxqhLDZUw8cXCdhK4alOLFzORaiYldpn9Gy0OWxKMIbI3e_MWOwD675e9qdrzPFlU4vhH0GOEuY"
-                alt="Pantalones tácticos"
+                alt="Ropa inferior táctica"
                 fill
-                className="object-cover grayscale transition-transform duration-700 group-hover:scale-110"
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors" />
               <div className="absolute bottom-6 left-6">
                 <h3 className="font-headline text-2xl font-black text-white">
-                  PANTALONES
+                  ROPA INFERIOR
                 </h3>
               </div>
             </Link>
             <Link
-              href="/catalog?category=boots"
+              href="/catalog?category=calzado"
               className="h-[140px] md:h-1/2 relative group cursor-pointer overflow-hidden"
             >
               <Image
                 src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJU7vnWy7CV_3tjsyDTdpi681qHZtclR8W86rVV5_gef44KMzyT9eR8H16C3YZlihSO3t7Fhpp2aDKKlutJtXc1oyx_Y8kDhMgMFLymbaPm9fxp4macRpigje9ytKc6BmH-9qzeu8y-CMev9rSbNgfgEMhIwnzfTB-ngirIM5YreyF5enLrpdj5N-Ava0w2SLuqNkgOrEwrglSnSFBqR93nJXn8_12HHsuVYydkIuGFedYOU8Nm4jJ4fJufddJ1J0wGOtA-Y3yjMI"
-                alt="Botas militares"
+                alt="Calzado táctico"
                 fill
-                className="object-cover grayscale transition-transform duration-700 group-hover:scale-110"
+                className="object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors" />
               <div className="absolute bottom-6 left-6">
                 <h3 className="font-headline text-2xl font-black text-white">
-                  BOTAS
+                  CALZADO
                 </h3>
               </div>
             </Link>
           </div>
 
-          {/* ACCESORIOS */}
+          {/* ACCESORIOS — sin cambios */}
           <Link
             href="/catalog?category=accessories"
             className="relative group cursor-pointer overflow-hidden h-[280px] md:h-auto"

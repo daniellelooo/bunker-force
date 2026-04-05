@@ -17,9 +17,9 @@ import { SortControl } from "@/components/catalog/SortControl";
 import type { CatalogFilters as FiltersType, ProductCategory } from "@/lib/types";
 
 const categoryTitles: Record<string, { top: string; bottom: string }> = {
-  jackets: { top: "TODAS LAS", bottom: "CHAQUETAS" },
-  pants: { top: "TODOS LOS", bottom: "PANTALONES" },
-  boots: { top: "TODAS LAS", bottom: "BOTAS" },
+  superior: { top: "TODA LA", bottom: "ROPA SUPERIOR" },
+  inferior: { top: "TODA LA", bottom: "ROPA INFERIOR" },
+  calzado: { top: "TODO EL", bottom: "CALZADO" },
   accessories: { top: "TODOS LOS", bottom: "ACCESORIOS" },
 };
 

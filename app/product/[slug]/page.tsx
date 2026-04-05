@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getProductBySlug } from "@/lib/products";
+import { effectiveStatus } from "@/lib/status";
 import { ProductGallery } from "@/components/product/ProductGallery";
 import { ProductSpecs } from "@/components/product/ProductSpecs";
 import { AddToCartButton } from "@/components/product/AddToCartButton";
@@ -106,8 +107,14 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <span className="font-headline text-3xl font-light text-on-surface">
               {new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(product.price)}
             </span>
-            <span className="bg-surface-container-highest px-3 py-1 font-label text-[10px] tracking-widest border border-outline-variant/50 uppercase">
-              {statusLabels[product.status] ?? product.status}
+            <span className={`px-3 py-1 font-label text-[10px] tracking-widest border uppercase ${
+              effectiveStatus(product) === "out-of-stock"
+                ? "border-error/30 bg-error/10 text-error"
+                : effectiveStatus(product) === "low-stock"
+                ? "border-yellow-500/30 bg-yellow-500/10 text-yellow-400"
+                : "border-outline-variant/50 bg-surface-container-highest text-on-surface"
+            }`}>
+              {statusLabels[effectiveStatus(product)] ?? effectiveStatus(product)}
             </span>
           </div>
 

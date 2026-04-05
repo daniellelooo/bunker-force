@@ -8,9 +8,9 @@ const navSections = [
   {
     label: "ROPA",
     items: [
-      { href: "/catalog?category=jackets", label: "Chaquetas" },
-      { href: "/catalog?category=pants", label: "Pantalones" },
-      { href: "/catalog?category=boots", label: "Botas" },
+      { href: "/catalog?category=superior", label: "Ropa Superior" },
+      { href: "/catalog?category=inferior", label: "Ropa Inferior" },
+      { href: "/catalog?category=calzado", label: "Calzado" },
     ],
   },
 ];

@@ -42,13 +42,18 @@ function cartReducer(state: CartState, action: CartAction): CartState {
       );
       if (existing) {
         return {
-          items: state.items.map((i) =>
-            i.productId === action.payload.productId &&
-            i.selectedSize === action.payload.selectedSize &&
-            i.selectedColor === action.payload.selectedColor
-              ? { ...i, quantity: i.quantity + action.payload.quantity }
-              : i
-          ),
+          items: state.items.map((i) => {
+            if (
+              i.productId === action.payload.productId &&
+              i.selectedSize === action.payload.selectedSize &&
+              i.selectedColor === action.payload.selectedColor
+            ) {
+              const newQty = i.quantity + action.payload.quantity;
+              const max = i.maxStock ?? action.payload.maxStock;
+              return { ...i, quantity: max !== undefined ? Math.min(newQty, max) : newQty };
+            }
+            return i;
+          }),
         };
       }
       return { items: [...state.items, action.payload] };

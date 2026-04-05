@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import type { Product, ProductImage, ProductSpec } from "@/lib/types";
+import type { Product, ProductImage, ProductSize, ProductSpec } from "@/lib/types";
 
 const SIZES = ["XS", "S", "M", "L", "XL", "XXL"] as const;
 
@@ -33,10 +33,10 @@ const SPEC_ICONS = [
 ];
 
 const CATEGORIES = [
-  { value: "jackets", label: "Chaquetas" },
-  { value: "pants", label: "Pantalones" },
-  { value: "boots", label: "Botas" },
-  { value: "accessories", label: "Accesorios" },
+  { value: "superior", label: "Ropa Superior" },
+  { value: "inferior", label: "Ropa Inferior" },
+  { value: "calzado", label: "Calzado" },
+  { value: "accessories", label: "Accesorios y Equipo" },
 ] as const;
 
 function toSlug(text: string) {
@@ -53,19 +53,34 @@ const emptyProduct: Omit<Product, "id"> = {
   sku: "",
   series: "",
   name: "",
-  category: "jackets",
+  category: "superior",
   price: 0,
   rating: 5.0,
   reviewCount: 0,
   badge: "",
   status: "available",
-  stock: 0,
+  stock: undefined,
+  variantStock: undefined,
   images: [{ src: "", alt: "", label: "" }],
   specs: [{ icon: "shield", title: "", description: "" }],
   availableSizes: [],
   availableColors: [],
   featured: false,
 };
+
+// Clave de variante: "TALLA" (sin colores o 1 color) o "TALLA:COLOR" (varios colores)
+function variantKey(size: string, color: string | undefined, multiColor: boolean): string {
+  return multiColor && color ? `${size}:${color}` : size;
+}
+
+function computeStatusFromVariants(variantStock: Record<string, number>): Product["status"] {
+  const values = Object.values(variantStock);
+  if (values.length === 0) return "out-of-stock";
+  const total = values.reduce((a, b) => a + b, 0);
+  if (total === 0) return "out-of-stock";
+  if (total <= 5) return "low-stock";
+  return "available";
+}
 
 interface Props {
   initialData?: Product;
@@ -74,9 +89,14 @@ interface Props {
 
 export function ProductForm({ initialData, mode }: Props) {
   const router = useRouter();
-  const [form, setForm] = useState<Omit<Product, "id">>(
-    initialData ? { ...initialData } : emptyProduct
-  );
+  const [form, setForm] = useState<Omit<Product, "id">>(() => {
+    if (!initialData) return emptyProduct;
+    // Recalcular status desde variantStock al cargar, para corregir valores obsoletos en BD
+    const status = initialData.variantStock
+      ? computeStatusFromVariants(initialData.variantStock)
+      : initialData.status;
+    return { ...initialData, status };
+  });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [uploadingIndex, setUploadingIndex] = useState<number | null>(null);
@@ -178,10 +198,15 @@ export function ProductForm({ initialData, mode }: Props) {
         : `/api/admin/products/${initialData!.id}`;
     const method = mode === "new" ? "POST" : "PUT";
 
+    // Garantizar que el status esté recalculado antes de guardar
+    const finalForm = form.variantStock
+      ? { ...form, status: computeStatusFromVariants(form.variantStock) }
+      : form;
+
     const res = await fetch(url, {
       method,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(form),
+      body: JSON.stringify(finalForm),
     });
 
     if (res.ok) {
@@ -316,33 +341,20 @@ export function ProductForm({ initialData, mode }: Props) {
             <p className={hintCls}>Aparece como una pegatina sobre la foto del producto en el catálogo. Déjalo vacío si no quieres ninguna.</p>
           </div>
 
-          {/* Estado */}
+          {/* Estado (solo lectura, calculado automáticamente si hay sizeStock) */}
           <div>
-            <label className={labelCls}>Disponibilidad *</label>
-            <select
-              className={inputCls}
-              value={form.status}
-              onChange={(e) => setField("status", e.target.value as any)}
-              required
-            >
-              <option value="available">Disponible</option>
-              <option value="low-stock">Pocas unidades</option>
-              <option value="out-of-stock">Agotado</option>
-            </select>
-          </div>
-
-          {/* Stock */}
-          <div>
-            <label className={labelCls}>Unidades en bodega</label>
-            <input
-              type="number"
-              className={inputCls}
-              value={form.stock ?? ""}
-              onChange={(e) => setField("stock", e.target.value === "" ? undefined : Number(e.target.value))}
-              min={0}
-              placeholder="0"
-            />
-            <p className={hintCls}>Cuántas unidades tienes disponibles. Actualízalo después de ventas en tienda física.</p>
+            <label className={labelCls}>Disponibilidad</label>
+            <div className={`${inputCls} flex items-center gap-2 cursor-default`}>
+              <span className={`w-2 h-2 rounded-full ${
+                form.status === "available" ? "bg-green-500" :
+                form.status === "low-stock" ? "bg-yellow-400" : "bg-red-500"
+              }`} />
+              <span className="font-label text-xs tracking-widest uppercase">
+                {form.status === "available" ? "Disponible" :
+                 form.status === "low-stock" ? "Pocas unidades" : "Agotado"}
+              </span>
+            </div>
+            <p className={hintCls}>Se calcula automáticamente según el stock por talla.</p>
           </div>
         </div>
 
@@ -471,28 +483,153 @@ export function ProductForm({ initialData, mode }: Props) {
         </button>
       </div>
 
-      {/* ─── Tallas ─── */}
+      {/* ─── Inventario por talla y color ─── */}
       <div className={sectionCls}>
         <h2 className="font-headline font-black text-sm uppercase tracking-widest text-outline mb-2">
-          Tallas disponibles
+          Inventario por talla y color
         </h2>
-        <p className={hintCls + " mb-3"}>Marca las tallas que tienes en stock para este producto.</p>
-        <div className="flex flex-wrap gap-2">
-          {SIZES.map((size) => (
-            <button
-              key={size}
-              type="button"
-              onClick={() => toggleSize(size)}
-              className={`px-5 py-2.5 font-label text-sm tracking-widest uppercase border transition-all ${
-                form.availableSizes.includes(size as any)
-                  ? "bg-primary text-on-primary border-primary"
-                  : "border-outline-variant/40 text-outline hover:border-primary hover:text-primary"
-              }`}
-            >
-              {size}
-            </button>
-          ))}
-        </div>
+
+        {form.availableSizes.length === 0 && (
+          <p className="font-label text-[11px] text-outline tracking-widest mb-3">
+            Primero activa las tallas en la sección de colores y tallas, luego configura el stock aquí.
+          </p>
+        )}
+
+        {form.availableSizes.length > 0 && (() => {
+          const multiColor = form.availableColors.length > 1;
+          const colors = multiColor ? form.availableColors : [undefined as unknown as string];
+
+          function updateVariant(size: string, color: string | undefined, value: string) {
+            const num = value === "" ? 0 : Math.max(0, Number(value));
+            const key = variantKey(size, color, multiColor);
+            const newVariant: Record<string, number> = { ...(form.variantStock ?? {}) };
+            newVariant[key] = num;
+            const total = Object.values(newVariant).reduce((a, b) => a + b, 0);
+            setForm((prev) => ({
+              ...prev,
+              variantStock: newVariant,
+              status: computeStatusFromVariants(newVariant),
+              stock: total || undefined,
+            }));
+          }
+
+          function getStock(size: string, color: string | undefined): number {
+            if (!form.variantStock) return 0;
+            return form.variantStock[variantKey(size, color, multiColor)] ?? 0;
+          }
+
+          const colorLabels: Record<string, string> = Object.fromEntries(
+            PRESET_COLORS.map((c) => [c.value, c.label])
+          );
+
+          return (
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr>
+                    <th className="text-left px-3 py-2 font-label text-[9px] tracking-[0.2em] uppercase text-outline border-b border-outline-variant/20 w-16">
+                      Talla
+                    </th>
+                    {multiColor ? (
+                      colors.map((color) => (
+                        <th key={color} className="px-3 py-2 font-label text-[9px] tracking-widest uppercase text-outline border-b border-outline-variant/20 text-center min-w-[90px]">
+                          <span className="flex flex-col items-center gap-1">
+                            <span
+                              className="w-4 h-4 rounded-full border border-outline-variant/40 inline-block"
+                              style={{ backgroundColor: PRESET_COLORS.find(p => p.value === color)?.hex ?? color }}
+                            />
+                            {colorLabels[color] ?? color}
+                          </span>
+                        </th>
+                      ))
+                    ) : (
+                      <th className="px-3 py-2 font-label text-[9px] tracking-widest uppercase text-outline border-b border-outline-variant/20 text-center">
+                        Unidades
+                      </th>
+                    )}
+                    <th className="px-3 py-2 font-label text-[9px] tracking-widest uppercase text-outline border-b border-outline-variant/20 text-right">
+                      Subtotal
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-outline-variant/10">
+                  {form.availableSizes.map((size) => {
+                    const rowTotal = colors.reduce((sum, color) => sum + getStock(size, color), 0);
+                    return (
+                      <tr key={size} className="hover:bg-surface-container-high transition-colors">
+                        <td className="px-3 py-3">
+                          <span className="font-label text-sm font-black tracking-widest text-on-surface">{size}</span>
+                        </td>
+                        {colors.map((color) => {
+                          const stock = getStock(size, color);
+                          return (
+                            <td key={color ?? "none"} className="px-3 py-3 text-center">
+                              <input
+                                type="number"
+                                min={0}
+                                value={stock}
+                                onChange={(e) => updateVariant(size, color, e.target.value)}
+                                className={`w-20 bg-surface-container-high border px-2 py-1.5 font-headline font-bold text-sm text-center focus:outline-none transition-colors ${
+                                  stock === 0
+                                    ? "border-error/40 text-error focus:border-error"
+                                    : stock <= 3
+                                    ? "border-yellow-500/40 text-yellow-400 focus:border-yellow-500"
+                                    : "border-outline-variant/40 text-on-surface focus:border-primary"
+                                }`}
+                              />
+                            </td>
+                          );
+                        })}
+                        <td className="px-3 py-3 text-right">
+                          <span className={`font-label text-xs font-bold ${
+                            rowTotal === 0 ? "text-error/60" : rowTotal <= 3 ? "text-yellow-400" : "text-outline"
+                          }`}>
+                            {rowTotal === 0 ? "Agotado" : `${rowTotal} uds.`}
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+                <tfoot>
+                  <tr className="border-t border-outline-variant/30">
+                    <td colSpan={colors.length + 1} className="px-3 py-3 font-label text-[10px] tracking-widest text-outline uppercase">
+                      Total en bodega
+                    </td>
+                    <td className="px-3 py-3 text-right">
+                      <span className="font-headline font-black text-sm text-on-surface">
+                        {form.availableSizes.reduce((sum, size) =>
+                          sum + colors.reduce((cs, color) => cs + getStock(size, color), 0), 0
+                        )} uds.
+                      </span>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+
+              {/* Estado calculado */}
+              <div className="mt-3 flex items-center gap-2">
+                <span className="font-label text-[10px] tracking-widest text-outline uppercase">Estado calculado:</span>
+                <span className={`font-label text-[10px] tracking-widest uppercase px-2 py-1 border ${
+                  form.status === "available"
+                    ? "text-green-400 border-green-400/30 bg-green-400/10"
+                    : form.status === "low-stock"
+                    ? "text-yellow-400 border-yellow-400/30 bg-yellow-400/10"
+                    : "text-red-400 border-red-400/30 bg-red-400/10"
+                }`}>
+                  {form.status === "available" ? "Disponible" :
+                   form.status === "low-stock" ? "Pocas unidades" : "Agotado"}
+                </span>
+              </div>
+            </div>
+          );
+        })()}
+
+        {form.availableSizes.length === 0 && (
+          <p className={hintCls}>
+            Activa las tallas en la sección &quot;Tallas disponibles&quot; de arriba para configurar el stock.
+          </p>
+        )}
       </div>
 
       {/* ─── Colores ─── */}

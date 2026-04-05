@@ -17,10 +17,10 @@ const STATUS_COLORS: Record<string, string> = {
 };
 
 const CATEGORY_LABELS: Record<string, string> = {
-  jackets: "Chaquetas",
-  pants: "Pantalones",
-  boots: "Botas",
-  accessories: "Accesorios",
+  superior: "Ropa Superior",
+  inferior: "Ropa Inferior",
+  calzado: "Calzado",
+  accessories: "Accesorios y Equipo",
 };
 
 function formatCOP(value: number) {
@@ -83,7 +83,7 @@ export function ProductsClient({ initialProducts }: { initialProducts: Product[]
           <table className="w-full">
             <thead>
               <tr className="border-b border-outline-variant/20">
-                {["Producto", "SKU", "Categoría", "Precio", "Estado", "Destacado", "Acciones"].map((h) => (
+                {["Producto", "SKU", "Categoría", "Precio", "Stock por talla", "Estado", "Destacado", "Acciones"].map((h) => (
                   <th key={h} className="text-left px-4 py-3 font-label text-[10px] tracking-[0.2em] uppercase text-outline">
                     {h}
                   </th>
@@ -119,9 +119,48 @@ export function ProductsClient({ initialProducts }: { initialProducts: Product[]
                     <span className="font-headline font-bold text-sm text-primary">{formatCOP(product.price)}</span>
                   </td>
                   <td className="px-4 py-4">
-                    <span className={`font-label text-[10px] tracking-widest uppercase px-2 py-1 border ${STATUS_COLORS[product.status]}`}>
-                      {STATUS_LABELS[product.status]}
-                    </span>
+                    {product.variantStock && product.availableSizes.length > 0 ? (
+                      <div className="flex flex-wrap gap-1">
+                        {product.availableSizes.map((size) => {
+                          // Sumar todas las variantes que correspondan a esta talla
+                          const keys = Object.keys(product.variantStock!).filter(
+                            (k) => k === size || k.startsWith(`${size}:`)
+                          );
+                          const qty = keys.reduce((sum, k) => sum + (product.variantStock![k] ?? 0), 0);
+                          return (
+                            <span
+                              key={size}
+                              className={`font-label text-[9px] font-bold tracking-wider px-1.5 py-0.5 border ${
+                                qty === 0
+                                  ? "text-error/60 border-error/20 bg-error/5"
+                                  : qty <= 3
+                                  ? "text-yellow-400 border-yellow-400/30 bg-yellow-400/5"
+                                  : "text-outline border-outline-variant/30"
+                              }`}
+                            >
+                              {size}: {qty}
+                            </span>
+                          );
+                        })}
+                      </div>
+                    ) : !product.variantStock ? (
+                      <span className="font-label text-[9px] tracking-widest uppercase px-1.5 py-0.5 border text-outline/40 border-outline-variant/20 bg-surface-container-low">
+                        Sin configurar
+                      </span>
+                    ) : (
+                      <span className="font-label text-[10px] text-outline tracking-widest">—</span>
+                    )}
+                  </td>
+                  <td className="px-4 py-4">
+                    {!product.variantStock ? (
+                      <span className="font-label text-[10px] tracking-widest uppercase px-2 py-1 border text-outline/50 border-outline-variant/30 bg-surface-container-low">
+                        Sin configurar
+                      </span>
+                    ) : (
+                      <span className={`font-label text-[10px] tracking-widest uppercase px-2 py-1 border ${STATUS_COLORS[product.status]}`}>
+                        {STATUS_LABELS[product.status]}
+                      </span>
+                    )}
                   </td>
                   <td className="px-4 py-4">
                     <button
@@ -186,10 +225,44 @@ export function ProductsClient({ initialProducts }: { initialProducts: Product[]
                   <div className="font-label text-xs text-outline tracking-widest mt-0.5">{product.sku}</div>
                   <div className="flex items-center gap-2 mt-2 flex-wrap">
                     <span className="font-headline font-bold text-sm text-primary">{formatCOP(product.price)}</span>
-                    <span className={`font-label text-[10px] tracking-widest uppercase px-2 py-0.5 border ${STATUS_COLORS[product.status]}`}>
-                      {STATUS_LABELS[product.status]}
-                    </span>
+                    {!product.variantStock ? (
+                      <span className="font-label text-[10px] tracking-widest uppercase px-2 py-0.5 border text-outline/50 border-outline-variant/30 bg-surface-container-low">
+                        Sin configurar
+                      </span>
+                    ) : (
+                      <span className={`font-label text-[10px] tracking-widest uppercase px-2 py-0.5 border ${STATUS_COLORS[product.status]}`}>
+                        {STATUS_LABELS[product.status]}
+                      </span>
+                    )}
                   </div>
+                  {product.variantStock && product.availableSizes.length > 0 ? (
+                    <div className="flex flex-wrap gap-1 mt-2">
+                      {product.availableSizes.map((size) => {
+                        const keys = Object.keys(product.variantStock!).filter(
+                          (k) => k === size || k.startsWith(`${size}:`)
+                        );
+                        const qty = keys.reduce((sum, k) => sum + (product.variantStock![k] ?? 0), 0);
+                        return (
+                          <span
+                            key={size}
+                            className={`font-label text-[9px] font-bold tracking-wider px-1.5 py-0.5 border ${
+                              qty === 0
+                                ? "text-error/60 border-error/20 bg-error/5"
+                                : qty <= 3
+                                ? "text-yellow-400 border-yellow-400/30 bg-yellow-400/5"
+                                : "text-outline border-outline-variant/30"
+                            }`}
+                          >
+                            {size}: {qty}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  ) : !product.variantStock ? (
+                    <span className="font-label text-[9px] tracking-widest uppercase px-1.5 py-0.5 border text-outline/40 border-outline-variant/20 bg-surface-container-low mt-2 inline-block">
+                      Stock sin configurar
+                    </span>
+                  ) : null}
                 </div>
                 <button onClick={() => handleToggleFeatured(product)} disabled={togglingId === product.id} className="transition-transform active:scale-95 disabled:opacity-40 shrink-0">
                   <span className={`material-symbols-outlined text-[22px] ${product.featured ? "text-primary" : "text-outline"}`}>

@@ -22,7 +22,7 @@ export function CatalogFilters() {
   const selectedSizes = searchParams.getAll("sizes");
   const selectedColors = searchParams.getAll("colors");
   const maxPrice = searchParams.get("maxPrice") || "1000";
-  const isAccessories = searchParams.get("category") === "accessories";
+  const category = searchParams.get("category");
 
   const activeCount =
     selectedSizes.length +
@@ -58,8 +58,8 @@ export function CatalogFilters() {
         FILTROS
       </h3>
 
-      {/* Size Filter — hidden for accessories */}
-      {!isAccessories && (
+      {/* Filtro de talla — oculto para accesorios y calzado */}
+      {category !== "accessories" && category !== "calzado" && (
         <div className="space-y-4">
           <span className="block text-[10px] font-bold tracking-[0.2em] text-outline uppercase">
             TALLA

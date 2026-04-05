@@ -1,6 +1,7 @@
 import { supabase, supabaseAdmin } from "@/lib/supabase";
 import type { Product, CatalogFilters } from "@/lib/types";
 
+
 // Mapea la fila de Supabase (snake_case) al tipo Product (camelCase)
 function mapProduct(row: Record<string, unknown>): Product {
   return {
@@ -16,6 +17,7 @@ function mapProduct(row: Record<string, unknown>): Product {
     badge: (row.badge as string) ?? undefined,
     status: row.status as Product["status"],
     stock: (row.stock as number) ?? undefined,
+    variantStock: (row.size_stock as Product["variantStock"]) ?? undefined,
     images: row.images as Product["images"],
     specs: (row.specs as Product["specs"]) ?? [],
     availableSizes: row.available_sizes as Product["availableSizes"],
@@ -134,6 +136,7 @@ export async function adminCreateProduct(product: Omit<Product, "id">): Promise<
     badge: product.badge ?? null,
     status: product.status,
     stock: product.stock ?? null,
+    size_stock: product.variantStock ?? null,
     images: product.images,
     specs: product.specs,
     available_sizes: product.availableSizes,
@@ -158,6 +161,7 @@ export async function adminUpdateProduct(id: string, product: Product): Promise<
     badge: product.badge ?? null,
     status: product.status,
     stock: product.stock ?? null,
+    size_stock: product.variantStock ?? null,
     images: product.images,
     specs: product.specs,
     available_sizes: product.availableSizes,

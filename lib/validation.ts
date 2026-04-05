@@ -35,7 +35,7 @@ const VALID_SIZES = ["XS", "S", "M", "L", "XL", "XXL", "ÚNICA"];
 const PHONE_RE = /^[\d\s\+\-\(\)]{7,20}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const VALID_CATEGORIES = ["jackets", "pants", "boots", "accessories"];
+const VALID_CATEGORIES = ["superior", "inferior", "calzado", "accessories"];
 const VALID_STATUSES = ["available", "low-stock", "out-of-stock"];
 
 export function validateOrder(body: unknown): ValidationResult {

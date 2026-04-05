@@ -10,7 +10,7 @@ export interface ProductSpec {
   description: string;
 }
 
-export type ProductCategory = "jackets" | "pants" | "boots" | "accessories";
+export type ProductCategory = "superior" | "inferior" | "calzado" | "accessories";
 export type ProductSize = "XS" | "S" | "M" | "L" | "XL" | "XXL";
 export type ProductColor = string;
 export type ProductStatus = "available" | "low-stock" | "out-of-stock";
@@ -28,6 +28,8 @@ export interface Product {
   badge?: string;
   status: ProductStatus;
   stock?: number;
+  // Clave: "TALLA" (sin colores) o "TALLA:COLOR" (con colores). Undefined = stock no configurado aún.
+  variantStock?: Record<string, number>;
   images: ProductImage[];
   specs: ProductSpec[];
   availableSizes: ProductSize[];
@@ -45,6 +47,7 @@ export interface CartItem {
   selectedSize: string;
   selectedColor?: string;
   quantity: number;
+  maxStock?: number; // Stock disponible para esta variante al momento de añadir
 }
 
 export interface CatalogFilters {

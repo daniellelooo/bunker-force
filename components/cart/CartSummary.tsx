@@ -3,6 +3,14 @@
 import { useCart } from "@/context/CartContext";
 import { useRouter } from "next/navigation";
 
+function formatCOP(value: number) {
+  return new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    maximumFractionDigits: 0,
+  }).format(value);
+}
+
 export function CartSummary() {
   const { cartSubtotal, cartTax, cartTotal, dispatch, state } = useCart();
   const router = useRouter();
@@ -16,16 +24,16 @@ export function CartSummary() {
       <div className="space-y-3 font-label text-sm">
         <div className="flex justify-between">
           <span className="text-outline uppercase tracking-widest text-xs">SUBTOTAL</span>
-          <span className="font-bold">${cartSubtotal.toFixed(2)}</span>
+          <span className="font-bold">{formatCOP(cartSubtotal)}</span>
         </div>
         <div className="flex justify-between">
           <span className="text-outline uppercase tracking-widest text-xs">IVA (19%)</span>
-          <span className="font-bold">${cartTax.toFixed(2)}</span>
+          <span className="font-bold">{formatCOP(cartTax)}</span>
         </div>
         <div className="flex justify-between border-t border-outline-variant/30 pt-3">
           <span className="text-on-surface font-black uppercase tracking-widest text-xs">TOTAL</span>
           <span className="font-headline text-2xl font-black text-primary">
-            ${cartTotal.toFixed(2)}
+            {formatCOP(cartTotal)}
           </span>
         </div>
       </div>
