@@ -27,17 +27,15 @@ export function CatalogFilters() {
 
   const selectedSizes = searchParams.getAll("sizes");
   const selectedColors = searchParams.getAll("colors");
-  const minPrice = searchParams.get("minPrice") || "";
   const maxPrice = searchParams.get("maxPrice") || "";
   const category = searchParams.get("category");
 
-  const [minInput, setMinInput] = useState(minPrice);
-  const [maxInput, setMaxInput] = useState(maxPrice);
+  const MAX = 2000000;
+  const sliderValue = maxPrice ? Number(maxPrice) : MAX;
 
   const activeCount =
     selectedSizes.length +
     selectedColors.length +
-    (minPrice ? 1 : 0) +
     (maxPrice ? 1 : 0);
 
   const updateParam = useCallback(
@@ -60,8 +58,6 @@ export function CatalogFilters() {
   );
 
   const reset = () => {
-    setMinInput("");
-    setMaxInput("");
     router.push(pathname, { scroll: false });
   };
 
@@ -139,64 +135,67 @@ export function CatalogFilters() {
       </div>
 
       {/* Price Range */}
-      <div className="space-y-3">
-        <span className="block text-[10px] font-bold tracking-[0.2em] text-outline uppercase">
-          RANGO DE PRECIO
-        </span>
-        <div className="flex items-center gap-2">
-          <div className="flex-1">
-            <label className="block text-[9px] text-outline tracking-widest uppercase mb-1">Mínimo</label>
-            <div className="relative">
-              <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-outline">$</span>
-              <input
-                type="number"
-                min={0}
-                step={10000}
-                placeholder="0"
-                value={minInput}
-                onChange={(e) => setMinInput(e.target.value)}
-                onBlur={() => {
-                  const params = new URLSearchParams(searchParams.toString());
-                  if (minInput) params.set("minPrice", minInput);
-                  else params.delete("minPrice");
-                  router.push(`${pathname}?${params.toString()}`, { scroll: false });
-                }}
-                className="w-full bg-surface-container border border-outline-variant/40 pl-5 pr-2 py-2 text-[11px] font-mono text-on-surface focus:outline-none focus:border-primary transition-colors"
-              />
-            </div>
-          </div>
-          <span className="text-outline text-xs mt-4">—</span>
-          <div className="flex-1">
-            <label className="block text-[9px] text-outline tracking-widest uppercase mb-1">Máximo</label>
-            <div className="relative">
-              <span className="absolute left-2 top-1/2 -translate-y-1/2 text-[10px] text-outline">$</span>
-              <input
-                type="number"
-                min={0}
-                step={10000}
-                placeholder="∞"
-                value={maxInput}
-                onChange={(e) => setMaxInput(e.target.value)}
-                onBlur={() => {
-                  const params = new URLSearchParams(searchParams.toString());
-                  if (maxInput) params.set("maxPrice", maxInput);
-                  else params.delete("maxPrice");
-                  router.push(`${pathname}?${params.toString()}`, { scroll: false });
-                }}
-                className="w-full bg-surface-container border border-outline-variant/40 pl-5 pr-2 py-2 text-[11px] font-mono text-on-surface focus:outline-none focus:border-primary transition-colors"
-              />
-            </div>
-          </div>
+      {/* Price Range */}
+      <div className="space-y-4">
+        <div className="flex items-end justify-between">
+          <span className="block text-[10px] font-bold tracking-[0.2em] text-outline uppercase">
+            PRECIO MÁXIMO
+          </span>
+          <span className={`font-headline font-black text-base ${sliderValue < MAX ? "text-primary" : "text-on-surface-variant"}`}>
+            {sliderValue < MAX
+              ? new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(sliderValue)
+              : "Sin límite"}
+          </span>
         </div>
-        {(minPrice || maxPrice) && (
-          <p className="text-[9px] text-primary tracking-widest">
-            {minPrice && maxPrice
-              ? `$${Number(minPrice).toLocaleString("es-CO")} — $${Number(maxPrice).toLocaleString("es-CO")}`
-              : minPrice
-              ? `Desde $${Number(minPrice).toLocaleString("es-CO")}`
-              : `Hasta $${Number(maxPrice).toLocaleString("es-CO")}`}
-          </p>
-        )}
+
+        {/* Track custom */}
+        <div className="relative py-2">
+          <div className="absolute top-1/2 -translate-y-1/2 left-0 right-0 h-1.5 bg-surface-container-highest rounded-full" />
+          <div
+            className="absolute top-1/2 -translate-y-1/2 left-0 h-1.5 bg-primary rounded-full pointer-events-none"
+            style={{ width: `${(sliderValue / MAX) * 100}%` }}
+          />
+          <input
+            type="range"
+            min={50000}
+            max={MAX}
+            step={25000}
+            value={sliderValue}
+            onChange={(e) => {
+              const val = Number(e.target.value);
+              const params = new URLSearchParams(searchParams.toString());
+              if (val >= MAX) params.delete("maxPrice");
+              else params.set("maxPrice", String(val));
+              router.push(`${pathname}?${params.toString()}`, { scroll: false });
+            }}
+            className="relative w-full appearance-none bg-transparent cursor-pointer h-6
+              [&::-webkit-slider-thumb]:appearance-none
+              [&::-webkit-slider-thumb]:w-5
+              [&::-webkit-slider-thumb]:h-5
+              [&::-webkit-slider-thumb]:rounded-full
+              [&::-webkit-slider-thumb]:bg-primary
+              [&::-webkit-slider-thumb]:border-2
+              [&::-webkit-slider-thumb]:border-on-primary
+              [&::-webkit-slider-thumb]:shadow-md
+              [&::-webkit-slider-thumb]:cursor-pointer
+              [&::-webkit-slider-thumb]:transition-transform
+              [&::-webkit-slider-thumb]:hover:scale-125
+              [&::-moz-range-thumb]:w-5
+              [&::-moz-range-thumb]:h-5
+              [&::-moz-range-thumb]:rounded-full
+              [&::-moz-range-thumb]:bg-primary
+              [&::-moz-range-thumb]:border-2
+              [&::-moz-range-thumb]:border-on-primary
+              [&::-moz-range-thumb]:cursor-pointer"
+          />
+        </div>
+
+        <div className="flex justify-between text-[9px] font-mono text-outline/60">
+          <span>$50.000</span>
+          <span>$500.000</span>
+          <span>$1.000.000</span>
+          <span>$2.000.000</span>
+        </div>
       </div>
 
       <div className="pt-6 border-t border-outline-variant/30">
