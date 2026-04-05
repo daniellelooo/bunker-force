@@ -3,7 +3,13 @@
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback, useState } from "react";
 
-const sizes = ["S", "M", "L", "XL", "XXL"];
+const sizesByCategory: Record<string, string[]> = {
+  superior:    ["XS", "S", "M", "L", "XL", "XXL"],
+  inferior:    ["28", "30", "32", "34", "36", "38", "40", "42"],
+  calzado:     ["36", "37", "38", "39", "40", "41", "42", "43", "44", "45"],
+  accessories: ["Única", "S", "M", "L", "XL"],
+  default:     ["XS", "S", "M", "L", "XL", "XXL"],
+};
 const colors = [
   { id: "black-ops",  label: "Black Ops",     hex: "#000000" },
   { id: "od-green",   label: "Verde Militar",  hex: "#3d4231" },
@@ -58,29 +64,32 @@ export function CatalogFilters() {
         FILTROS
       </h3>
 
-      {/* Filtro de talla — oculto para accesorios y calzado */}
-      {category !== "accessories" && category !== "calzado" && (
-        <div className="space-y-4">
-          <span className="block text-[10px] font-bold tracking-[0.2em] text-outline uppercase">
-            TALLA
-          </span>
-          <div className="grid grid-cols-3 gap-2">
-            {sizes.map((size) => (
-              <button
-                key={size}
-                onClick={() => updateParam("sizes", size, true)}
-                className={`border py-2 text-xs font-bold transition-colors ${
-                  selectedSizes.includes(size)
-                    ? "border-primary bg-surface-container-highest text-primary"
-                    : "border-outline-variant hover:bg-surface-container-high text-on-surface"
-                }`}
-              >
-                {size}
-              </button>
-            ))}
+      {/* Filtro de talla */}
+      {(() => {
+        const sizes = sizesByCategory[category ?? "default"] ?? sizesByCategory.default;
+        return (
+          <div className="space-y-4">
+            <span className="block text-[10px] font-bold tracking-[0.2em] text-outline uppercase">
+              TALLA
+            </span>
+            <div className="grid grid-cols-3 gap-2">
+              {sizes.map((size) => (
+                <button
+                  key={size}
+                  onClick={() => updateParam("sizes", size, true)}
+                  className={`border py-2 text-xs font-bold transition-colors ${
+                    selectedSizes.includes(size)
+                      ? "border-primary bg-surface-container-highest text-primary"
+                      : "border-outline-variant hover:bg-surface-container-high text-on-surface"
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
 
       {/* Color Filter */}
       <div className="space-y-4">

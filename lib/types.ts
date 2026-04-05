@@ -11,7 +11,7 @@ export interface ProductSpec {
 }
 
 export type ProductCategory = "superior" | "inferior" | "calzado" | "accessories";
-export type ProductSize = "XS" | "S" | "M" | "L" | "XL" | "XXL";
+export type ProductSize = string;
 export type ProductColor = string;
 export type ProductStatus = "available" | "low-stock" | "out-of-stock";
 
