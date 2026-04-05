@@ -15,6 +15,51 @@ export async function POST(request: NextRequest) {
   if (!validation.ok) return validation.toResponse();
 
   const b = body as Record<string, unknown>;
+  const items = b.items as Order["items"];
+
+  // Verificar stock y decrementar atómicamente
+  const productMap = new Map<string, Map<string, number>>();
+  for (const item of items) {
+    const variantKey = item.selectedColor
+      ? `${item.selectedSize}:${item.selectedColor}`
+      : item.selectedSize;
+    if (!productMap.has(item.productId)) productMap.set(item.productId, new Map());
+    const prev = productMap.get(item.productId)!.get(variantKey) ?? 0;
+    productMap.get(item.productId)!.set(variantKey, prev + item.quantity);
+  }
+
+  for (const [productId, variants] of productMap) {
+    const { data: row } = await supabaseAdmin
+      .from("products")
+      .select("size_stock, name")
+      .eq("id", productId)
+      .single();
+
+    if (!row?.size_stock) continue; // producto sin stock configurado: se ignora
+
+    const currentStock = row.size_stock as Record<string, number>;
+    const newStock = { ...currentStock };
+
+    for (const [key, qty] of variants) {
+      const available = currentStock[key] ?? 0;
+      if (available < qty) {
+        const size = key.split(":")[0];
+        return Response.json(
+          { error: `Stock insuficiente: "${row.name}" talla ${size} — solo quedan ${available} ${available === 1 ? "unidad" : "unidades"}.` },
+          { status: 409 }
+        );
+      }
+      newStock[key] = available - qty;
+    }
+
+    const total = Object.values(newStock).reduce((a, v) => a + v, 0);
+    const newStatus = total === 0 ? "out-of-stock" : total <= 5 ? "low-stock" : "available";
+
+    await supabaseAdmin
+      .from("products")
+      .update({ size_stock: newStock, stock: total || null, status: newStatus })
+      .eq("id", productId);
+  }
 
   const order: Order = {
     id: `BF-${Date.now()}`,

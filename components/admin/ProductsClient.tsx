@@ -35,6 +35,7 @@ export function ProductsClient({ initialProducts }: { initialProducts: Product[]
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [togglingId, setTogglingId] = useState<string | null>(null);
+  const [search, setSearch] = useState("");
 
   async function handleToggleFeatured(product: Product) {
     setTogglingId(product.id);
@@ -55,6 +56,16 @@ export function ProductsClient({ initialProducts }: { initialProducts: Product[]
     setProducts((prev) => prev.filter((p) => p.id !== id));
     setDeletingId(null);
   }
+
+  const q = search.trim().toLowerCase();
+  const visibleProducts = q
+    ? products.filter(
+        (p) =>
+          p.name.toLowerCase().includes(q) ||
+          p.sku.toLowerCase().includes(q) ||
+          (CATEGORY_LABELS[p.category] ?? p.category).toLowerCase().includes(q)
+      )
+    : products;
 
   return (
     <div className="space-y-6">
@@ -77,6 +88,25 @@ export function ProductsClient({ initialProducts }: { initialProducts: Product[]
         </Link>
       </div>
 
+      {/* Búsqueda */}
+      <div className="relative">
+        <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-outline pointer-events-none">search</span>
+        <input
+          className="w-full bg-surface-container border border-outline-variant/40 pl-9 pr-4 py-2.5 font-body text-sm text-on-surface placeholder:text-outline/50 focus:outline-none focus:border-primary transition-colors"
+          placeholder="Buscar por nombre, SKU o categoría…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        {search && (
+          <button
+            onClick={() => setSearch("")}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface transition-colors"
+          >
+            <span className="material-symbols-outlined text-[18px]">close</span>
+          </button>
+        )}
+      </div>
+
       {/* Desktop Table */}
       <div className="hidden md:block bg-surface-container-low border border-outline-variant/20 overflow-hidden">
         <div className="overflow-x-auto">
@@ -91,7 +121,7 @@ export function ProductsClient({ initialProducts }: { initialProducts: Product[]
               </tr>
             </thead>
             <tbody className="divide-y divide-outline-variant/10">
-              {products.map((product) => (
+              {visibleProducts.map((product) => (
                 <tr key={product.id} className="hover:bg-surface-container-high transition-colors">
                   <td className="px-4 py-4">
                     <div className="flex items-center gap-3">
@@ -197,23 +227,27 @@ export function ProductsClient({ initialProducts }: { initialProducts: Product[]
             </tbody>
           </table>
         </div>
-        {products.length === 0 && (
+        {visibleProducts.length === 0 && (
           <div className="py-16 text-center">
             <span className="material-symbols-outlined text-4xl text-outline mb-2 block">inventory_2</span>
-            <p className="font-label text-xs text-outline tracking-widest uppercase">No hay productos</p>
+            <p className="font-label text-xs text-outline tracking-widest uppercase">
+              {q ? "Sin resultados para esa búsqueda" : "No hay productos"}
+            </p>
           </div>
         )}
       </div>
 
       {/* Mobile Cards */}
       <div className="md:hidden space-y-3">
-        {products.length === 0 ? (
+        {visibleProducts.length === 0 ? (
           <div className="py-16 text-center bg-surface-container-low border border-outline-variant/20">
             <span className="material-symbols-outlined text-4xl text-outline mb-2 block">inventory_2</span>
-            <p className="font-label text-xs text-outline tracking-widest uppercase">No hay productos</p>
+            <p className="font-label text-xs text-outline tracking-widest uppercase">
+              {q ? "Sin resultados para esa búsqueda" : "No hay productos"}
+            </p>
           </div>
         ) : (
-          products.map((product) => (
+          visibleProducts.map((product) => (
             <div key={product.id} className="bg-surface-container-low border border-outline-variant/20 p-4">
               <div className="flex items-start gap-3 mb-3">
                 {product.images[0] && (
@@ -284,7 +318,7 @@ export function ProductsClient({ initialProducts }: { initialProducts: Product[]
       </div>
 
       <p className="font-label text-[10px] text-outline tracking-widest">
-        {products.length} producto{products.length !== 1 ? "s" : ""} en el catálogo
+        {q ? `${visibleProducts.length} de ${products.length}` : products.length} producto{products.length !== 1 ? "s" : ""} en el catálogo
       </p>
     </div>
   );

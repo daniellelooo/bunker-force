@@ -31,8 +31,19 @@ function formatDate(iso: string) {
 export function OrdersClient({ initialOrders }: { initialOrders: Order[] }) {
   const [orders] = useState<Order[]>(initialOrders);
   const [filter, setFilter] = useState<OrderStatus | "all">("all");
+  const [search, setSearch] = useState("");
 
-  const filtered = filter === "all" ? orders : orders.filter((o) => o.status === filter);
+  const q = search.trim().toLowerCase();
+  const filtered = orders
+    .filter((o) => filter === "all" || o.status === filter)
+    .filter(
+      (o) =>
+        !q ||
+        o.id.toLowerCase().includes(q) ||
+        o.customer.name.toLowerCase().includes(q) ||
+        o.customer.phone.includes(q) ||
+        o.customer.city.toLowerCase().includes(q)
+    );
 
   return (
     <div className="space-y-6">
@@ -44,6 +55,25 @@ export function OrdersClient({ initialOrders }: { initialOrders: Order[] }) {
         <span className="font-label text-xs text-outline tracking-widest">
           {orders.length} pedido{orders.length !== 1 ? "s" : ""}
         </span>
+      </div>
+
+      {/* Búsqueda */}
+      <div className="relative">
+        <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[18px] text-outline pointer-events-none">search</span>
+        <input
+          className="w-full bg-surface-container border border-outline-variant/40 pl-9 pr-4 py-2.5 font-body text-sm text-on-surface placeholder:text-outline/50 focus:outline-none focus:border-primary transition-colors"
+          placeholder="Buscar por ID, cliente, teléfono o ciudad…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        {search && (
+          <button
+            onClick={() => setSearch("")}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface transition-colors"
+          >
+            <span className="material-symbols-outlined text-[18px]">close</span>
+          </button>
+        )}
       </div>
 
       <div className="flex flex-wrap gap-2">
@@ -103,7 +133,7 @@ export function OrdersClient({ initialOrders }: { initialOrders: Order[] }) {
           <div className="py-16 text-center">
             <span className="material-symbols-outlined text-4xl text-outline mb-2 block">local_shipping</span>
             <p className="font-label text-xs text-outline tracking-widest uppercase">
-              {filter === "all" ? "No hay pedidos" : `No hay pedidos "${STATUS_LABELS[filter as OrderStatus]}"`}
+              {q ? "Sin resultados para esa búsqueda" : filter === "all" ? "No hay pedidos" : `No hay pedidos "${STATUS_LABELS[filter as OrderStatus]}"`}
             </p>
           </div>
         )}

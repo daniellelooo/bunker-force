@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
+import { isAdminRequest, unauthorizedResponse } from "@/lib/auth";
 
 function mapOrder(row: Record<string, unknown>) {
   return {
@@ -15,9 +16,10 @@ function mapOrder(row: Record<string, unknown>) {
 }
 
 export async function GET(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!isAdminRequest(request)) return unauthorizedResponse();
   const { id } = await params;
 
   const { data, error } = await supabaseAdmin
@@ -37,6 +39,7 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!isAdminRequest(request)) return unauthorizedResponse();
   const { id } = await params;
   const { status } = await request.json();
 

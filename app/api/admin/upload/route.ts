@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { isAdminRequest, unauthorizedResponse } from "@/lib/auth";
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"];
 const MAX_SIZE = 5 * 1024 * 1024; // 5MB
@@ -11,6 +12,7 @@ const supabaseAdmin = createClient(
 );
 
 export async function POST(req: NextRequest) {
+  if (!isAdminRequest(req)) return unauthorizedResponse();
   try {
     const form = await req.formData();
     const file = form.get("file") as File | null;

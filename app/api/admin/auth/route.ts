@@ -30,10 +30,12 @@ export async function POST(request: NextRequest) {
   if (!validation.ok) return validation.toResponse();
 
   const { password } = body as { password: string };
-  const adminPassword = (process.env.ADMIN_PASSWORD || "bunker2024").trim();
-  const secretToken = (
-    process.env.ADMIN_SECRET_TOKEN || "bunker-admin-secret-2024"
-  ).trim();
+  const adminPassword = process.env.ADMIN_PASSWORD?.trim();
+  const secretToken = process.env.ADMIN_SECRET_TOKEN?.trim();
+
+  if (!adminPassword || !secretToken) {
+    return Response.json({ error: "Configuración del servidor incorrecta" }, { status: 500 });
+  }
 
   if (!password || password.trim() !== adminPassword) {
     return Response.json(

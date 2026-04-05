@@ -1,12 +1,14 @@
 import { NextRequest } from "next/server";
 import { adminUpdateProduct, adminDeleteProduct } from "@/lib/products";
 import { validateProduct } from "@/lib/validation";
+import { isAdminRequest, unauthorizedResponse } from "@/lib/auth";
 import type { Product } from "@/lib/types";
 
 export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!isAdminRequest(request)) return unauthorizedResponse();
   const { id } = await params;
 
   let body: unknown;
@@ -28,9 +30,10 @@ export async function PUT(
 }
 
 export async function DELETE(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
+  if (!isAdminRequest(request)) return unauthorizedResponse();
   const { id } = await params;
 
   try {

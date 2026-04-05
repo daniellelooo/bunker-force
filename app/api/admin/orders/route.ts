@@ -1,6 +1,9 @@
+import { NextRequest } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
+import { isAdminRequest, unauthorizedResponse } from "@/lib/auth";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  if (!isAdminRequest(request)) return unauthorizedResponse();
   const { data, error } = await supabaseAdmin
     .from("orders")
     .select("*")

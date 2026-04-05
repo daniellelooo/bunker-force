@@ -1,14 +1,17 @@
 import { NextRequest } from "next/server";
 import { adminGetAllProducts, adminCreateProduct } from "@/lib/products";
 import { validateProduct } from "@/lib/validation";
+import { isAdminRequest, unauthorizedResponse } from "@/lib/auth";
 import type { Product } from "@/lib/types";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  if (!isAdminRequest(request)) return unauthorizedResponse();
   const products = await adminGetAllProducts();
   return Response.json(products);
 }
 
 export async function POST(request: NextRequest) {
+  if (!isAdminRequest(request)) return unauthorizedResponse();
   let body: unknown;
   try {
     body = await request.json();

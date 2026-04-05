@@ -74,7 +74,8 @@ export default function CheckoutPage() {
       dispatch({ type: "CLEAR_CART" });
       router.push(`/checkout/success?id=${order.id}`);
     } else {
-      setError("Hubo un error al procesar tu pedido. Por favor intenta de nuevo.");
+      const data = await res.json().catch(() => ({}));
+      setError(data.error ?? "Hubo un error al procesar tu pedido. Por favor intenta de nuevo.");
     }
     setSubmitting(false);
   }
