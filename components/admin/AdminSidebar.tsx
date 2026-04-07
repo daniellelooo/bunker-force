@@ -12,12 +12,10 @@ export function AdminSidebar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    fetch("/api/admin/orders")
+    fetch("/api/admin/orders/pending-count")
       .then((r) => r.json())
-      .then((orders) => {
-        if (Array.isArray(orders)) {
-          setPendingCount(orders.filter((o: { status: string }) => o.status === "pending").length);
-        }
+      .then((data) => {
+        if (typeof data.count === "number") setPendingCount(data.count);
       })
       .catch(() => {});
   }, [pathname]);

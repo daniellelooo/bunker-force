@@ -19,7 +19,7 @@ export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  if (!isAdminRequest(request)) return unauthorizedResponse();
+  if (!(await isAdminRequest(request))) return unauthorizedResponse();
   const { id } = await params;
 
   const { data, error } = await supabaseAdmin
@@ -39,7 +39,7 @@ export async function PATCH(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  if (!isAdminRequest(request)) return unauthorizedResponse();
+  if (!(await isAdminRequest(request))) return unauthorizedResponse();
   const { id } = await params;
   const { status } = await request.json();
 

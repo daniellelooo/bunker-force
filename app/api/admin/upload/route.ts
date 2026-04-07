@@ -12,7 +12,7 @@ const supabaseAdmin = createClient(
 );
 
 export async function POST(req: NextRequest) {
-  if (!isAdminRequest(req)) return unauthorizedResponse();
+  if (!(await isAdminRequest(req))) return unauthorizedResponse();
   try {
     const form = await req.formData();
     const file = form.get("file") as File | null;

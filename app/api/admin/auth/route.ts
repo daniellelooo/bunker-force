@@ -1,9 +1,9 @@
 import { NextRequest } from "next/server";
 import { validateAuth } from "@/lib/validation";
 import { checkRateLimit, resetRateLimit } from "@/lib/rate-limit";
+import { createSessionToken, SESSION_MAX_AGE } from "@/lib/session";
 
 export async function POST(request: NextRequest) {
-  // Rate limiting por IP
   const ip =
     request.headers.get("x-forwarded-for")?.split(",")[0].trim() ||
     request.headers.get("x-real-ip") ||
@@ -39,25 +39,27 @@ export async function POST(request: NextRequest) {
 
   if (!password || password.trim() !== adminPassword) {
     return Response.json(
-      {
-        error: "Contraseña incorrecta",
-        attemptsRemaining: limit.remaining,
-      },
+      { error: "Contraseña incorrecta", attemptsRemaining: limit.remaining },
       { status: 401 }
     );
   }
 
-  // Login correcto → resetear contador
   resetRateLimit(ip);
+  console.log(`[admin] login exitoso desde IP: ${ip} — ${new Date().toISOString()}`);
 
-  const maxAge = 60 * 60 * 24 * 7; // 7 días
-  const cookieValue = `admin_token=${secretToken}; HttpOnly; Path=/; Max-Age=${maxAge}; SameSite=Lax`;
+  const token = await createSessionToken(secretToken);
+  const isProduction = process.env.NODE_ENV === "production";
+  const cookieValue = [
+    `admin_token=${token}`,
+    "HttpOnly",
+    "Path=/",
+    `Max-Age=${SESSION_MAX_AGE}`,
+    "SameSite=Lax",
+    ...(isProduction ? ["Secure"] : []),
+  ].join("; ");
 
   return Response.json(
     { success: true },
-    {
-      status: 200,
-      headers: { "Set-Cookie": cookieValue },
-    }
+    { status: 200, headers: { "Set-Cookie": cookieValue } }
   );
 }

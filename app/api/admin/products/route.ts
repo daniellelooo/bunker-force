@@ -5,13 +5,13 @@ import { isAdminRequest, unauthorizedResponse } from "@/lib/auth";
 import type { Product } from "@/lib/types";
 
 export async function GET(request: NextRequest) {
-  if (!isAdminRequest(request)) return unauthorizedResponse();
+  if (!(await isAdminRequest(request))) return unauthorizedResponse();
   const products = await adminGetAllProducts();
   return Response.json(products);
 }
 
 export async function POST(request: NextRequest) {
-  if (!isAdminRequest(request)) return unauthorizedResponse();
+  if (!(await isAdminRequest(request))) return unauthorizedResponse();
   let body: unknown;
   try {
     body = await request.json();
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
   try {
     const newProduct = await adminCreateProduct(body as Omit<Product, "id">);
     return Response.json(newProduct, { status: 201 });
-  } catch (e) {
+  } catch {
     return Response.json({ error: "Error al crear el producto" }, { status: 500 });
   }
 }

@@ -1,9 +1,11 @@
 import { NextRequest } from "next/server";
+import { verifySessionToken } from "@/lib/session";
 
-export function isAdminRequest(request: NextRequest): boolean {
+export async function isAdminRequest(request: NextRequest): Promise<boolean> {
   const token = request.cookies.get("admin_token")?.value;
   const secret = process.env.ADMIN_SECRET_TOKEN;
-  return !!token && !!secret && token === secret;
+  if (!token || !secret) return false;
+  return verifySessionToken(token, secret);
 }
 
 export function unauthorizedResponse() {
