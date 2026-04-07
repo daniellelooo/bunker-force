@@ -61,7 +61,8 @@ export async function verifySessionToken(token: string, secret: string): Promise
 
     const key = await importKey(secret);
     const data = new TextEncoder().encode(`${header}.${payload}`);
-    const valid = await crypto.subtle.verify(ALG, key, fromBase64url(sig), data);
+    const sigBytes = fromBase64url(sig);
+    const valid = await crypto.subtle.verify(ALG, key, sigBytes.buffer as ArrayBuffer, data);
     if (!valid) return false;
 
     const claims = JSON.parse(new TextDecoder().decode(fromBase64url(payload)));
