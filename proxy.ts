@@ -4,8 +4,10 @@ import { verifySessionToken, createSessionToken, SESSION_MAX_AGE } from "@/lib/s
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // La página de login siempre es accesible
-  if (pathname === "/admin/login") return NextResponse.next();
+  // Rutas públicas del admin: login page y el endpoint de autenticación
+  if (pathname === "/admin/login" || pathname === "/api/admin/auth") {
+    return NextResponse.next();
+  }
 
   const token = request.cookies.get("admin_token")?.value;
   const secret = process.env.ADMIN_SECRET_TOKEN;
