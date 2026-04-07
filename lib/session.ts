@@ -15,7 +15,9 @@ function toBase64url(data: ArrayBuffer | Uint8Array): string {
 function fromBase64url(str: string): Uint8Array {
   const b64 = str.replace(/-/g, '+').replace(/_/g, '/');
   const binary = atob(b64);
-  return Uint8Array.from(binary, (c) => c.charCodeAt(0));
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return bytes;
 }
 
 function encodeSegment(obj: object): string {
