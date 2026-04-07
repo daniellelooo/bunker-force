@@ -75,7 +75,8 @@ export default function CheckoutPage() {
       router.push(`/checkout/success?id=${order.id}`);
     } else {
       const data = await res.json().catch(() => ({}));
-      setError(data.error ?? "Hubo un error al procesar tu pedido. Por favor intenta de nuevo.");
+      const firstDetail = Array.isArray(data.details) && data.details[0]?.message;
+      setError(firstDetail || data.error || "Hubo un error al procesar tu pedido. Por favor intenta de nuevo.");
     }
     setSubmitting(false);
   }
@@ -140,6 +141,7 @@ export default function CheckoutPage() {
                   value={customer.phone}
                   onChange={(e) => setField("phone", e.target.value)}
                   placeholder="3001234567"
+                  maxLength={20}
                   required
                 />
               </div>

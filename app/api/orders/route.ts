@@ -31,25 +31,30 @@ export async function POST(request: NextRequest) {
   for (const [productId, variants] of productMap) {
     const { data: row } = await supabaseAdmin
       .from("products")
-      .select("size_stock, name")
+      .select("size_stock, name, available_colors")
       .eq("id", productId)
       .single();
 
     if (!row?.size_stock) continue; // producto sin stock configurado: se ignora
 
     const currentStock = row.size_stock as Record<string, number>;
+    // Un producto con 1 solo color guarda stock como "TALLA" (sin color en la clave).
+    // Con 2+ colores lo guarda como "TALLA:COLOR". Necesitamos saber cuál formato usar.
+    const isMultiColor = Array.isArray(row.available_colors) && row.available_colors.length > 1;
     const newStock = { ...currentStock };
 
     for (const [key, qty] of variants) {
-      const available = currentStock[key] ?? 0;
+      // Si el cliente envió "TALLA:COLOR" pero el producto es de 1 color, usar solo "TALLA"
+      const resolvedKey = !isMultiColor && key.includes(":") ? key.split(":")[0] : key;
+      const available = currentStock[resolvedKey] ?? 0;
       if (available < qty) {
-        const size = key.split(":")[0];
+        const size = resolvedKey.split(":")[0];
         return Response.json(
           { error: `Stock insuficiente: "${row.name}" talla ${size} — solo quedan ${available} ${available === 1 ? "unidad" : "unidades"}.` },
           { status: 409 }
         );
       }
-      newStock[key] = available - qty;
+      newStock[resolvedKey] = available - qty;
     }
 
     const total = Object.values(newStock).reduce((a, v) => a + v, 0);

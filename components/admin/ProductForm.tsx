@@ -139,12 +139,60 @@ export function ProductForm({ initialData, mode }: Props) {
   }
 
   function toggleColor(value: string) {
-    setForm((prev) => ({
-      ...prev,
-      availableColors: prev.availableColors.includes(value)
+    setForm((prev) => {
+      const wasMulti = prev.availableColors.length > 1;
+      const isRemoving = prev.availableColors.includes(value);
+      const newColors = isRemoving
         ? prev.availableColors.filter((c) => c !== value)
-        : [...prev.availableColors, value],
-    }));
+        : [...prev.availableColors, value];
+      const isMulti = newColors.length > 1;
+
+      let newVariantStock = prev.variantStock ? { ...prev.variantStock } : undefined;
+
+      if (newVariantStock) {
+        if (!wasMulti && isMulti) {
+          // 1 → 2+ colores: migrar claves "TALLA" → "TALLA:colorExistente"
+          const existingColor = prev.availableColors[0];
+          const migrated: Record<string, number> = {};
+          Object.entries(newVariantStock).forEach(([k, v]) => {
+            migrated[k.includes(":") ? k : `${k}:${existingColor}`] = v;
+          });
+          // Nuevo color arranca en 0 para todas las tallas activas
+          prev.availableSizes.forEach((size) => { migrated[`${size}:${value}`] = 0; });
+          newVariantStock = migrated;
+        } else if (wasMulti && !isMulti) {
+          // 2 → 1 color: conservar solo el color que queda, renombrar a "TALLA"
+          const remainingColor = newColors[0];
+          const migrated: Record<string, number> = {};
+          Object.entries(newVariantStock).forEach(([k, v]) => {
+            if (k.includes(":")) {
+              const [size, color] = k.split(":");
+              if (color === remainingColor) migrated[size] = v;
+            } else {
+              migrated[k] = v;
+            }
+          });
+          newVariantStock = migrated;
+        } else if (wasMulti && isMulti) {
+          if (!isRemoving) {
+            // Añadir color en modo multicolor: inicializar en 0
+            prev.availableSizes.forEach((size) => { newVariantStock![`${size}:${value}`] = 0; });
+          } else {
+            // Eliminar color en modo multicolor: borrar sus entradas
+            Object.keys(newVariantStock).forEach((k) => {
+              if (k.endsWith(`:${value}`)) delete newVariantStock![k];
+            });
+          }
+        }
+      }
+
+      return {
+        ...prev,
+        availableColors: newColors,
+        variantStock: newVariantStock,
+        status: newVariantStock ? computeStatusFromVariants(newVariantStock) : prev.status,
+      };
+    });
   }
 
   function addCustomColor() {
