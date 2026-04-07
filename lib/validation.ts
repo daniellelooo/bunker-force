@@ -31,7 +31,10 @@ function isNumber(v: unknown): v is number {
 
 // ─── Order validation ────────────────────────────────────────────────────────
 
-const VALID_SIZES = ["XS", "S", "M", "L", "XL", "XXL", "ÚNICA"];
+// Acepta cualquier string no vacío — las tallas ahora son flexibles (letras, números, ÚNICA, custom)
+function isValidSize(v: unknown): boolean {
+  return isString(v) && v.trim().length > 0 && v.trim().length <= 20;
+}
 const PHONE_RE = /^[\d\s\+\-\(\)]{7,20}$/;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -115,7 +118,7 @@ export function validateOrder(body: unknown): ValidationResult {
       if (!isNumber(it.quantity) || !Number.isInteger(it.quantity) || it.quantity < 1) {
         r.add(`items[${i}].quantity`, "La cantidad debe ser un número entero mayor a 0");
       }
-      if (!isString(it.selectedSize) || !VALID_SIZES.includes(it.selectedSize)) {
+      if (!isValidSize(it.selectedSize)) {
         r.add(`items[${i}].selectedSize`, "Talla no válida");
       }
     });

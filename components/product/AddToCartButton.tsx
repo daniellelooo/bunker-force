@@ -51,7 +51,7 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
 
   // Stock de la variante exacta seleccionada
   const selectedVariantStock =
-    selectedSize && selectedSize !== "ÚNICA"
+    selectedSize
       ? getVariantStock(product.variantStock, selectedSize, effectiveColor, multiColor)
       : undefined;
 
