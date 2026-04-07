@@ -1,21 +1,42 @@
 import { NextRequest, NextResponse } from "next/server";
+import { verifySessionToken, createSessionToken, SESSION_MAX_AGE } from "@/lib/session";
 
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
+  // La página de login siempre es accesible
   if (pathname === "/admin/login") return NextResponse.next();
 
   const token = request.cookies.get("admin_token")?.value;
   const secret = process.env.ADMIN_SECRET_TOKEN;
 
-  if (!token || !secret || token !== secret) {
-    const loginUrl = new URL("/admin/login", request.url);
-    return NextResponse.redirect(loginUrl);
+  if (!secret) {
+    return NextResponse.redirect(new URL("/admin/login", request.url));
   }
 
-  return NextResponse.next();
+  const isValid = !!token && (await verifySessionToken(token, secret));
+
+  if (!isValid) {
+    if (pathname.startsWith("/api/admin/")) {
+      return Response.json({ error: "No autorizado" }, { status: 401 });
+    }
+    return NextResponse.redirect(new URL("/admin/login", request.url));
+  }
+
+  // Sesión válida: renovar cookie (ventana deslizante de 8h)
+  const response = NextResponse.next();
+  const newToken = await createSessionToken(secret);
+  response.cookies.set("admin_token", newToken, {
+    httpOnly: true,
+    path: "/",
+    maxAge: SESSION_MAX_AGE,
+    sameSite: "lax",
+    secure: process.env.NODE_ENV === "production",
+  });
+
+  return response;
 }
 
 export const config = {
-  matcher: ["/admin", "/admin/:path*"],
+  matcher: ["/admin/:path*", "/api/admin/:path*"],
 };
