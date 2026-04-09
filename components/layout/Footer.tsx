@@ -26,8 +26,7 @@ export function Footer() {
               />
             </div>
             <p className="font-label text-sm text-outline leading-relaxed">
-              Equipamiento táctico urbano fabricado en Bello, Antioquia.
-              Construido para resistir. Diseñado para durar.
+              La tienda táctica del norte
             </p>
           </div>
 
@@ -57,11 +56,11 @@ export function Footer() {
             <div className="space-y-2 font-label text-sm text-outline">
               <div className="flex justify-between gap-4">
                 <span>Lun – Vie</span>
-                <span className="text-on-surface-variant">8:00 am – 6:00 pm</span>
+                <span className="text-on-surface-variant">10:30 am - 7:00 pm</span>
               </div>
               <div className="flex justify-between gap-4">
                 <span>Sábado</span>
-                <span className="text-on-surface-variant">9:00 am – 2:00 pm</span>
+                <span className="text-on-surface-variant">10:30 am - 8:00 pm</span>
               </div>
               <div className="flex justify-between gap-4">
                 <span>Domingo</span>
@@ -70,11 +69,7 @@ export function Footer() {
               <div className="mt-4 pt-4 border-t border-outline-variant/30">
                 <p className="text-sm tracking-wide flex items-center gap-1">
                   <span className="material-symbols-outlined" style={{fontSize:"14px"}}>location_on</span>
-                  Bello, Antioquia, Colombia
-                </p>
-                <p className="text-sm tracking-wide mt-1 flex items-center gap-1">
-                  <span className="material-symbols-outlined" style={{fontSize:"14px"}}>call</span>
-                  +57 (604) 000-0000
+                  Calle 50A 50 56 Local 6, Bello, Antioquia
                 </p>
               </div>
             </div>
@@ -89,8 +84,7 @@ export function Footer() {
               {[
                 { href: "#", name: "Instagram", handle: "@bunkerforce_bello" },
                 { href: "#", name: "Facebook", handle: "Bunker Force Bello" },
-                { href: "#", name: "TikTok", handle: "@bunkerforce" },
-                { href: "#", name: "WhatsApp", handle: "+57 300 000 0000" },
+                { href: "#", name: "WhatsApp", handle: "3244283082" },
               ].map((social) => (
                 <Link
                   key={social.name}
