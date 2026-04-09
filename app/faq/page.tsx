@@ -26,7 +26,7 @@ const FAQS = [
     items: [
       {
         q: "¿Cuáles son los métodos de pago?",
-        a: "Aceptamos transferencia bancaria, Nequi, Daviplata y efectivo (para compras en tienda física o contra entrega según disponibilidad). El pago se coordina directamente con nuestro equipo por WhatsApp.",
+        a: "Aceptamos transferencia bancaria, Nequi, Daviplata, Bre-Be (para compras en tienda física o contra entrega según disponibilidad con tarjeta débito, crédito y efectivo). El pago se coordina directamente con nuestro equipo por WhatsApp.",
       },
       {
         q: "¿Tienen pago contra entrega?",
@@ -34,7 +34,7 @@ const FAQS = [
       },
       {
         q: "¿Es seguro comprar en su tienda?",
-        a: "Sí. No almacenamos datos bancarios. Los pagos se realizan directamente entre tú y nuestra tienda por medios conocidos como Nequi y Daviplata. Puedes verificar nuestra identidad en nuestras redes sociales.",
+        a: "Sí. No almacenamos datos bancarios. Los pagos se realizan directamente entre tú y nuestra tienda por medios conocidos como llaves bancarias, Bancolombia, Nequi y Daviplata. Puedes verificar nuestra identidad en nuestras redes sociales.",
       },
     ],
   },
@@ -47,11 +47,11 @@ const FAQS = [
       },
       {
         q: "¿Cuánto demora el envío?",
-        a: "Para Bello y municipios del Área Metropolitana de Medellín: 1 a 2 días hábiles. Para el resto de Colombia: 3 a 7 días hábiles dependiendo de la transportadora y el municipio.",
+        a: "Una vez confirmado el recibido del pedido, para Bello y municipios del Área Metropolitana de Medellín: 1 a 2 días hábiles. Para el resto de Colombia: 3 a 7 días hábiles dependiendo de la transportadora y el municipio.",
       },
       {
         q: "¿Puedo recoger mi pedido en la tienda?",
-        a: "Sí. Tenemos tienda física en Bello, Antioquia. Puedes hacer tu pedido en línea y recogerlo sin costo de envío, o visitarnos directamente para ver los productos.",
+        a: "Sí. Tenemos tienda física en Bello, Antioquia, en Calle 50A 50 56 Local 6. Puedes hacer tu pedido en línea y recogerlo sin costo de envío, o visitarnos directamente para ver los productos.",
       },
     ],
   },
@@ -64,11 +64,11 @@ const FAQS = [
       },
       {
         q: "¿Los productos son originales?",
-        a: "Todos nuestros productos son fabricados o seleccionados directamente por Bunker Force Bello. No somos distribuidores de marcas externas, sino una marca propia de equipamiento táctico urbano hecho en Colombia.",
+        a: "Los productos son nacionales e importados. No se manejan réplicas.",
       },
       {
         q: "¿Tienen tienda física?",
-        a: "Sí, estamos ubicados en Bello, Antioquia. Puedes visitarnos de lunes a viernes de 8:00 am a 6:00 pm y los sábados de 9:00 am a 2:00 pm. Escríbenos por WhatsApp para confirmar la dirección exacta.",
+        a: "Sí, estamos ubicados en Bello, Antioquia, Calle 50A 50 56 Local 6. Puedes visitarnos de lunes a viernes de 10:30 am a 7:00 pm y los sábados de 10:30 am a 8:00 pm. Escríbenos por WhatsApp para confirmar la dirección exacta.",
       },
       {
         q: "¿Puedo comprar al por mayor?",
@@ -81,11 +81,11 @@ const FAQS = [
     items: [
       {
         q: "¿Puedo devolver un producto?",
-        a: "Sí. Tienes 5 días hábiles desde que recibes tu pedido para ejercer el derecho de retracto (Ley 1480). El producto debe estar sin usar, con etiquetas y en su empaque original.",
+        a: "Sí. Puedes solicitar la devolución de un producto dentro de los 5 días hábiles posteriores a la entrega. El cambio se realizará por otro producto de tu elección que tenga un valor igual al pagado inicialmente. El producto debe estar sin uso, con etiquetas y en su empaque original.",
       },
       {
         q: "¿Hacen cambios de talla?",
-        a: "Sí, aceptamos cambios de talla dentro de los 15 días calendario siguientes a la entrega, sujeto a disponibilidad. El producto debe estar sin uso. Consulta nuestra política completa de devoluciones.",
+        a: "Sí, aceptamos cambios de talla dentro de los 5 días hábiles siguientes a la entrega, sujeto a disponibilidad. El producto debe estar sin uso. Consulta nuestra política completa de devoluciones.",
       },
     ],
   },
@@ -111,7 +111,7 @@ export default function FAQPage() {
         <p className="font-body text-sm text-outline mt-3">
           ¿No encuentras lo que buscas?{" "}
           <a
-            href="https://wa.me/573001234567"
+            href="https://wa.me/573244283082"
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary hover:underline"
@@ -175,7 +175,7 @@ export default function FAQPage() {
           </p>
         </div>
         <a
-          href="https://wa.me/573001234567"
+          href="https://wa.me/573244283082"
           target="_blank"
           rel="noopener noreferrer"
           className="shrink-0 inline-flex items-center gap-2 bg-primary text-on-primary px-5 py-3 font-headline font-black text-xs tracking-widest uppercase hover:bg-primary-container transition-colors"
