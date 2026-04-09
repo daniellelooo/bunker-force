@@ -27,9 +27,9 @@ export default function DevolucionesPage() {
       {/* Resumen visual */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
-          { icon: "undo", label: "Retracto", value: "5 días hábiles" },
-          { icon: "swap_horiz", label: "Cambios", value: "15 días" },
-          { icon: "verified_user", label: "Garantía", value: "6 meses" },
+          { icon: "undo", label: "Retracto", value: "No aplica" },
+          { icon: "swap_horiz", label: "Cambios", value: "5 días hábiles" },
+          { icon: "verified_user", label: "Garantía", value: "3 meses" },
         ].map((item) => (
           <div
             key={item.label}
@@ -46,12 +46,7 @@ export default function DevolucionesPage() {
         ))}
       </div>
 
-      <Section title="1. Derecho de retracto (Ley 1480)">
-        <p>
-          Si compraste por nuestra tienda web, tienes <strong>5 días hábiles</strong> a partir
-          de la fecha en que recibiste el producto para arrepentirte de la compra sin necesidad
-          de dar explicaciones, conforme al Artículo 47 del Estatuto del Consumidor de Colombia.
-        </p>
+      <Section title="1. Condiciones generales para cambios">
         <p>
           Para ejercer este derecho el producto debe:
         </p>
@@ -67,7 +62,7 @@ export default function DevolucionesPage() {
 
       <Section title="2. Cambios de talla o color">
         <p>
-          Aceptamos cambios de talla o color dentro de los <strong>15 días calendario</strong>{" "}
+          Aceptamos cambios de talla o color dentro de los <strong>5 días hábiles</strong>{" "}
           siguientes a la entrega, siempre que:
         </p>
         <ul>
@@ -83,7 +78,7 @@ export default function DevolucionesPage() {
 
       <Section title="3. Garantía por defecto de fabricación">
         <p>
-          Todos nuestros productos tienen <strong>6 meses de garantía</strong> contra defectos
+          Todas nuestras prendas tienen <strong>3 meses de garantía</strong> contra defectos
           de fabricación (costuras rotas, cremalleras defectuosas, telas con falla de origen,
           etc.).
         </p>
@@ -101,22 +96,14 @@ export default function DevolucionesPage() {
           </li>
           <li>Te indicaremos el punto de entrega o coordinaremos la recolección.</li>
           <li>
-            Una vez recibido y verificado el estado del producto, procesamos el cambio o
-            reembolso en un plazo máximo de <strong>5 días hábiles</strong>.
+            Una vez recibido y verificado el estado del producto, procesamos el cambio en
+            un plazo máximo de <strong>5 días hábiles</strong>.
           </li>
         </ol>
         <p>
           Los costos de envío para devoluciones por garantía o defecto corren por nuestra
           cuenta. Para cambios voluntarios (talla, color) el costo de envío corre por cuenta
           del cliente.
-        </p>
-      </Section>
-
-      <Section title="5. Reembolsos">
-        <p>
-          Los reembolsos se realizan por el mismo medio de pago utilizado (transferencia, Nequi,
-          Daviplata o efectivo según el caso) dentro de los <strong>5 días hábiles</strong>{" "}
-          siguientes a la aprobación de la devolución.
         </p>
       </Section>
 
@@ -132,7 +119,7 @@ export default function DevolucionesPage() {
           .
         </p>
         <a
-          href="https://wa.me/573001234567"
+          href="https://wa.me/573244283082"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 bg-primary text-on-primary px-5 py-3 font-headline font-black text-xs tracking-widest uppercase hover:bg-primary-container transition-colors"

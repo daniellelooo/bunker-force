@@ -86,7 +86,7 @@ export function Hero() {
         <div className="flex items-center gap-3 mb-4">
           <span className="w-12 h-[2px] bg-primary" />
           <span className="font-label text-sm tracking-[0.3em] uppercase text-tertiary">
-            BUNKER-SPEC PHASE 01
+            BUNKER-LA TIENDA TÁCTICA DEL NORTE
           </span>
         </div>
         <h1 className="font-headline text-5xl md:text-8xl font-black leading-none mb-8 tracking-wide">

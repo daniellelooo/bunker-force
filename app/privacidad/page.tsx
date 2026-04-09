@@ -63,14 +63,7 @@ export default function PrivacidadPage() {
         </p>
       </Section>
 
-      <Section title="4. ¿Por cuánto tiempo guardamos tus datos?">
-        <p>
-          Conservamos la información de tus pedidos por un máximo de 2 años con fines de soporte
-          y garantía. Después de ese plazo, los datos son eliminados de nuestros registros.
-        </p>
-      </Section>
-
-      <Section title="5. Tus derechos (Ley 1581 de 2012)">
+      <Section title="4. Tus derechos (Ley 1581 de 2012)">
         <p>
           Conforme a la Ley de Protección de Datos Personales de Colombia, tienes derecho a:
         </p>
@@ -86,7 +79,7 @@ export default function PrivacidadPage() {
         </p>
       </Section>
 
-      <Section title="6. Seguridad">
+      <Section title="5. Seguridad">
         <p>
           Tomamos medidas razonables para proteger tu información. Sin embargo, ningún sistema es
           100% seguro. Si detectas un uso indebido de tus datos, comunícate con nosotros de
@@ -94,7 +87,7 @@ export default function PrivacidadPage() {
         </p>
       </Section>
 
-      <Section title="7. Cambios a esta política">
+      <Section title="6. Cambios a esta política">
         <p>
           Podemos actualizar esta política ocasionalmente. La fecha de "última actualización" al
           inicio de la página siempre indicará cuándo fue modificada por última vez.

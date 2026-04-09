@@ -1,6 +1,6 @@
 const stats = [
   { value: "MIL-SPEC", label: "MATERIALES" },
-  { value: "10 AÑOS", label: "GARANTÍA" },
+  { value: "3 MESES", label: "GARANTÍA" },
   { value: "24/7", label: "SOPORTE TÉCNICO" },
   { value: "LOCAL", label: "FABRICACIÓN NACIONAL" },
 ];
@@ -40,10 +40,10 @@ export function BrandStory() {
           MÁS QUE EQUIPO.<br />ES UN BALUARTE.
         </h2>
         <p className="text-tertiary text-lg md:text-xl leading-relaxed mb-12 max-w-2xl mx-auto">
-          Bunker Force Bello no se limita a fabricar ropa. Construimos armaduras
-          urbanas. Cada costura, cada cremallera y cada panel reforzado están
-          diseñados para resistir las condiciones más extremas sin comprometer
-          la movilidad ni la estética técnica.
+          Bunker Force Bello no se limita a comercializar ropa y accesorios.
+          Construimos armaduras urbanas. Cada costura, cada cremallera y cada
+          panel reforzado están diseñados para resistir las condiciones más
+          extremas sin comprometer la movilidad ni la estética técnica.
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 border-t border-outline-variant/30">
           {stats.map((stat) => (

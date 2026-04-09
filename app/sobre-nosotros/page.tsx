@@ -15,43 +15,18 @@ const values = [
   {
     icon: "construction",
     title: "INGENIERÍA DE CAMPO",
-    desc: "Diseñado con militares activos y veteranos. Cada detalle responde a una necesidad real, no a una tendencia de moda.",
+    desc: "Cada producto es verificado con militares veteranos. Cada detalle responde a una necesidad real, no a una tendencia de moda.",
   },
   {
     icon: "handshake",
     title: "COMPROMISO TOTAL",
-    desc: "Garantía de 10 años en todos nuestros productos. Si falla en el campo, lo reemplazamos. Sin preguntas.",
+    desc: "Garantía en todas nuestras prendas.",
   },
   {
     icon: "public",
     title: "PRODUCCIÓN LOCAL",
-    desc: "Fabricado en Colombia con materiales de grado MIL-SPEC importados. Apoyamos la industria nacional con estándares globales.",
+    desc: "Fabricado en Colombia con materiales de alta calidad. Apoyamos la industria nacional con estándares globales.",
   },
-];
-
-const team = [
-  {
-    name: "Carlos Bello",
-    role: "Fundador & Director Táctico",
-    bio: "Exoficial del Ejército Nacional con 15 años de experiencia en operaciones especiales. Fundó Bunker Force Bello con la visión de traer equipamiento real al mercado civil.",
-  },
-  {
-    name: "Daniela Ríos",
-    role: "Directora de Diseño",
-    bio: "Diseñadora industrial especializada en ergonomía de equipos de protección personal. Responsable de que cada prenda combine funcionalidad extrema con estética técnica.",
-  },
-  {
-    name: "Andrés Morales",
-    role: "Jefe de Producción",
-    bio: "Ingeniero textil con experiencia en manufactura de equipamiento para fuerzas especiales latinoamericanas. Garantiza los estándares MIL-SPEC en cada costura.",
-  },
-];
-
-const milestones = [
-  { year: "2024", event: "Fundación de Bunker Force Bello en Bello, Antioquia." },
-  { year: "2024", event: "Lanzamiento de la línea BELLO-01: chaquetas tácticas de grado MIL-SPEC." },
-  { year: "2025", event: "Expansión al catálogo completo: pantalones, botas y accesorios de campo." },
-  { year: "2025", event: "Más de 500 unidades vendidas a clientes en 12 ciudades de Colombia." },
 ];
 
 export default function SobreNosotrosPage() {
@@ -102,47 +77,25 @@ export default function SobreNosotrosPage() {
             </h2>
             <div className="space-y-4 text-on-surface-variant leading-relaxed">
               <p>
-                Todo empezó en un taller en Bello, Antioquia, donde un exoficial del
-                ejército decidió que los colombianos merecían equipamiento táctico de
-                verdad — no réplicas baratas ni importaciones genéricas.
+                Todo comenzó en Bello, Antioquia, donde nació la idea de crear una marca
+                diferente. Un ex suboficial de la Armada identificó la necesidad de
+                ofrecer a los colombianos un espacio confiable —tanto físico como
+                virtual— donde pudieran acceder a equipamiento táctico de verdad,
+                dejando atrás las réplicas baratas y las importaciones genéricas.
               </p>
               <p>
-                Cada producto Bunker Force Bello es desarrollado junto a militares
-                activos, primeros respondedores y entusiastas del outdoor que exigen
-                más que estética. Exigen que su equipo no falle cuando más lo necesitan.
+                Cada producto ofrecido en Bunker Force Bello es seleccionado con el
+                objetivo de adaptarse a las necesidades reales de quienes lo usan.
+                Pensamos en un público amplio: desde personal activo de las fuerzas
+                armadas hasta civiles y entusiastas del outdoor, que buscan
+                funcionalidad, resistencia y confianza en cada pieza. Nuestro enfoque
+                está en ofrecer opciones que respondan a distintos entornos y
+                exigencias, sin sacrificar calidad ni propósito.
               </p>
               <p>
-                Hoy operamos desde Bello con distribución a todo el país, pero nunca
-                olvidamos de dónde venimos: del campo, de la calle, de la necesidad real.
+                Hoy operamos desde Bello con distribución a todo el país.
               </p>
             </div>
-          </div>
-
-          {/* Línea de tiempo */}
-          <div className="space-y-0">
-            <h3 className="font-label text-xs tracking-widest font-bold mb-8 text-primary uppercase">
-              LÍNEA DE TIEMPO
-            </h3>
-            {milestones.map((m, i) => (
-              <div key={i} className="flex gap-6 relative">
-                <div className="flex flex-col items-center">
-                  <div className="w-8 h-8 border-2 border-primary bg-surface flex items-center justify-center shrink-0">
-                    <div className="w-2 h-2 bg-primary" />
-                  </div>
-                  {i < milestones.length - 1 && (
-                    <div className="w-[2px] flex-1 bg-outline-variant/30 my-1" />
-                  )}
-                </div>
-                <div className="pb-8">
-                  <span className="font-headline text-primary font-black text-sm tracking-widest">
-                    {m.year}
-                  </span>
-                  <p className="text-on-surface-variant text-sm leading-relaxed mt-1">
-                    {m.event}
-                  </p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -175,44 +128,13 @@ export default function SobreNosotrosPage() {
         </div>
       </section>
 
-      {/* Equipo */}
-      <section className="py-24 bg-surface px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-16">
-            <h2 className="font-headline text-4xl font-black uppercase tracking-tight">
-              EL EQUIPO
-            </h2>
-            <div className="h-1 w-24 bg-primary mt-2" />
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {team.map((member) => (
-              <div
-                key={member.name}
-                className="bg-surface-container-low p-8 border border-outline-variant/20 hover:border-primary/40 transition-colors"
-              >
-                <div className="w-16 h-16 bg-surface-container-high border border-outline-variant flex items-center justify-center mb-6">
-                  <span className="material-symbols-outlined text-3xl text-primary">person</span>
-                </div>
-                <h3 className="font-headline text-xl font-black uppercase mb-1">
-                  {member.name}
-                </h3>
-                <p className="font-label text-xs tracking-widest text-primary uppercase mb-4">
-                  {member.role}
-                </p>
-                <p className="text-sm text-outline leading-relaxed">{member.bio}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Stats */}
       <section className="py-24 bg-surface-container-lowest px-6">
         <div className="max-w-4xl mx-auto text-center">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-outline-variant/30">
             {[
               { value: "MIL-SPEC", label: "MATERIALES" },
-              { value: "10 AÑOS", label: "GARANTÍA" },
+              { value: "3 MESES", label: "GARANTÍA" },
               { value: "500+", label: "CLIENTES" },
               { value: "BELLO", label: "FABRICADO EN" },
             ].map((stat) => (

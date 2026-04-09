@@ -7,7 +7,7 @@ export function WhatsAppButton() {
 
   if (pathname?.startsWith("/admin")) return null;
 
-  const phone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "573001234567";
+  const phone = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "573244283082";
   const message = encodeURIComponent(
     "Hola! Estoy interesado en los productos de BUNKER FORCE BELLO. ¿Me pueden ayudar?"
   );
