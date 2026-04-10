@@ -45,12 +45,6 @@ export default function SobreNosotrosPage() {
           </svg>
         </div>
         <div className="max-w-4xl mx-auto px-6 relative z-10">
-          <div className="flex items-center gap-3 mb-6">
-            <span className="w-12 h-[2px] bg-primary" />
-            <span className="font-label text-sm tracking-[0.3em] uppercase text-tertiary">
-              PROTOCOLO 0 — FUNDADO EN 2024
-            </span>
-          </div>
           <h1 className="font-headline text-6xl md:text-8xl font-black uppercase leading-none mb-8 -tracking-widest">
             FORJADOS EN <br />
             <span className="text-primary text-glow">BELLO.</span>
@@ -131,9 +125,8 @@ export default function SobreNosotrosPage() {
       {/* Stats */}
       <section className="py-24 bg-surface-container-lowest px-6">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-8 border-t border-outline-variant/30">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-8 border-t border-outline-variant/30">
             {[
-              { value: "MIL-SPEC", label: "MATERIALES" },
               { value: "3 MESES", label: "GARANTÍA" },
               { value: "500+", label: "CLIENTES" },
               { value: "BELLO", label: "FABRICADO EN" },

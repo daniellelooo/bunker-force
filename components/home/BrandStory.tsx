@@ -1,5 +1,4 @@
 const stats = [
-  { value: "MIL-SPEC", label: "MATERIALES" },
   { value: "3 MESES", label: "GARANTÍA" },
   { value: "24/7", label: "SOPORTE TÉCNICO" },
   { value: "LOCAL", label: "FABRICACIÓN NACIONAL" },
@@ -45,7 +44,7 @@ export function BrandStory() {
           panel reforzado están diseñados para resistir las condiciones más
           extremas sin comprometer la movilidad ni la estética técnica.
         </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 pt-12 border-t border-outline-variant/30">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 pt-12 border-t border-outline-variant/30">
           {stats.map((stat) => (
             <div key={stat.value}>
               <div className="text-primary font-headline text-3xl font-black mb-2">

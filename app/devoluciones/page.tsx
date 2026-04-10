@@ -25,9 +25,8 @@ export default function DevolucionesPage() {
       </div>
 
       {/* Resumen visual */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {[
-          { icon: "undo", label: "Retracto", value: "No aplica" },
           { icon: "swap_horiz", label: "Cambios", value: "5 días hábiles" },
           { icon: "verified_user", label: "Garantía", value: "3 meses" },
         ].map((item) => (
