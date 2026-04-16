@@ -26,10 +26,6 @@ export function CartSummary() {
           <span className="text-outline uppercase tracking-widest text-xs">SUBTOTAL</span>
           <span className="font-bold">{formatCOP(cartSubtotal)}</span>
         </div>
-        <div className="flex justify-between">
-          <span className="text-outline uppercase tracking-widest text-xs">IVA (19%)</span>
-          <span className="font-bold">{formatCOP(cartTax)}</span>
-        </div>
         <div className="flex justify-between border-t border-outline-variant/30 pt-3">
           <span className="text-on-surface font-black uppercase tracking-widest text-xs">TOTAL</span>
           <span className="font-headline text-2xl font-black text-primary">

@@ -126,8 +126,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     (sum, i) => sum + i.price * i.quantity,
     0
   );
-  const cartTax = Math.round(cartSubtotal * 0.19);
-  const cartTotal = cartSubtotal + cartTax;
+  const cartTax = 0;
+  const cartTotal = cartSubtotal;
 
   return (
     <CartContext.Provider

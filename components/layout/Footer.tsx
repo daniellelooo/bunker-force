@@ -82,13 +82,15 @@ export function Footer() {
             </p>
             <div className="flex flex-col gap-3">
               {[
-                { href: "#", name: "Instagram", handle: "@bunkerforce_bello" },
-                { href: "#", name: "Facebook", handle: "Bunker Force Bello" },
-                { href: "#", name: "WhatsApp", handle: "3244283082" },
+                { href: "https://www.instagram.com/bunkerforcebello/", name: "Instagram", handle: "@bunkerforcebello" },
+                { href: "https://www.facebook.com/p/Bunker-Force-61557558009886/", name: "Facebook", handle: "Bunker Force Bello" },
+                { href: "https://wa.me/573244283082", name: "WhatsApp", handle: "3244283082" },
               ].map((social) => (
                 <Link
                   key={social.name}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group flex items-center gap-3"
                 >
                   <span className="font-label text-xs tracking-widest uppercase text-outline w-20">

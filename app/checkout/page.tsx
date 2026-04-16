@@ -264,12 +264,6 @@ export default function CheckoutPage() {
                 </span>
                 <span>{formatCOP(cartSubtotal)}</span>
               </div>
-              <div className="flex justify-between font-label text-xs">
-                <span className="text-outline uppercase tracking-widest">
-                  IVA (19%)
-                </span>
-                <span>{formatCOP(cartTax)}</span>
-              </div>
               <div className="flex justify-between border-t border-outline-variant/20 pt-2 mt-2">
                 <span className="font-headline font-black text-xs uppercase tracking-widest">
                   Total
