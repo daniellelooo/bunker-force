@@ -8,6 +8,8 @@ import { RelatedProducts } from "@/components/product/RelatedProducts";
 
 export const dynamic = "force-dynamic";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bunkerforcebello.com";
+
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
 }
@@ -23,21 +25,29 @@ export async function generateMetadata({ params }: ProductPageProps) {
     minimumFractionDigits: 0,
   }).format(product.price);
 
-  const description = `${product.name} — ${price}. ${product.specs[0]?.title ?? ""} ${product.specs[0]?.description ?? ""}`.trim();
+  const description = `Compra ${product.name} en Colombia — ${price}. ${product.specs[0]?.description ?? "Ropa táctica y equipamiento militar de alta calidad. Envíos a todo el país."}`.trim();
   const image = product.images[0]?.src;
 
   return {
-    title: product.name,
+    title: `${product.name} — Ropa Táctica Colombia`,
     description,
+    keywords: [
+      product.name,
+      `${product.name} Colombia`,
+      `${product.name} precio`,
+      "ropa táctica Colombia",
+      "equipamiento táctico",
+      "tienda táctica online",
+    ],
     openGraph: {
       type: "website",
-      title: `${product.name} | BUNKER FORCE BELLO`,
+      title: `${product.name} | Ropa Táctica Colombia | BUNKER FORCE BELLO`,
       description,
       images: image ? [{ url: image, alt: product.images[0].alt || product.name }] : [],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${product.name} | BUNKER FORCE BELLO`,
+      title: `${product.name} | Ropa Táctica Colombia | BUNKER FORCE BELLO`,
       description,
       images: image ? [image] : [],
     },
@@ -73,7 +83,39 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const product = await getProductBySlug(slug);
   if (!product) notFound();
 
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.specs[0]?.description ?? product.name,
+    image: product.images.map((img) => img.src),
+    sku: product.sku,
+    brand: {
+      "@type": "Brand",
+      name: "Bunker Force Bello",
+    },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "COP",
+      price: product.price,
+      availability:
+        effectiveStatus(product) === "out-of-stock"
+          ? "https://schema.org/OutOfStock"
+          : "https://schema.org/InStock",
+      url: `${SITE_URL}/product/${product.slug}`,
+      seller: {
+        "@type": "Organization",
+        name: "Bunker Force Bello",
+      },
+    },
+  };
+
   return (
+    <>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(productJsonLd) }}
+    />
     <div className="min-h-screen pt-8 md:pt-12 pb-16 md:pb-24 px-4 md:px-12 max-w-7xl mx-auto">
       {/* Migas de pan */}
       <div className="flex items-center gap-2 mb-8 font-label text-[10px] tracking-[0.2em] uppercase text-outline">
@@ -145,5 +187,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </section>
       )}
     </div>
+    </>
   );
 }

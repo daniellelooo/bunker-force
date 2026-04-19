@@ -2,13 +2,21 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 
 export const metadata: Metadata = {
-  title: "Catálogo",
+  title: "Ropa Táctica Colombia — Catálogo Completo",
   description:
-    "Explora todo el equipamiento táctico de Bunker Force Bello. Chaquetas, pantalones, botas y accesorios militares disponibles en Bello, Antioquia.",
+    "Compra ropa táctica y equipamiento militar online en Colombia. Chaquetas tácticas, pantalones ranger, accesorios militares. Envíos a todo el país desde Bello, Antioquia.",
+  keywords: [
+    "ropa táctica Colombia",
+    "chaqueta táctica",
+    "pantalón táctico",
+    "equipamiento militar online",
+    "tienda táctica Colombia",
+    "accesorios militares Colombia",
+  ],
   openGraph: {
-    title: "Catálogo | BUNKER FORCE BELLO",
+    title: "Ropa Táctica Colombia — Catálogo | BUNKER FORCE BELLO",
     description:
-      "Chaquetas, pantalones, botas y accesorios tácticos. Envíos a toda Colombia.",
+      "Chaquetas tácticas, pantalones ranger y accesorios militares. Envíos a toda Colombia.",
   },
 };
 import { CatalogFilters } from "@/components/catalog/CatalogFilters";

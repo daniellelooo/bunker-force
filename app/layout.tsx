@@ -35,13 +35,21 @@ export const metadata: Metadata = {
     template: "%s | BUNKER FORCE BELLO",
   },
   description:
-    "Tienda de ropa y equipamiento táctico en Bello, Antioquia. Chaquetas, pantalones y accesorios militares. Reforzado para el campo, diseñado para la ciudad.",
+    "Tienda de ropa táctica y equipamiento militar en Colombia. Chaquetas tácticas, pantalones ranger, accesorios militares con envíos a todo el país. Bunker Force Bello — Antioquia.",
   keywords: [
-    "ropa táctica Bello",
+    "ropa táctica Colombia",
+    "ropa táctica",
+    "equipamiento táctico Colombia",
+    "tienda táctica online Colombia",
+    "chaqueta táctica Colombia",
+    "pantalón táctico Colombia",
+    "ropa militar Colombia",
     "equipamiento militar Colombia",
-    "chaqueta táctica",
-    "ropa militar Antioquia",
-    "tienda táctica Medellín",
+    "tienda militar online",
+    "ropa táctica Medellín",
+    "ropa táctica Antioquia",
+    "ropa táctica Bello",
+    "accesorios tácticos Colombia",
     "Bunker Force Bello",
   ],
   authors: [{ name: "Bunker Force Bello" }],
@@ -76,13 +84,39 @@ export const metadata: Metadata = {
   },
 };
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Bunker Force Bello",
-  url: "https://www.bunkerforcebello.com",
-  logo: "https://www.bunkerforcebello.com/logo.png",
-};
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Bunker Force Bello",
+    url: "https://www.bunkerforcebello.com",
+    logo: "https://www.bunkerforcebello.com/logo.png",
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: "Bunker Force Bello",
+    description: "Tienda de ropa táctica y equipamiento militar en Colombia. Chaquetas, pantalones y accesorios militares con envíos a todo el país.",
+    url: "https://www.bunkerforcebello.com",
+    logo: "https://www.bunkerforcebello.com/logo.png",
+    image: "https://www.bunkerforcebello.com/og-image.png",
+    telephone: "+573024956498",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Bello",
+      addressRegion: "Antioquia",
+      addressCountry: "CO",
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "Colombia",
+    },
+    priceRange: "$$",
+    sameAs: [
+      "https://www.instagram.com/bunkerforcebello/",
+    ],
+  },
+];
 
 export default function RootLayout({
   children,
