@@ -21,7 +21,7 @@ const dmSans = DM_Sans({
   weight: ["300", "400", "500", "600", "700"],
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bunkerforce.com";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.bunkerforcebello.com";
 
 export const viewport: Viewport = {
   width: "device-width",
