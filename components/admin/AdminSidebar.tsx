@@ -41,22 +41,7 @@ export function AdminSidebar() {
     <>
       {/* Mobile top bar */}
       <div className="md:hidden w-full flex items-center justify-between px-4 py-3 bg-surface-container-low border-b border-outline-variant/20 shrink-0">
-        <div>
-          <div className="font-headline font-black text-[9px] tracking-[0.2em] text-outline uppercase">
-            BUNKER FORCE BELLO
-          </div>
-          <div className="font-headline font-black text-sm tracking-tight text-primary uppercase">
-            ADMIN
-          </div>
-        </div>
         <div className="flex items-center gap-3">
-          {pendingCount > 0 && (
-            <Link href="/admin/orders">
-              <span className="bg-error text-on-error font-headline font-black text-[10px] min-w-[20px] h-[20px] rounded-full flex items-center justify-center px-1">
-                {pendingCount}
-              </span>
-            </Link>
-          )}
           <button
             onClick={() => setMobileOpen(true)}
             className="p-1 text-on-surface hover:text-primary transition-colors"
@@ -64,6 +49,23 @@ export function AdminSidebar() {
           >
             <span className="material-symbols-outlined text-[26px]">menu</span>
           </button>
+        </div>
+        <div className="flex items-center gap-3">
+          <div className="text-right">
+            <div className="font-headline font-black text-[9px] tracking-[0.2em] text-outline uppercase">
+              BUNKER FORCE BELLO
+            </div>
+            <div className="font-headline font-black text-sm tracking-tight text-primary uppercase">
+              ADMIN
+            </div>
+          </div>
+          {pendingCount > 0 && (
+            <Link href="/admin/orders">
+              <span className="bg-error text-on-error font-headline font-black text-[10px] min-w-[20px] h-[20px] rounded-full flex items-center justify-center px-1">
+                {pendingCount}
+              </span>
+            </Link>
+          )}
         </div>
       </div>
 

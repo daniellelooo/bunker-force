@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Barlow_Condensed, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
@@ -22,6 +22,11 @@ const dmSans = DM_Sans({
 });
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://bunkerforce.com";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -51,7 +56,7 @@ export const metadata: Metadata = {
       "Tienda de ropa y equipamiento táctico en Bello, Antioquia. Chaquetas, pantalones y accesorios militares.",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Bunker Force Bello — Equipamiento Táctico Urbano",
@@ -63,7 +68,7 @@ export const metadata: Metadata = {
     title: "BUNKER FORCE BELLO | Equipamiento Táctico Urbano",
     description:
       "Tienda de ropa y equipamiento táctico en Bello, Antioquia.",
-    images: ["/og-image.jpg"],
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
