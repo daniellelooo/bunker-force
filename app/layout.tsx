@@ -8,6 +8,7 @@ import { GrainyOverlay } from "@/components/ui/GrainyOverlay";
 import { TacticalCorners } from "@/components/ui/TacticalCorners";
 import { ShellWrapper } from "@/components/layout/ShellWrapper";
 import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
+import { Analytics } from '@vercel/analytics/next';
 
 const barlowCondensed = Barlow_Condensed({
   variable: "--font-space-grotesk",
@@ -147,6 +148,7 @@ export default function RootLayout({
           </ShellWrapper>
           <WhatsAppButton />
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
