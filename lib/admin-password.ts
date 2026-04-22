@@ -10,7 +10,7 @@ function fromBase64(str: string): Uint8Array {
 }
 
 export async function hashPassword(password: string): Promise<string> {
-  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const salt = crypto.getRandomValues(new Uint8Array(16)) as Uint8Array<ArrayBuffer>;
   const keyMaterial = await crypto.subtle.importKey(
     "raw",
     new TextEncoder().encode(password),
@@ -32,7 +32,7 @@ export async function verifyPassword(
 ): Promise<boolean> {
   const [saltB64, hashB64] = stored.split(":");
   if (!saltB64 || !hashB64) return false;
-  const salt = fromBase64(saltB64);
+  const salt = fromBase64(saltB64) as Uint8Array<ArrayBuffer>;
   const keyMaterial = await crypto.subtle.importKey(
     "raw",
     new TextEncoder().encode(password),
