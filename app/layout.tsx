@@ -30,6 +30,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  alternates: {
+    canonical: SITE_URL,
+  },
   title: {
     default: "BUNKER FORCE BELLO | Equipamiento Táctico Urbano",
     template: "%s | BUNKER FORCE BELLO",
@@ -125,7 +128,7 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="es"
+      lang="es-CO"
       className={`dark ${barlowCondensed.variable} ${dmSans.variable}`}
     >
       <head>

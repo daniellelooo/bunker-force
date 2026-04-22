@@ -31,6 +31,9 @@ export async function generateMetadata({ params }: ProductPageProps) {
   return {
     title: `${product.name} — Ropa Táctica Colombia`,
     description,
+    alternates: {
+      canonical: `${SITE_URL}/product/${product.slug}`,
+    },
     keywords: [
       product.name,
       `${product.name} Colombia`,

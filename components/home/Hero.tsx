@@ -78,7 +78,7 @@ export function Hero() {
         {!isDesktop && (
           <Image
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZPquL-MBgbGasicUx6eDJn0LkC92_6q-mWOEAkl9Y5eTOC9fSKcgYghKukgWivbuAMRWd99fhCBQUfwZI4ZFGDPdg9f7WoBS5_2KnyJsSLlRLj0tpFR7tzwsJi-HZrk3rxEdeRR6C9kYAtb2583d0W8x-snc9z0vifcd0zO-D80ltHsCyolkZgz0Z1rfrETWcqPNjv9motqVHdtazDbl4mEgdWCjFxPgt_J-SKZB28n_my8y6uP54fTj-huMjGAF1yQ4QHiOEvNc"
-            alt="Tactical jacket in rugged mountain environment"
+            alt="Chaqueta táctica Bunker Force Bello — equipamiento para campo y ciudad"
             fill
             className="object-cover object-center"
             style={{ filter: "grayscale(0.4) brightness(0.5)" }}
