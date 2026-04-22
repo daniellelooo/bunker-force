@@ -2,6 +2,8 @@ import { NextRequest } from "next/server";
 import { validateAuth } from "@/lib/validation";
 import { checkRateLimit, resetRateLimit } from "@/lib/rate-limit";
 import { createSessionToken, SESSION_MAX_AGE } from "@/lib/session";
+import { verifyPassword } from "@/lib/admin-password";
+import { supabaseAdmin } from "@/lib/supabase";
 
 export async function POST(request: NextRequest) {
   const ip =
@@ -30,14 +32,32 @@ export async function POST(request: NextRequest) {
   if (!validation.ok) return validation.toResponse();
 
   const { password } = body as { password: string };
-  const adminPassword = process.env.ADMIN_PASSWORD?.trim();
   const secretToken = process.env.ADMIN_SECRET_TOKEN?.trim();
 
-  if (!adminPassword || !secretToken) {
+  if (!secretToken) {
     return Response.json({ error: "Configuración del servidor incorrecta" }, { status: 500 });
   }
 
-  if (!password || password.trim() !== adminPassword) {
+  // Verificar contraseña: primero consulta el hash en DB, si no existe usa la variable de entorno
+  let passwordValid = false;
+
+  const { data } = await supabaseAdmin
+    .from("admin_config")
+    .select("value")
+    .eq("key", "password_hash")
+    .single();
+
+  if (data?.value) {
+    passwordValid = await verifyPassword(password, data.value);
+  } else {
+    const adminPassword = process.env.ADMIN_PASSWORD?.trim();
+    if (!adminPassword) {
+      return Response.json({ error: "Configuración del servidor incorrecta" }, { status: 500 });
+    }
+    passwordValid = password.trim() === adminPassword;
+  }
+
+  if (!passwordValid) {
     return Response.json(
       { error: "Contraseña incorrecta", attemptsRemaining: limit.remaining },
       { status: 401 }

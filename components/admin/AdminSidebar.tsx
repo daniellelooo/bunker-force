@@ -29,6 +29,7 @@ export function AdminSidebar() {
     { href: "/admin", icon: "dashboard", label: "Dashboard", exact: true, badge: 0 },
     { href: "/admin/products", icon: "inventory_2", label: "Productos", exact: false, badge: 0 },
     { href: "/admin/orders", icon: "local_shipping", label: "Pedidos", exact: false, badge: pendingCount },
+    { href: "/admin/settings", icon: "settings", label: "Configuración", exact: false, badge: 0 },
   ];
 
   async function handleLogout() {
