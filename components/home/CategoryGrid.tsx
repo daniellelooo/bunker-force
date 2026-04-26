@@ -21,7 +21,7 @@ export function CategoryGrid() {
             className="md:col-span-2 relative group cursor-pointer overflow-hidden h-[300px] md:h-auto"
           >
             <Image
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5Mc-dR3Grb7lw8i5GVZcIljnDfnAlF1zRvm0F6_eUE3xgSPZjeklAZ78PP7irkW_IOhtnoymzlJZ5q2sBYsr8tonZmCTM58hq_2FFWTr7lYRBWzaqRbJ9WaJoCcqUNXvhbNm630IOtJ5HfVjLUAklI9XLLL4pbveeS22iomS3dV7duvmIiFBq8ih_9oOeeRi0Yxi9_bZdSgvouyJbFsaOMWcq_-1z_r55sBqs0q2CXiheRwISJWCpDDmWuYP30OWcOVZ0SCdft5I"
+              src="/ropa-superior.png"
               alt="Ropa superior táctica"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -45,7 +45,7 @@ export function CategoryGrid() {
               className="h-[140px] md:h-1/2 relative group cursor-pointer overflow-hidden"
             >
               <Image
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWnqqQjAfHBZWuOACf95K-Rg5thb7LoHifk8X-4CbEBM6E2_zP8atG2savdG6QiDvCBxBS4VcNoFzXCrAl2xsVEcXqMubOFRWixttAcEwhbgIJvNl8Cbq2PnutdA_xa5oPFHtFXBqi7uU56gCtNw5iv8RcHZdiDowogwsMcEkrRVgs5Hp4kQ0M0n28IZcbdLqcSxqhLDZUw8cXCdhK4alOLFzORaiYldpn9Gy0OWxKMIbI3e_MWOwD675e9qdrzPFlU4vhH0GOEuY"
+                src="/ropa-inferior.png"
                 alt="Ropa inferior táctica"
                 fill
                 sizes="(max-width: 768px) 100vw, 25vw"
@@ -63,7 +63,7 @@ export function CategoryGrid() {
               className="h-[140px] md:h-1/2 relative group cursor-pointer overflow-hidden"
             >
               <Image
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJU7vnWy7CV_3tjsyDTdpi681qHZtclR8W86rVV5_gef44KMzyT9eR8H16C3YZlihSO3t7Fhpp2aDKKlutJtXc1oyx_Y8kDhMgMFLymbaPm9fxp4macRpigje9ytKc6BmH-9qzeu8y-CMev9rSbNgfgEMhIwnzfTB-ngirIM5YreyF5enLrpdj5N-Ava0w2SLuqNkgOrEwrglSnSFBqR93nJXn8_12HHsuVYydkIuGFedYOU8Nm4jJ4fJufddJ1J0wGOtA-Y3yjMI"
+                src="/calzado.png"
                 alt="Calzado táctico"
                 fill
                 sizes="(max-width: 768px) 100vw, 25vw"
@@ -84,7 +84,7 @@ export function CategoryGrid() {
             className="relative group cursor-pointer overflow-hidden h-[280px] md:h-auto"
           >
             <Image
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBf1uUQkDuf1Wi8QZ3v0X4xIXPJz40Hr-s3rMyeew_RIDjzfvSshzJ5MrDhokxlgazLuT9B4nXCQI7LqcwGzGjbQitmHXCia477i-sDclGcNx9raVEd97IY3v4o_cofhS4axeZp6FLRI2_JiQ5UBmJAUgODC1sNQdvh2pIW-Y0zhopGW79IFUvx31rBTTfCnvGxJfZSYOqCFjiM7-iOQCS2SNOteI2zkcfLX3lWcH46O8b1XTwpBHuajcYsfXmb6EzzPRndu4VWZ2w"
+              src="/accesorios.png"
               alt="Accesorios tácticos"
               fill
               sizes="(max-width: 768px) 100vw, 25vw"
