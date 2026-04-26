@@ -1,7 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { SearchModal } from "./SearchModal";
+import dynamic from "next/dynamic";
+
+const SearchModal = dynamic(
+  () => import("./SearchModal").then((m) => ({ default: m.SearchModal })),
+  { ssr: false }
+);
 
 export function SearchButton() {
   const [open, setOpen] = useState(false);

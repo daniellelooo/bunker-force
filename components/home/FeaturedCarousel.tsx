@@ -80,6 +80,7 @@ export function FeaturedCarousel({ products }: { products: Product[] }) {
                     alt={product.images[0].alt}
                     width={320}
                     height={400}
+                    sizes="(max-width: 768px) 85vw, 320px"
                     className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${isOutOfStock ? "grayscale opacity-50" : ""}`}
                   />
                   {isOutOfStock && (
