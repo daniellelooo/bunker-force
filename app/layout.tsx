@@ -154,7 +154,7 @@ export default function RootLayout({
           id="material-symbols"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
-            __html: `(function(){var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block';document.head.appendChild(l);})();`,
+            __html: `(function(){var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=add,add_photo_alternate,arrow_forward,block,calendar_month,chat,check,chevron_left,chevron_right,close,construction,dashboard,delete,edit,expand_more,filter_list,grid_4x4,grid_view,handshake,help_outline,home,info,inventory_2,local_shipping,location_on,lock,logout,menu,palette,public,remove,save,search,settings,shield,shopping_cart,swap_horiz,tune,upload,verified_user,visibility,warning&display=swap';document.head.appendChild(l);})();`,
           }}
         />
       </body>
