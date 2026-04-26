@@ -21,7 +21,7 @@ export function CategoryGrid() {
             className="md:col-span-2 relative group cursor-pointer overflow-hidden h-[300px] md:h-auto"
           >
             <Image
-              src="/ropa-superior.png"
+              src="/ropa-superior.webp"
               alt="Ropa superior táctica"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -45,7 +45,7 @@ export function CategoryGrid() {
               className="h-[140px] md:h-1/2 relative group cursor-pointer overflow-hidden"
             >
               <Image
-                src="/ropa-inferior.png"
+                src="/ropa-inferior.webp"
                 alt="Ropa inferior táctica"
                 fill
                 sizes="(max-width: 768px) 100vw, 25vw"
@@ -63,7 +63,7 @@ export function CategoryGrid() {
               className="h-[140px] md:h-1/2 relative group cursor-pointer overflow-hidden"
             >
               <Image
-                src="/calzado.png"
+                src="/calzado.webp"
                 alt="Calzado táctico"
                 fill
                 sizes="(max-width: 768px) 100vw, 25vw"
@@ -84,7 +84,7 @@ export function CategoryGrid() {
             className="relative group cursor-pointer overflow-hidden h-[280px] md:h-auto"
           >
             <Image
-              src="/accesorios.png"
+              src="/accesorios.webp"
               alt="Accesorios tácticos"
               fill
               sizes="(max-width: 768px) 100vw, 25vw"

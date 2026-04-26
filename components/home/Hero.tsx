@@ -73,7 +73,7 @@ export function Hero() {
           </video>
         ) : (
           <Image
-            src="/img-hero.png"
+            src="/img-hero.webp"
             alt="Chaqueta táctica Bunker Force Bello — equipamiento para campo y ciudad"
             fill
             sizes="100vw"
