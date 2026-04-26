@@ -1,50 +1,10 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { HeroVideo } from "./HeroVideo";
 
 export function Hero() {
-  const [isDesktop, setIsDesktop] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(min-width: 768px)");
-    setIsDesktop(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-
-  // Fade suave al hacer loop: fade-out en los últimos 1.5s, fade-in al reiniciar
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    const FADE = 1.5; // segundos de transición
-    let fadingOut = false;
-
-    const onTimeUpdate = () => {
-      if (!video.duration) return;
-      const left = video.duration - video.currentTime;
-
-      if (left <= FADE && !fadingOut) {
-        fadingOut = true;
-        video.style.opacity = "0";
-      }
-      if (video.currentTime < FADE && fadingOut) {
-        fadingOut = false;
-        video.style.opacity = "1";
-      }
-    };
-
-    video.addEventListener("timeupdate", onTimeUpdate);
-    return () => video.removeEventListener("timeupdate", onTimeUpdate);
-  }, [isDesktop]);
-
   return (
     <section className="relative h-[921px] w-full overflow-hidden flex items-center">
-      {/* Logo marca de agua táctica */}
       <div className="absolute top-6 right-8 z-10 opacity-20 hidden md:block pointer-events-none">
         <Image
           src="/logo.png"
@@ -57,32 +17,17 @@ export function Hero() {
       </div>
 
       <div className="absolute inset-0 z-0">
-        {/* Video en desktop — solo se descarga si la pantalla es ≥768px */}
-        {isDesktop ? (
-          <video
-            ref={videoRef}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="none"
-            className="absolute inset-0 w-full h-full object-cover object-center"
-            style={{ filter: "grayscale(0.4) brightness(0.5)", transition: "opacity 1.5s ease" }}
-          >
-            <source src="/hero.mp4" type="video/mp4" />
-          </video>
-        ) : (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src="/img-hero.webp"
-            alt="Chaqueta táctica Bunker Force Bello — equipamiento para campo y ciudad"
-            fetchPriority="high"
-            loading="eager"
-            decoding="async"
-            className="absolute inset-0 w-full h-full object-cover object-center"
-            style={{ filter: "grayscale(0.4) brightness(0.5)" }}
-          />
-        )}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/img-hero.webp"
+          alt="Chaqueta táctica Bunker Force Bello — equipamiento para campo y ciudad"
+          fetchPriority="high"
+          loading="eager"
+          decoding="async"
+          className="md:hidden absolute inset-0 w-full h-full object-cover object-center"
+          style={{ filter: "grayscale(0.4) brightness(0.5)" }}
+        />
+        <HeroVideo />
         <div className="absolute inset-0 bg-gradient-to-r from-surface via-transparent to-transparent" />
       </div>
 

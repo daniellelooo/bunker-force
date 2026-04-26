@@ -20,10 +20,10 @@
     "tailwind-merge": "^3.5.0"
   },
   "browserslist": [
-    "chrome >= 90",
+    "chrome >= 93",
     "firefox >= 90",
-    "safari >= 14",
-    "edge >= 90"
+    "safari >= 15.4",
+    "edge >= 93"
   ],
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
