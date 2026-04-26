@@ -154,7 +154,7 @@ export default function RootLayout({
           id="material-symbols"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
-            __html: `(function(){var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined&icon_names=add,add_photo_alternate,arrow_forward,block,bolt,calendar_month,chat,check,check_circle,chevron_left,chevron_right,close,compress,construction,dashboard,delete,directions_run,edit,email,expand_more,filter_list,grid_4x4,grid_view,handshake,handyman,help_outline,home,info,inventory_2,light_mode,local_shipping,location_on,lock,logout,menu,notes,palette,person,phone,public,remove,save,schedule,search,settings,shield,shopping_cart,star,swap_horiz,thermostat,tune,upload,verified_user,visibility,warning,water_drop&display=swap';document.head.appendChild(l);})();`,
+            __html: `(function(){var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=add,add_photo_alternate,arrow_forward,block,bolt,calendar_month,chat,check,check_circle,chevron_left,chevron_right,close,compress,construction,dashboard,delete,directions_run,edit,email,expand_more,filter_list,grid_4x4,grid_view,handshake,handyman,help_outline,home,info,inventory_2,light_mode,local_shipping,location_on,lock,logout,menu,notes,palette,person,phone,public,remove,save,schedule,search,settings,shield,shopping_cart,star,swap_horiz,thermostat,tune,upload,verified_user,visibility,warning,water_drop&display=swap';document.head.appendChild(l);})();`,
           }}
         />
       </body>
