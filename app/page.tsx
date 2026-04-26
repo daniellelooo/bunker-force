@@ -1,9 +1,13 @@
 import { Suspense } from "react";
+import dynamic from "next/dynamic";
 import { Hero } from "@/components/home/Hero";
 import { CategoryGrid } from "@/components/home/CategoryGrid";
-import { FeaturedCarousel } from "@/components/home/FeaturedCarousel";
 import { BrandStory } from "@/components/home/BrandStory";
 import { getFeaturedProducts } from "@/lib/products";
+
+const FeaturedCarousel = dynamic(
+  () => import("@/components/home/FeaturedCarousel").then((m) => ({ default: m.FeaturedCarousel }))
+);
 
 async function FeaturedSection() {
   const featuredProducts = await getFeaturedProducts();

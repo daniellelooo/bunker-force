@@ -81,6 +81,7 @@ export function FeaturedCarousel({ products }: { products: Product[] }) {
                     width={320}
                     height={400}
                     sizes="(max-width: 768px) 85vw, 320px"
+                    quality={60}
                     className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 ${isOutOfStock ? "grayscale opacity-50" : ""}`}
                   />
                   {isOutOfStock && (

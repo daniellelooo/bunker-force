@@ -42,11 +42,12 @@ export async function getProductBySlug(slug: string): Promise<Product | undefine
   return mapProduct(data);
 }
 
-export async function getFeaturedProducts(): Promise<Product[]> {
+export async function getFeaturedProducts(limit = 6): Promise<Product[]> {
   const { data, error } = await supabase
     .from("products")
     .select("*")
-    .eq("featured", true);
+    .eq("featured", true)
+    .limit(limit);
   if (error) throw new Error(error.message);
   return (data ?? []).map(mapProduct);
 }

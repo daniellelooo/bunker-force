@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Barlow_Condensed, DM_Sans } from "next/font/google";
 import Script from "next/script";
+import dynamic from "next/dynamic";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Header } from "@/components/layout/Header";
@@ -8,7 +9,11 @@ import { Footer } from "@/components/layout/Footer";
 import { GrainyOverlay } from "@/components/ui/GrainyOverlay";
 import { TacticalCorners } from "@/components/ui/TacticalCorners";
 import { ShellWrapper } from "@/components/layout/ShellWrapper";
-import { WhatsAppButton } from "@/components/ui/WhatsAppButton";
+
+const WhatsAppButton = dynamic(
+  () => import("@/components/ui/WhatsAppButton").then((m) => ({ default: m.WhatsAppButton })),
+  { ssr: false }
+);
 
 const barlowCondensed = Barlow_Condensed({
   variable: "--font-space-grotesk",
