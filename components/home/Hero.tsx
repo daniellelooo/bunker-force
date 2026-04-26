@@ -52,34 +52,31 @@ export function Hero() {
           width={200}
           height={80}
           className="object-contain"
+          loading="lazy"
         />
       </div>
 
       <div className="absolute inset-0 z-0">
-        {/* Video — siempre en el DOM para autoplay inmediato, oculto en móvil */}
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          className="absolute inset-0 w-full h-full object-cover object-center"
-          style={{
-            filter: "grayscale(0.4) brightness(0.5)",
-            transition: "opacity 1.5s ease",
-            display: isDesktop === false ? "none" : "block",
-          }}
-        >
-          <source src="/hero.mp4" type="video/mp4" />
-        </video>
-
-        {/* Imagen fallback en móvil */}
-        {!isDesktop && (
+        {/* Video en desktop — solo se descarga si la pantalla es ≥768px */}
+        {isDesktop ? (
+          <video
+            ref={videoRef}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            style={{ filter: "grayscale(0.4) brightness(0.5)", transition: "opacity 1.5s ease" }}
+          >
+            <source src="/hero.mp4" type="video/mp4" />
+          </video>
+        ) : (
           <Image
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZPquL-MBgbGasicUx6eDJn0LkC92_6q-mWOEAkl9Y5eTOC9fSKcgYghKukgWivbuAMRWd99fhCBQUfwZI4ZFGDPdg9f7WoBS5_2KnyJsSLlRLj0tpFR7tzwsJi-HZrk3rxEdeRR6C9kYAtb2583d0W8x-snc9z0vifcd0zO-D80ltHsCyolkZgz0Z1rfrETWcqPNjv9motqVHdtazDbl4mEgdWCjFxPgt_J-SKZB28n_my8y6uP54fTj-huMjGAF1yQ4QHiOEvNc"
             alt="Chaqueta táctica Bunker Force Bello — equipamiento para campo y ciudad"
             fill
+            sizes="100vw"
             className="object-cover object-center"
             style={{ filter: "grayscale(0.4) brightness(0.5)" }}
             priority
