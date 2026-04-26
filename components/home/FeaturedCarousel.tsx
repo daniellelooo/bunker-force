@@ -97,9 +97,9 @@ export function FeaturedCarousel({ products }: { products: Product[] }) {
                     <p className="text-[10px] text-tertiary tracking-[0.2em] font-label uppercase mb-1">
                       SERIE: {product.series}
                     </p>
-                    <h4 className="font-headline text-xl font-bold uppercase">
+                    <h3 className="font-headline text-xl font-bold uppercase">
                       {product.name}
-                    </h4>
+                    </h3>
                   </div>
                   <div className={`w-full border py-3 font-headline font-bold uppercase text-sm text-center transition-colors ${
                     isOutOfStock

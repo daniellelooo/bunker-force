@@ -29,26 +29,30 @@ export function Header() {
         <nav className="hidden md:flex items-center gap-8">
           <Link
             href="/"
-            className="font-headline font-bold uppercase text-base text-on-surface-variant hover:text-primary transition-colors tracking-widest"
+            prefetch={false}
+          className="font-headline font-bold uppercase text-base text-on-surface-variant hover:text-primary transition-colors tracking-widest"
           >
             INICIO
           </Link>
           <NavDropdown label="ROPA" items={ropaItems} />
           <Link
             href="/catalog?category=accessories"
-            className="font-headline font-bold uppercase text-base text-on-surface-variant hover:text-primary transition-colors tracking-widest"
+            prefetch={false}
+          className="font-headline font-bold uppercase text-base text-on-surface-variant hover:text-primary transition-colors tracking-widest"
           >
             ACCESORIOS Y EQUIPO
           </Link>
           <Link
             href="/catalog"
-            className="font-headline font-bold uppercase text-base text-on-surface-variant hover:text-primary transition-colors tracking-widest"
+            prefetch={false}
+          className="font-headline font-bold uppercase text-base text-on-surface-variant hover:text-primary transition-colors tracking-widest"
           >
             CATÁLOGO
           </Link>
           <Link
             href="/sobre-nosotros"
-            className="font-headline font-bold uppercase text-base text-on-surface-variant hover:text-primary transition-colors tracking-widest"
+            prefetch={false}
+          className="font-headline font-bold uppercase text-base text-on-surface-variant hover:text-primary transition-colors tracking-widest"
           >
             SOBRE NOSOTROS
           </Link>

@@ -25,7 +25,7 @@ export function Footer() {
                 className="object-contain"
               />
             </div>
-            <p className="font-label text-sm text-outline leading-relaxed">
+            <p className="font-label text-sm text-on-surface-variant leading-relaxed">
               La tienda táctica del norte
             </p>
           </div>
@@ -53,7 +53,7 @@ export function Footer() {
             <p className="font-label text-xs font-black tracking-widest text-primary uppercase mb-4">
               HORARIO DE ATENCIÓN
             </p>
-            <div className="space-y-2 font-label text-sm text-outline">
+            <div className="space-y-2 font-label text-sm text-on-surface-variant">
               <div className="flex justify-between gap-4">
                 <span>Lun – Vie</span>
                 <span className="text-on-surface-variant">10:30 am - 7:00 pm</span>
@@ -64,7 +64,7 @@ export function Footer() {
               </div>
               <div className="flex justify-between gap-4">
                 <span>Domingo</span>
-                <span className="text-outline">Cerrado</span>
+                <span className="text-on-surface-variant">Cerrado</span>
               </div>
               <div className="mt-4 pt-4 border-t border-outline-variant/30">
                 <p className="text-sm tracking-wide flex items-center gap-1">
@@ -93,7 +93,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="group flex items-center gap-3"
                 >
-                  <span className="font-label text-xs tracking-widest uppercase text-outline w-20">
+                  <span className="font-label text-xs tracking-widest uppercase text-on-surface-variant w-20">
                     {social.name}
                   </span>
                   <span className="font-label text-sm text-tertiary group-hover:text-primary transition-colors">
@@ -107,10 +107,10 @@ export function Footer() {
 
         {/* Barra inferior */}
         <div className="border-t border-outline-variant/30 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs font-label tracking-widest uppercase text-outline opacity-60">
+          <p className="text-xs font-label tracking-widest uppercase text-on-surface-variant opacity-70">
             © 2024 BUNKER FORCE BELLO. TODOS LOS DERECHOS RESERVADOS.
           </p>
-          <p className="text-xs font-label tracking-widest uppercase text-outline opacity-40">
+          <p className="text-xs font-label tracking-widest uppercase text-on-surface-variant opacity-50">
             EQUIPAMIENTO ESPECIFICADO — BELLO, ANT.
           </p>
         </div>

@@ -72,14 +72,15 @@ export function Hero() {
             <source src="/hero.mp4" type="video/mp4" />
           </video>
         ) : (
-          <Image
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
             src="/img-hero.webp"
             alt="Chaqueta táctica Bunker Force Bello — equipamiento para campo y ciudad"
-            fill
-            sizes="100vw"
-            className="object-cover object-center"
+            fetchPriority="high"
+            loading="eager"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover object-center"
             style={{ filter: "grayscale(0.4) brightness(0.5)" }}
-            priority
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-r from-surface via-transparent to-transparent" />
