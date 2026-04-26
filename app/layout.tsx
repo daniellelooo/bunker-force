@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Barlow_Condensed, DM_Sans } from "next/font/google";
 import Script from "next/script";
-import dynamic from "next/dynamic";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Header } from "@/components/layout/Header";
@@ -9,11 +8,7 @@ import { Footer } from "@/components/layout/Footer";
 import { GrainyOverlay } from "@/components/ui/GrainyOverlay";
 import { TacticalCorners } from "@/components/ui/TacticalCorners";
 import { ShellWrapper } from "@/components/layout/ShellWrapper";
-
-const WhatsAppButton = dynamic(
-  () => import("@/components/ui/WhatsAppButton").then((m) => ({ default: m.WhatsAppButton })),
-  { ssr: false }
-);
+import { WhatsAppButtonLazy } from "@/components/ui/WhatsAppButtonLazy";
 
 const barlowCondensed = Barlow_Condensed({
   variable: "--font-space-grotesk",
@@ -153,7 +148,7 @@ export default function RootLayout({
           <ShellWrapper header={<Header />} footer={<Footer />}>
             {children}
           </ShellWrapper>
-          <WhatsAppButton />
+          <WhatsAppButtonLazy />
         </Providers>
         <Script
           id="material-symbols"
