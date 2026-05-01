@@ -194,7 +194,28 @@ export default function AdminOrderDetailPage() {
 
             {/* WhatsApp quick contact */}
             <a
-              href={`https://wa.me/${order.customer.phone.replace(/\D/g, "")}?text=${encodeURIComponent(`Hola ${order.customer.name}, te contactamos desde BUNKER FORCE BELLO respecto a tu pedido ${order.id}.`)}`}
+              href={`https://wa.me/${order.customer.phone.replace(/\D/g, "")}?text=${encodeURIComponent(
+                [
+                  `Hola ${order.customer.name}, te contactamos desde *BUNKER FORCE BELLO* para confirmar tu pedido *${order.id}*:`,
+                  "",
+                  ...order.items.map((it) => {
+                    const variant = [
+                      it.selectedSize && it.selectedSize !== "ÚNICA" ? `Talla ${it.selectedSize}` : null,
+                      it.selectedColor || null,
+                    ]
+                      .filter(Boolean)
+                      .join(", ");
+                    const variantTxt = variant ? ` (${variant})` : "";
+                    return `• ${it.quantity}x ${it.name}${variantTxt} — ${formatCOP(it.price * it.quantity)}`;
+                  }),
+                  "",
+                  `*Total: ${formatCOP(order.total)}*`,
+                  "",
+                  `Dirección de entrega: ${order.customer.address}, ${order.customer.city}`,
+                  "",
+                  "¿Confirmamos los datos para coordinar el pago y envío?",
+                ].join("\n")
+              )}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 w-full py-3 bg-[#25D366]/10 border border-[#25D366]/30 text-[#25D366] font-label text-xs tracking-widest uppercase hover:bg-[#25D366]/20 transition-colors"
