@@ -16,9 +16,44 @@ export async function POST(request: NextRequest) {
   if (!validation.ok) return validation.toResponse();
 
   const b = body as Record<string, unknown>;
-  const items = b.items as Order["items"];
+  const clientItems = b.items as Order["items"];
 
-  // Verificar stock y decrementar atómicamente
+  // 1) Cargar productos reales de la BD (precio, nombre, sku, stock) — NO confiar en el cliente
+  const uniqueIds = [...new Set(clientItems.map((i) => i.productId))];
+  const { data: dbProducts, error: fetchErr } = await supabaseAdmin
+    .from("products")
+    .select("id, name, sku, price, size_stock, available_colors")
+    .in("id", uniqueIds);
+
+  if (fetchErr || !dbProducts) {
+    return Response.json({ error: "Error al validar productos" }, { status: 500 });
+  }
+
+  const productById = new Map(dbProducts.map((p) => [p.id, p]));
+  for (const item of clientItems) {
+    if (!productById.has(item.productId)) {
+      return Response.json(
+        { error: `Producto no encontrado: ${item.productId}` },
+        { status: 404 }
+      );
+    }
+  }
+
+  // 2) Recalcular precios y construir items confiables (sobrescribiendo lo que mandó el cliente)
+  const items: Order["items"] = clientItems.map((item) => {
+    const dbProd = productById.get(item.productId)!;
+    return {
+      ...item,
+      name: dbProd.name as string,
+      sku: dbProd.sku as string,
+      price: Number(dbProd.price),
+    };
+  });
+  const subtotal = items.reduce((sum, it) => sum + it.price * it.quantity, 0);
+  const tax = 0;
+  const total = subtotal + tax;
+
+  // 3) Verificar stock y decrementar atómicamente
   const productMap = new Map<string, Map<string, number>>();
   for (const item of items) {
     const variantKey = item.selectedColor
@@ -30,22 +65,14 @@ export async function POST(request: NextRequest) {
   }
 
   for (const [productId, variants] of productMap) {
-    const { data: row } = await supabaseAdmin
-      .from("products")
-      .select("size_stock, name, available_colors")
-      .eq("id", productId)
-      .single();
-
+    const row = productById.get(productId)!;
     if (!row?.size_stock) continue; // producto sin stock configurado: se ignora
 
     const currentStock = row.size_stock as Record<string, number>;
-    // Un producto con 1 solo color guarda stock como "TALLA" (sin color en la clave).
-    // Con 2+ colores lo guarda como "TALLA:COLOR". Necesitamos saber cuál formato usar.
     const isMultiColor = Array.isArray(row.available_colors) && row.available_colors.length > 1;
     const newStock = { ...currentStock };
 
     for (const [key, qty] of variants) {
-      // Si el cliente envió "TALLA:COLOR" pero el producto es de 1 color, usar solo "TALLA"
       const resolvedKey = !isMultiColor && key.includes(":") ? key.split(":")[0] : key;
       const available = currentStock[resolvedKey] ?? 0;
       if (available < qty) {
@@ -58,12 +85,12 @@ export async function POST(request: NextRequest) {
       newStock[resolvedKey] = available - qty;
     }
 
-    const total = Object.values(newStock).reduce((a, v) => a + v, 0);
-    const newStatus = total === 0 ? "out-of-stock" : total <= 5 ? "low-stock" : "available";
+    const totalStock = Object.values(newStock).reduce((a, v) => a + v, 0);
+    const newStatus = totalStock === 0 ? "out-of-stock" : totalStock <= 5 ? "low-stock" : "available";
 
     await supabaseAdmin
       .from("products")
-      .update({ size_stock: newStock, stock: total || null, status: newStatus })
+      .update({ size_stock: newStock, stock: totalStock || null, status: newStatus })
       .eq("id", productId);
   }
 
@@ -72,10 +99,10 @@ export async function POST(request: NextRequest) {
     createdAt: new Date().toISOString(),
     status: "pending",
     customer: b.customer as Order["customer"],
-    items: b.items as Order["items"],
-    subtotal: b.subtotal as number,
-    tax: b.tax as number,
-    total: b.total as number,
+    items,
+    subtotal,
+    tax,
+    total,
   };
 
   const { error } = await supabaseAdmin.from("orders").insert({
