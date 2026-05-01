@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import type { Product } from "@/lib/types";
 import { SizeSelector } from "./SizeSelector";
@@ -35,6 +36,7 @@ interface AddToCartButtonProps {
 
 export function AddToCartButton({ product }: AddToCartButtonProps) {
   const { dispatch } = useCart();
+  const router = useRouter();
   const hasSizes = product.availableSizes.length > 0;
   const hasColors = product.availableColors.length > 1;
   const multiColor = hasColors;
@@ -88,7 +90,7 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
     }
   }
 
-  const handleAdd = () => {
+  function validateSelection(): boolean {
     let valid = true;
     if (hasSizes && !selectedSize) {
       setSizeError(true);
@@ -100,8 +102,10 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
       setTimeout(() => setColorError(false), 2500);
       valid = false;
     }
-    if (!valid || isProductOutOfStock || isVariantOutOfStock) return;
+    return valid;
+  }
 
+  function addToCart() {
     dispatch({
       type: "ADD_ITEM",
       payload: {
@@ -117,8 +121,19 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
         maxStock: stockMax,
       },
     });
+  }
+
+  const handleAdd = () => {
+    if (!validateSelection() || isProductOutOfStock || isVariantOutOfStock) return;
+    addToCart();
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
+  };
+
+  const handleBuyNow = () => {
+    if (!validateSelection() || isProductOutOfStock || isVariantOutOfStock) return;
+    addToCart();
+    router.push("/cart");
   };
 
   if (isProductOutOfStock) {
@@ -224,23 +239,34 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
         />
       </div>
 
-      <button
-        onClick={handleAdd}
-        disabled={isVariantOutOfStock}
-        className={`w-full py-6 px-8 font-headline text-lg font-black tracking-widest transition-all active:scale-[0.98] duration-100 flex items-center justify-between group shadow-xl disabled:opacity-40 disabled:cursor-not-allowed ${
-          sizeError || colorError
-            ? "bg-error/20 border border-error text-error"
-            : "bg-primary hover:bg-primary-container text-on-primary"
-        }`}
-      >
-        <span className="flex items-center gap-2">
-          {added && <span className="material-symbols-outlined text-base">check</span>}
-          {added ? "AÑADIDO AL CARRITO" : "AÑADIR AL CARRITO"}
-        </span>
-        <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">
-          arrow_forward
-        </span>
-      </button>
+      <div className="flex flex-col gap-3">
+        <button
+          onClick={handleBuyNow}
+          disabled={isVariantOutOfStock}
+          className="w-full py-6 px-8 font-headline text-lg font-black tracking-widest transition-all active:scale-[0.98] duration-100 flex items-center justify-between group shadow-xl disabled:opacity-40 disabled:cursor-not-allowed bg-primary hover:bg-primary-container text-on-primary"
+        >
+          <span>COMPRAR AHORA</span>
+          <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">
+            shopping_cart
+          </span>
+        </button>
+
+        <button
+          onClick={handleAdd}
+          disabled={isVariantOutOfStock}
+          className={`w-full py-4 px-8 font-headline text-sm font-black tracking-widest transition-all active:scale-[0.98] duration-100 flex items-center justify-between group border disabled:opacity-40 disabled:cursor-not-allowed ${
+            sizeError || colorError
+              ? "bg-error/10 border-error text-error"
+              : "bg-transparent border-outline-variant/60 text-on-surface hover:border-primary hover:text-primary"
+          }`}
+        >
+          <span className="flex items-center gap-2">
+            {added && <span className="material-symbols-outlined text-base">check</span>}
+            {added ? "AÑADIDO AL CARRITO" : "AÑADIR AL CARRITO"}
+          </span>
+          <span className="material-symbols-outlined text-base">add</span>
+        </button>
+      </div>
     </div>
   );
 }
