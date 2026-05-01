@@ -82,8 +82,8 @@ export function AdminSidebar() {
       <aside
         className={cn(
           "bg-surface-container-low border-r border-outline-variant/20 flex flex-col shrink-0",
-          // Desktop: static in flow
-          "md:w-64 md:min-h-screen md:static md:translate-x-0",
+          // Desktop: sticky, always visible
+          "md:w-64 md:h-screen md:sticky md:top-0 md:translate-x-0",
           // Mobile: fixed drawer
           "fixed inset-y-0 left-0 z-50 w-72 transition-transform duration-300",
           mobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
