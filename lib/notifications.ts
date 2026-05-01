@@ -100,7 +100,7 @@ export async function sendNewOrderNotification(order: Order) {
   `;
 
   await resend.emails.send({
-    from: "Bunker Force Bello <pedidos@bunkerforce.co>",
+    from: "Bunker Force Bello <onboarding@resend.dev>",
     to: adminEmail,
     subject: `🛒 Nuevo pedido ${order.id} — ${formatCOP(order.total)}`,
     html,
