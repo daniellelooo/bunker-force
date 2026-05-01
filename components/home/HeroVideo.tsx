@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from "react";
 
-export function HeroVideo() {
+export function HeroVideo({ src }: { src: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -31,6 +31,7 @@ export function HeroVideo() {
 
   return (
     <video
+      key={src}
       ref={videoRef}
       autoPlay
       muted
@@ -40,7 +41,7 @@ export function HeroVideo() {
       className="hidden md:block absolute inset-0 w-full h-full object-cover object-center"
       style={{ filter: "grayscale(0.4) brightness(0.5)", transition: "opacity 1.5s ease" }}
     >
-      <source src="/hero.mp4" type="video/mp4" />
+      <source src={src} />
     </video>
   );
 }

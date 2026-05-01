@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { HeroVideo } from "./HeroVideo";
+import { getSiteConfig } from "@/lib/site-config";
 
-export function Hero() {
+export async function Hero() {
+  const config = await getSiteConfig();
   return (
     <section className="relative h-[921px] w-full overflow-hidden flex items-center">
       <div className="absolute top-6 right-8 z-10 opacity-20 hidden md:block pointer-events-none">
@@ -19,7 +21,7 @@ export function Hero() {
       <div className="absolute inset-0 z-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/img-hero.webp"
+          src={config.heroMobileImage}
           alt="Chaqueta táctica Bunker Force Bello — equipamiento para campo y ciudad"
           fetchPriority="high"
           loading="eager"
@@ -27,7 +29,17 @@ export function Hero() {
           className="md:hidden absolute inset-0 w-full h-full object-cover object-center"
           style={{ filter: "grayscale(0.4) brightness(0.5)" }}
         />
-        <HeroVideo />
+        {config.heroVideo ? (
+          <HeroVideo src={config.heroVideo} />
+        ) : (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src={config.heroDesktopImage}
+            alt=""
+            className="hidden md:block absolute inset-0 w-full h-full object-cover object-center"
+            style={{ filter: "grayscale(0.4) brightness(0.5)" }}
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-r from-surface via-transparent to-transparent" />
       </div>
 

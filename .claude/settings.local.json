@@ -31,7 +31,15 @@
       "Bash(curl -s http://localhost:3000/cart -o /dev/null -w \"%{http_code}\")",
       "Bash(cmd //c \"taskkill /F /IM node.exe\")",
       "Bash(rm:*)",
-      "Bash(cmd //c \"for /f \\\\\"tokens=5\\\\\" %a in \\('netstat -aon ^| find \\\\\":3000\\\\\"'\\) do taskkill /PID %a /F\")"
+      "Bash(cmd //c \"for /f \\\\\"tokens=5\\\\\" %a in \\('netstat -aon ^| find \\\\\":3000\\\\\"'\\) do taskkill /PID %a /F\")",
+      "mcp__b16928de-3668-489b-ba5b-f85762741b55__create-design-from-candidate",
+      "Bash(Remove-Item -Recurse -Force .next)",
+      "Bash(npm run:*)",
+      "Bash(bash /c/Users/Daniel/.claude/statusline-command.sh)",
+      "WebFetch(domain:pagespeed.web.dev)",
+      "Read(//c/Users/Daniel/Downloads/**)",
+      "Bash(python -c ' *)",
+      "mcp__plugin_pdf-viewer_pdf__display_pdf"
     ]
   }
 }

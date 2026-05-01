@@ -1,7 +1,8 @@
-import Image from "next/image";
 import Link from "next/link";
+import { getSiteConfig } from "@/lib/site-config";
 
-export function CategoryGrid() {
+export async function CategoryGrid() {
+  const config = await getSiteConfig();
   return (
     <section className="py-24 bg-surface-container-low px-6">
       <div className="max-w-7xl mx-auto">
@@ -20,12 +21,11 @@ export function CategoryGrid() {
             href="/catalog?category=superior"
             className="md:col-span-2 relative group cursor-pointer overflow-hidden h-[300px] md:h-auto"
           >
-            <Image
-              src="/ropa-superior.webp"
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={config.categorySuperiorImage}
               alt="Ropa superior táctica"
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover transition-transform duration-700 group-hover:scale-110"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors" />
             <div className="absolute bottom-8 left-8">
@@ -44,12 +44,11 @@ export function CategoryGrid() {
               href="/catalog?category=inferior"
               className="h-[140px] md:h-1/2 relative group cursor-pointer overflow-hidden"
             >
-              <Image
-                src="/ropa-inferior.webp"
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={config.categoryInferiorImage}
                 alt="Ropa inferior táctica"
-                fill
-                sizes="(max-width: 768px) 100vw, 25vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors" />
               <div className="absolute bottom-6 left-6">
@@ -62,12 +61,11 @@ export function CategoryGrid() {
               href="/catalog?category=calzado"
               className="h-[140px] md:h-1/2 relative group cursor-pointer overflow-hidden"
             >
-              <Image
-                src="/calzado.webp"
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={config.categoryCalzadoImage}
                 alt="Calzado táctico"
-                fill
-                sizes="(max-width: 768px) 100vw, 25vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
               />
               <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors" />
               <div className="absolute bottom-6 left-6">
@@ -78,17 +76,16 @@ export function CategoryGrid() {
             </Link>
           </div>
 
-          {/* ACCESORIOS — sin cambios */}
+          {/* ACCESORIOS */}
           <Link
             href="/catalog?category=accessories"
             className="relative group cursor-pointer overflow-hidden h-[280px] md:h-auto"
           >
-            <Image
-              src="/accesorios.webp"
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={config.categoryAccessoriesImage}
               alt="Accesorios tácticos"
-              fill
-              sizes="(max-width: 768px) 100vw, 25vw"
-              className="object-cover transition-transform duration-700 group-hover:scale-110"
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-black/60 group-hover:bg-black/40 transition-colors" />
             <div className="absolute bottom-8 left-8">
