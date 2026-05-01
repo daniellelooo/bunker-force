@@ -2,6 +2,7 @@ import { NextRequest } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase";
 import type { Order } from "@/lib/types";
 import { validateOrder } from "@/lib/validation";
+import { sendNewOrderNotification } from "@/lib/notifications";
 
 export async function POST(request: NextRequest) {
   let body: unknown;
@@ -91,6 +92,9 @@ export async function POST(request: NextRequest) {
   if (error) {
     return Response.json({ error: "Error al guardar el pedido" }, { status: 500 });
   }
+
+  // Enviar notificación al admin (no bloquea la respuesta si falla)
+  sendNewOrderNotification(order).catch(() => {});
 
   return Response.json(order, { status: 201 });
 }
