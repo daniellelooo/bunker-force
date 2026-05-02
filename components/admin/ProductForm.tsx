@@ -1156,7 +1156,7 @@ export function ProductForm({ initialData, mode }: Props) {
       >
         {saving ? (
           <div className="flex items-center gap-2 px-4 py-2.5 bg-surface-container border border-outline-variant/40 shadow-lg">
-            <span className="material-symbols-outlined text-[16px] text-outline animate-spin" style={{ animationDuration: "1s" }}>progress_activity</span>
+            <span className="material-symbols-outlined text-[16px] text-outline animate-spin" style={{ animationDuration: "1s" }}>autorenew</span>
             <span className="font-label text-[10px] tracking-widest uppercase text-outline">Guardando...</span>
           </div>
         ) : isDirty ? (
