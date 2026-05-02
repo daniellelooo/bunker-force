@@ -116,6 +116,8 @@ export function ProductForm({ initialData, mode }: Props) {
   const [customColorHex, setCustomColorHex] = useState("#000000");
   const [showCustomColor, setShowCustomColor] = useState(false);
   const [confirmRemoveColor, setConfirmRemoveColor] = useState<string | null>(null);
+  const [editingColorValue, setEditingColorValue] = useState<string | null>(null);
+  const [editingColorName, setEditingColorName] = useState("");
   const [openIconPicker, setOpenIconPicker] = useState<number | null>(null);
   const [customSizeInput, setCustomSizeInput] = useState("");
   const fileInputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -218,6 +220,33 @@ export function ProductForm({ initialData, mode }: Props) {
 
   function resolveColorHex(value: string): string { return resolveHex(value); }
   function resolveColorLabel(value: string): string { return resolveLabel(value); }
+
+  function startEditColor(value: string) {
+    const currentLabel = resolveColorLabel(value);
+    // If current label IS the hex code (no name saved), start blank so user types a new one
+    setEditingColorName(currentLabel.startsWith("#") ? "" : currentLabel);
+    setEditingColorValue(value);
+  }
+
+  function confirmRenameColor() {
+    if (!editingColorValue || !editingColorName.trim()) return;
+    const hex = resolveColorHex(editingColorValue);
+    const newValue = `${editingColorName.trim()}|${hex}`;
+    setForm((prev) => ({
+      ...prev,
+      availableColors: prev.availableColors.map((c) => (c === editingColorValue ? newValue : c)),
+      variantStock: prev.variantStock
+        ? Object.fromEntries(
+            Object.entries(prev.variantStock).map(([k, v]) => [
+              k.endsWith(`:${editingColorValue}`) ? k.replace(`:${editingColorValue}`, `:${newValue}`) : k,
+              v,
+            ])
+          )
+        : prev.variantStock,
+    }));
+    setEditingColorValue(null);
+    setEditingColorName("");
+  }
 
   // Images
   function setImage(index: number, field: keyof ProductImage, value: string) {
@@ -863,20 +892,35 @@ export function ProductForm({ initialData, mode }: Props) {
               const hex = resolveColorHex(v);
               const label = resolveColorLabel(v);
               const pendingRemove = confirmRemoveColor === v;
+              const isUnnamed = label.startsWith("#");
               return (
-                <div key={v} className="relative">
+                <div key={v} className="relative flex flex-col items-center gap-1">
                   <button
                     type="button"
                     onClick={() => handleColorClick(v)}
                     className={`flex flex-col items-center gap-1.5 p-2 border transition-all ${pendingRemove ? "border-error" : "border-primary"}`}
                   >
                     <span className="w-8 h-8 block rounded-sm" style={{ backgroundColor: hex }} />
-                    <span className={`font-label text-[9px] tracking-widest uppercase ${pendingRemove ? "text-error" : "text-primary"}`}>{label}</span>
+                    <span className={`font-label text-[9px] tracking-widest uppercase max-w-[60px] truncate ${pendingRemove ? "text-error" : isUnnamed ? "text-yellow-500" : "text-primary"}`}>
+                      {isUnnamed ? label : label}
+                    </span>
                     {pendingRemove
                       ? <span className="material-symbols-outlined text-[12px] text-error">close</span>
                       : <span className="material-symbols-outlined text-[12px] text-primary">check</span>
                     }
                   </button>
+                  {/* Botón editar nombre — solo si no hay pendingRemove */}
+                  {!pendingRemove && (
+                    <button
+                      type="button"
+                      onClick={() => startEditColor(v)}
+                      title={isUnnamed ? "Asignar nombre" : "Editar nombre"}
+                      className={`flex items-center gap-0.5 font-label text-[8px] tracking-widest uppercase transition-colors ${isUnnamed ? "text-yellow-500 hover:text-yellow-400" : "text-outline hover:text-primary"}`}
+                    >
+                      <span className="material-symbols-outlined text-[10px]">edit</span>
+                      {isUnnamed ? "Nombrar" : "Editar"}
+                    </button>
+                  )}
                 </div>
               );
             })}
@@ -905,6 +949,43 @@ export function ProductForm({ initialData, mode }: Props) {
               type="button"
               onClick={() => setConfirmRemoveColor(null)}
               className="px-4 py-2 font-label text-[10px] tracking-widest uppercase border border-outline-variant/40 text-outline hover:border-outline transition-colors"
+            >
+              Cancelar
+            </button>
+          </div>
+        )}
+
+        {/* Panel editar nombre de color */}
+        {editingColorValue && (
+          <div className="mt-3 flex items-end gap-3 p-3 border border-primary/40 bg-primary/5">
+            <span
+              className="w-8 h-8 block rounded-sm shrink-0 border border-outline-variant/40"
+              style={{ backgroundColor: resolveColorHex(editingColorValue) }}
+            />
+            <div className="flex-1">
+              <label className={labelCls}>Nombre del color</label>
+              <input
+                className={inputCls}
+                value={editingColorName}
+                onChange={(e) => setEditingColorName(e.target.value)}
+                onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); confirmRenameColor(); } }}
+                placeholder="Ej: Azul Royal, Rojo Táctico..."
+                autoFocus
+                style={{ width: 200 }}
+              />
+            </div>
+            <button
+              type="button"
+              onClick={confirmRenameColor}
+              disabled={!editingColorName.trim()}
+              className="px-4 py-2.5 font-label text-[10px] tracking-widest uppercase bg-primary text-on-primary disabled:opacity-40"
+            >
+              Guardar nombre
+            </button>
+            <button
+              type="button"
+              onClick={() => { setEditingColorValue(null); setEditingColorName(""); }}
+              className="px-4 py-2.5 font-label text-[10px] tracking-widest uppercase border border-outline-variant/40 text-outline hover:border-outline transition-colors"
             >
               Cancelar
             </button>
