@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import type { Product, ProductImage, ProductSize, ProductSpec } from "@/lib/types";
 import { resolveColorHex as resolveHex, resolveColorLabel as resolveLabel } from "@/lib/colors";
@@ -110,7 +110,9 @@ export function ProductForm({ initialData, mode }: Props) {
     return { ...initialData, status };
   });
   const [saving, setSaving] = useState(false);
+  const [savedAt, setSavedAt] = useState<Date | null>(null);
   const [error, setError] = useState("");
+  const baselineRef = useRef(JSON.stringify(form));
   const [uploadingIndex, setUploadingIndex] = useState<number | null>(null);
   const [customColorName, setCustomColorName] = useState("");
   const [customColorHex, setCustomColorHex] = useState("#000000");
@@ -121,6 +123,8 @@ export function ProductForm({ initialData, mode }: Props) {
   const [openIconPicker, setOpenIconPicker] = useState<number | null>(null);
   const [customSizeInput, setCustomSizeInput] = useState("");
   const fileInputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  const isDirty = useMemo(() => JSON.stringify(form) !== baselineRef.current, [form]);
 
   function setField<K extends keyof typeof form>(key: K, value: (typeof form)[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
@@ -312,8 +316,12 @@ export function ProductForm({ initialData, mode }: Props) {
     });
 
     if (res.ok) {
-      router.push("/admin/products");
-      router.refresh();
+      baselineRef.current = JSON.stringify(finalForm);
+      setSavedAt(new Date());
+      if (mode === "new") {
+        router.push("/admin/products");
+        router.refresh();
+      }
     } else {
       setError("Error al guardar el producto. Intenta de nuevo.");
     }
@@ -1121,8 +1129,8 @@ export function ProductForm({ initialData, mode }: Props) {
         </button>
       </div>
 
-      {/* ─── Guardar ─── */}
-      <div className="flex items-center gap-4">
+      {/* ─── Guardar (inline) ─── */}
+      <div className="flex items-center gap-4 pb-32">
         <button
           type="submit"
           disabled={saving}
@@ -1138,6 +1146,51 @@ export function ProductForm({ initialData, mode }: Props) {
         >
           CANCELAR
         </button>
+      </div>
+
+      {/* ─── Barra sticky de estado ─── */}
+      <div
+        className={`fixed bottom-0 left-0 right-0 z-50 transition-transform duration-300 ${
+          isDirty || saving || savedAt ? "translate-y-0" : "translate-y-full"
+        }`}
+      >
+        <div className={`flex items-center justify-between px-6 py-3 border-t shadow-2xl ${
+          saving
+            ? "bg-surface-container border-outline-variant/40"
+            : isDirty
+            ? "bg-yellow-950/90 border-yellow-600/50 backdrop-blur-sm"
+            : "bg-surface-container-high border-primary/30"
+        }`}>
+          <div className="flex items-center gap-3">
+            {saving ? (
+              <>
+                <span className="material-symbols-outlined text-[18px] text-outline animate-spin" style={{ animationDuration: "1s" }}>progress_activity</span>
+                <span className="font-label text-xs tracking-widest uppercase text-outline">Guardando...</span>
+              </>
+            ) : isDirty ? (
+              <>
+                <span className="material-symbols-outlined text-[18px] text-yellow-500">warning</span>
+                <span className="font-label text-xs tracking-widest uppercase text-yellow-400">Cambios sin guardar</span>
+              </>
+            ) : (
+              <>
+                <span className="material-symbols-outlined text-[18px] text-primary">check_circle</span>
+                <span className="font-label text-xs tracking-widest uppercase text-primary">
+                  Guardado {savedAt ? `— ${savedAt.toLocaleTimeString("es-CO", { hour: "2-digit", minute: "2-digit" })}` : ""}
+                </span>
+              </>
+            )}
+          </div>
+          {isDirty && !saving && (
+            <button
+              type="submit"
+              className="flex items-center gap-2 bg-primary text-on-primary px-6 py-2 font-headline font-black text-xs tracking-widest uppercase transition-all active:scale-[0.98] hover:bg-primary-container"
+            >
+              <span className="material-symbols-outlined text-[16px]">save</span>
+              GUARDAR AHORA
+            </button>
+          )}
+        </div>
       </div>
     </form>
   );
