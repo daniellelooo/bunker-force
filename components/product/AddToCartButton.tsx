@@ -6,24 +6,7 @@ import { useCart } from "@/context/CartContext";
 import type { Product } from "@/lib/types";
 import { SizeSelector } from "./SizeSelector";
 import { QuantityControl } from "./QuantityControl";
-
-const colorMap: Record<string, { label: string; hex: string }> = {
-  "black-ops":  { label: "Black Ops",     hex: "#000000" },
-  "od-green":   { label: "Verde Militar", hex: "#3d4231" },
-  "wolf-grey":  { label: "Gris Lobo",     hex: "#6b7280" },
-  "navy":       { label: "Azul Marino",   hex: "#1e3a5f" },
-  "coyote-tan": { label: "Coyote Tan",    hex: "#937b5d" },
-  "multicam":   { label: "MultiCam",      hex: "#6b6e56" },
-};
-
-function resolveColor(colorId: string): { label: string; hex: string } {
-  if (colorMap[colorId]) return colorMap[colorId];
-  if (colorId.includes("|")) {
-    const [label, hex] = colorId.split("|");
-    return { label, hex };
-  }
-  return { label: colorId, hex: "#888" };
-}
+import { resolveColor } from "@/lib/colors";
 
 function variantKey(size: string, color: string | undefined, multiColor: boolean): string {
   return multiColor && color ? `${size}:${color}` : size;

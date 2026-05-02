@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Product, ProductImage, ProductSize, ProductSpec } from "@/lib/types";
+import { resolveColorHex as resolveHex, resolveColorLabel as resolveLabel } from "@/lib/colors";
 
 const SIZE_PRESETS: Record<string, string[]> = {
   superior:    ["XS", "S", "M", "L", "XL", "XXL"],
@@ -215,15 +216,8 @@ export function ProductForm({ initialData, mode }: Props) {
     }
   }
 
-  function resolveColorHex(value: string): string {
-    return PRESET_COLORS.find((p) => p.value === value)?.hex
-      ?? (value.includes("|") ? value.split("|")[1] : value);
-  }
-
-  function resolveColorLabel(value: string): string {
-    return PRESET_COLORS.find((p) => p.value === value)?.label
-      ?? (value.includes("|") ? value.split("|")[0] : value);
-  }
+  function resolveColorHex(value: string): string { return resolveHex(value); }
+  function resolveColorLabel(value: string): string { return resolveLabel(value); }
 
   // Images
   function setImage(index: number, field: keyof ProductImage, value: string) {

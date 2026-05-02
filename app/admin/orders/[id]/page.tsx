@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import type { Order, OrderStatus } from "@/lib/types";
+import { resolveColorLabel } from "@/lib/colors";
 
 const STATUS_LABELS: Record<OrderStatus, string> = {
   pending: "Pendiente",
@@ -280,7 +281,7 @@ export default function AdminOrderDetailPage() {
                     <div className="font-label text-xs text-outline mt-0.5">
                       SKU: {item.sku}
                       {item.selectedSize && item.selectedSize !== "ÚNICA" && ` · Talla: ${item.selectedSize}`}
-                      {item.selectedColor && ` · Color: ${item.selectedColor}`}
+                      {item.selectedColor && ` · Color: ${resolveColorLabel(item.selectedColor)}`}
                     </div>
                     <div className="font-label text-xs text-on-surface-variant mt-1">
                       Cant. {item.quantity} × {formatCOP(item.price)}

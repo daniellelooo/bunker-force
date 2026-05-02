@@ -3,15 +3,7 @@
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import type { CartItem as CartItemType } from "@/lib/types";
-
-const colorMap: Record<string, { label: string; hex: string }> = {
-  "black-ops":  { label: "Black Ops",     hex: "#000000" },
-  "od-green":   { label: "Verde Militar", hex: "#3d4231" },
-  "wolf-grey":  { label: "Gris Lobo",     hex: "#6b7280" },
-  "navy":       { label: "Azul Marino",   hex: "#1e3a5f" },
-  "coyote-tan": { label: "Coyote Tan",    hex: "#937b5d" },
-  "multicam":   { label: "MultiCam",      hex: "#6b6e56" },
-};
+import { resolveColor } from "@/lib/colors";
 
 function formatCOP(value: number) {
   return new Intl.NumberFormat("es-CO", {
@@ -24,7 +16,7 @@ function formatCOP(value: number) {
 export function CartItem({ item }: { item: CartItemType }) {
   const { dispatch } = useCart();
   const atMax = item.maxStock !== undefined && item.quantity >= item.maxStock;
-  const color = item.selectedColor ? (colorMap[item.selectedColor] ?? { label: item.selectedColor, hex: "#888" }) : null;
+  const color = item.selectedColor ? resolveColor(item.selectedColor) : null;
 
   function remove() {
     dispatch({
