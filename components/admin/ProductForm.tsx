@@ -114,6 +114,7 @@ export function ProductForm({ initialData, mode }: Props) {
   const [customColorName, setCustomColorName] = useState("");
   const [customColorHex, setCustomColorHex] = useState("#000000");
   const [showCustomColor, setShowCustomColor] = useState(false);
+  const [confirmRemoveColor, setConfirmRemoveColor] = useState<string | null>(null);
   const [openIconPicker, setOpenIconPicker] = useState<number | null>(null);
   const [customSizeInput, setCustomSizeInput] = useState("");
   const fileInputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -204,6 +205,24 @@ export function ProductForm({ initialData, mode }: Props) {
     setCustomColorName("");
     setCustomColorHex("#000000");
     setShowCustomColor(false);
+  }
+
+  function handleColorClick(value: string) {
+    if (form.availableColors.includes(value)) {
+      setConfirmRemoveColor(value);
+    } else {
+      toggleColor(value);
+    }
+  }
+
+  function resolveColorHex(value: string): string {
+    return PRESET_COLORS.find((p) => p.value === value)?.hex
+      ?? (value.includes("|") ? value.split("|")[1] : value);
+  }
+
+  function resolveColorLabel(value: string): string {
+    return PRESET_COLORS.find((p) => p.value === value)?.label
+      ?? (value.includes("|") ? value.split("|")[0] : value);
   }
 
   // Images
@@ -571,7 +590,7 @@ export function ProductForm({ initialData, mode }: Props) {
           const multiColor = form.availableColors.length > 1;
           const colors = multiColor ? form.availableColors : [undefined as unknown as string];
           const colorLabels: Record<string, string> = Object.fromEntries(
-            PRESET_COLORS.map((c) => [c.value, c.label])
+            form.availableColors.map((c) => [c, resolveColorLabel(c)])
           );
 
           // Tallas predeterminadas según categoría + tallas personalizadas ya guardadas
@@ -653,7 +672,7 @@ export function ProductForm({ initialData, mode }: Props) {
                           <span className="flex flex-col items-center gap-1">
                             <span
                               className="w-4 h-4 rounded-full border border-outline-variant/40 inline-block"
-                              style={{ backgroundColor: PRESET_COLORS.find(p => p.value === color)?.hex ?? color }}
+                              style={{ backgroundColor: resolveColorHex(color) }}
                             />
                             {colorLabels[color] ?? color}
                           </span>
@@ -810,29 +829,36 @@ export function ProductForm({ initialData, mode }: Props) {
         <div className="flex flex-wrap gap-3">
           {PRESET_COLORS.map((color) => {
             const selected = form.availableColors.includes(color.value);
+            const pendingRemove = confirmRemoveColor === color.value;
             return (
-              <button
-                key={color.value}
-                type="button"
-                onClick={() => toggleColor(color.value)}
-                title={color.label}
-                className={`flex flex-col items-center gap-1.5 p-2 border transition-all ${
-                  selected
-                    ? "border-primary"
-                    : "border-outline-variant/30 hover:border-outline"
-                }`}
-              >
-                <span
-                  className="w-8 h-8 block rounded-sm"
-                  style={{ backgroundColor: color.hex }}
-                />
-                <span className={`font-label text-[9px] tracking-widest uppercase ${selected ? "text-primary" : "text-outline"}`}>
-                  {color.label}
-                </span>
-                {selected && (
-                  <span className="material-symbols-outlined text-[12px] text-primary">check</span>
-                )}
-              </button>
+              <div key={color.value} className="relative">
+                <button
+                  type="button"
+                  onClick={() => handleColorClick(color.value)}
+                  title={color.label}
+                  className={`flex flex-col items-center gap-1.5 p-2 border transition-all ${
+                    pendingRemove
+                      ? "border-error"
+                      : selected
+                      ? "border-primary"
+                      : "border-outline-variant/30 hover:border-outline"
+                  }`}
+                >
+                  <span
+                    className="w-8 h-8 block rounded-sm"
+                    style={{ backgroundColor: color.hex }}
+                  />
+                  <span className={`font-label text-[9px] tracking-widest uppercase ${pendingRemove ? "text-error" : selected ? "text-primary" : "text-outline"}`}>
+                    {color.label}
+                  </span>
+                  {selected && !pendingRemove && (
+                    <span className="material-symbols-outlined text-[12px] text-primary">check</span>
+                  )}
+                  {pendingRemove && (
+                    <span className="material-symbols-outlined text-[12px] text-error">close</span>
+                  )}
+                </button>
+              </div>
             );
           })}
 
@@ -840,21 +866,56 @@ export function ProductForm({ initialData, mode }: Props) {
           {form.availableColors
             .filter((v) => !PRESET_COLORS.find((p) => p.value === v))
             .map((v) => {
-              const [label, hex] = v.includes("|") ? v.split("|") : ["Custom", v];
+              const hex = resolveColorHex(v);
+              const label = resolveColorLabel(v);
+              const pendingRemove = confirmRemoveColor === v;
               return (
-                <button
-                  key={v}
-                  type="button"
-                  onClick={() => toggleColor(v)}
-                  className="flex flex-col items-center gap-1.5 p-2 border border-primary"
-                >
-                  <span className="w-8 h-8 block rounded-sm" style={{ backgroundColor: hex }} />
-                  <span className="font-label text-[9px] tracking-widest uppercase text-primary">{label}</span>
-                  <span className="material-symbols-outlined text-[12px] text-primary">check</span>
-                </button>
+                <div key={v} className="relative">
+                  <button
+                    type="button"
+                    onClick={() => handleColorClick(v)}
+                    className={`flex flex-col items-center gap-1.5 p-2 border transition-all ${pendingRemove ? "border-error" : "border-primary"}`}
+                  >
+                    <span className="w-8 h-8 block rounded-sm" style={{ backgroundColor: hex }} />
+                    <span className={`font-label text-[9px] tracking-widest uppercase ${pendingRemove ? "text-error" : "text-primary"}`}>{label}</span>
+                    {pendingRemove
+                      ? <span className="material-symbols-outlined text-[12px] text-error">close</span>
+                      : <span className="material-symbols-outlined text-[12px] text-primary">check</span>
+                    }
+                  </button>
+                </div>
               );
             })}
         </div>
+
+        {/* Confirmación para eliminar color */}
+        {confirmRemoveColor && (
+          <div className="mt-3 flex items-center gap-4 p-3 border border-error/40 bg-error/5">
+            <span className="material-symbols-outlined text-error text-[18px]">warning</span>
+            <div className="flex-1">
+              <p className="font-label text-[10px] tracking-widest uppercase text-error">
+                ¿Eliminar "{resolveColorLabel(confirmRemoveColor)}"?
+              </p>
+              <p className="font-body text-[11px] text-outline mt-0.5">
+                Se perderán las unidades de inventario asignadas a este color.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => { toggleColor(confirmRemoveColor); setConfirmRemoveColor(null); }}
+              className="px-4 py-2 font-label text-[10px] tracking-widest uppercase bg-error text-white"
+            >
+              Eliminar
+            </button>
+            <button
+              type="button"
+              onClick={() => setConfirmRemoveColor(null)}
+              className="px-4 py-2 font-label text-[10px] tracking-widest uppercase border border-outline-variant/40 text-outline hover:border-outline transition-colors"
+            >
+              Cancelar
+            </button>
+          </div>
+        )}
 
         {/* Agregar color personalizado */}
         {!showCustomColor ? (
