@@ -26,6 +26,11 @@ export async function sendNewOrderNotification(order: Order) {
   const adminEmail = process.env.ADMIN_NOTIFICATION_EMAIL;
   if (!adminEmail || !process.env.RESEND_API_KEY) return;
 
+  const recipients = adminEmail
+    .split(",")
+    .map((e) => e.trim())
+    .filter(Boolean);
+
   const itemsHtml = order.items
     .map((item) => {
       const variant = [item.selectedSize, item.selectedColor]
@@ -99,10 +104,12 @@ export async function sendNewOrderNotification(order: Order) {
     </html>
   `;
 
-  await resend.emails.send({
+  console.log("[notifications] Enviando email a:", recipients);
+  const result = await resend.emails.send({
     from: "Bunker Force Bello <onboarding@resend.dev>",
-    to: adminEmail,
+    to: recipients,
     subject: `🛒 Nuevo pedido ${order.id} — ${formatCOP(order.total)}`,
     html,
   });
+  console.log("[notifications] Resultado:", JSON.stringify(result));
 }

@@ -121,7 +121,9 @@ export async function POST(request: NextRequest) {
   }
 
   // Enviar notificación al admin (no bloquea la respuesta si falla)
-  sendNewOrderNotification(order).catch(() => {});
+  sendNewOrderNotification(order).catch((err) => {
+    console.error("[notifications] Error enviando email:", err);
+  });
 
   return Response.json(order, { status: 201 });
 }
