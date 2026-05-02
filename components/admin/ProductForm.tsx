@@ -197,7 +197,7 @@ export function ProductForm({ initialData, mode }: Props) {
 
   function addCustomColor() {
     if (!customColorName.trim()) return;
-    const value = customColorHex;
+    const value = `${customColorName.trim()}|${customColorHex}`;
     if (!form.availableColors.includes(value)) {
       toggleColor(value);
     }
@@ -291,7 +291,10 @@ export function ProductForm({ initialData, mode }: Props) {
     ...PRESET_COLORS,
     ...form.availableColors
       .filter((v) => !PRESET_COLORS.find((p) => p.value === v))
-      .map((hex) => ({ value: hex, label: "Personalizado", hex })),
+      .map((v) => {
+        const [label, hex] = v.includes("|") ? v.split("|") : ["Personalizado", v];
+        return { value: v, label, hex };
+      }),
   ];
 
   return (
@@ -836,18 +839,21 @@ export function ProductForm({ initialData, mode }: Props) {
           {/* Custom colors already added */}
           {form.availableColors
             .filter((v) => !PRESET_COLORS.find((p) => p.value === v))
-            .map((hex) => (
-              <button
-                key={hex}
-                type="button"
-                onClick={() => toggleColor(hex)}
-                className="flex flex-col items-center gap-1.5 p-2 border border-primary"
-              >
-                <span className="w-8 h-8 block rounded-sm" style={{ backgroundColor: hex }} />
-                <span className="font-label text-[9px] tracking-widest uppercase text-primary">Custom</span>
-                <span className="material-symbols-outlined text-[12px] text-primary">check</span>
-              </button>
-            ))}
+            .map((v) => {
+              const [label, hex] = v.includes("|") ? v.split("|") : ["Custom", v];
+              return (
+                <button
+                  key={v}
+                  type="button"
+                  onClick={() => toggleColor(v)}
+                  className="flex flex-col items-center gap-1.5 p-2 border border-primary"
+                >
+                  <span className="w-8 h-8 block rounded-sm" style={{ backgroundColor: hex }} />
+                  <span className="font-label text-[9px] tracking-widest uppercase text-primary">{label}</span>
+                  <span className="material-symbols-outlined text-[12px] text-primary">check</span>
+                </button>
+              );
+            })}
         </div>
 
         {/* Agregar color personalizado */}

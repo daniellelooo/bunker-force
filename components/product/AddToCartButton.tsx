@@ -16,6 +16,15 @@ const colorMap: Record<string, { label: string; hex: string }> = {
   "multicam":   { label: "MultiCam",      hex: "#6b6e56" },
 };
 
+function resolveColor(colorId: string): { label: string; hex: string } {
+  if (colorMap[colorId]) return colorMap[colorId];
+  if (colorId.includes("|")) {
+    const [label, hex] = colorId.split("|");
+    return { label, hex };
+  }
+  return { label: colorId, hex: "#888" };
+}
+
 function variantKey(size: string, color: string | undefined, multiColor: boolean): string {
   return multiColor && color ? `${size}:${color}` : size;
 }
@@ -162,7 +171,7 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
           </label>
           <div className="flex flex-wrap gap-2">
             {product.availableColors.map((colorId) => {
-              const color = colorMap[colorId] ?? { label: colorId, hex: "#888" };
+              const color = resolveColor(colorId);
               const active = selectedColor === colorId;
               return (
                 <button
@@ -214,7 +223,7 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
             <p className="mt-2 font-label text-[10px] tracking-widest uppercase text-yellow-500 flex items-center gap-1">
               <span className="material-symbols-outlined text-sm">inventory_2</span>
               ¡Solo {selectedVariantStock === 1 ? "queda 1 unidad" : `quedan ${selectedVariantStock} unidades`}
-              {selectedColor && ` en ${colorMap[selectedColor]?.label ?? selectedColor}`}
+              {selectedColor && ` en ${resolveColor(selectedColor).label}`}
               {" "}talla {selectedSize}!
             </p>
           )}
@@ -223,7 +232,7 @@ export function AddToCartButton({ product }: AddToCartButtonProps) {
             <p className="mt-2 font-label text-[10px] tracking-widest uppercase text-error flex items-center gap-1">
               <span className="material-symbols-outlined text-sm">block</span>
               {selectedColor
-                ? `${colorMap[selectedColor]?.label ?? selectedColor} en talla ${selectedSize} agotado`
+                ? `${resolveColor(selectedColor).label} en talla ${selectedSize} agotado`
                 : `Talla ${selectedSize} agotada`}
               {" — elige otra combinación"}
             </p>
